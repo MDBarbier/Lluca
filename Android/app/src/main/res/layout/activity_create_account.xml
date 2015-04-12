@@ -1,0 +1,89 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tm470.mb24853.projectlluca.CreateAccountActivity">
+
+    <TextView
+        android:text="@string/create_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        style="@style/spacing_style"
+        />
+
+    <TextView
+        android:text="@string/user_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/spacing_style"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/create_account_username_entry"
+        android:hint="@string/username_hint"
+        style="@style/spacing_style"
+        />
+
+    <TextView
+        android:text="@string/check_username"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        style="@style/spacing_style"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/check"
+        android:id="@+id/create_account_check"
+        style="@style/spacing_style"
+        android:onClick="checkUsername"/>
+
+    <TextView
+        android:text="@string/password_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/spacing_style"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/create_account_password_entry"
+        android:hint="@string/password_hint"
+        style="@style/spacing_style"/>
+
+    <TextView
+        android:text="@string/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/spacing_style"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/create_account_email_entry"
+        android:hint="@string/enter_email"
+        style="@style/spacing_style"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signin_submit"
+        android:id="@+id/signin_submit_button"
+        style="@style/spacing_style"
+        android:onClick="loadUserProfileActivity"/>
+
+
+
+
+</LinearLayout>

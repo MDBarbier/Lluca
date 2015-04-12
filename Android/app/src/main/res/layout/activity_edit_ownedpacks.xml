@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tm470.mb24853.projectlluca.EditOwnedPacksActivity"
+    android:weightSum="1">
+
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ownedPackListView"
+        android:layout_weight="0.90" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back_button"
+            android:id="@+id/button3"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.05"
+            android:onClick="discardChanges"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_owned_button"
+            android:id="@+id/save_deck_button"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.05"
+            android:onClick="saveChanges"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

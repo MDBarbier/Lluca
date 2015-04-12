@@ -1,0 +1,407 @@
+playercard_no,playercard_box,playercard_name,playercard_unique,playercard_type,playercard_cost,playercard_sphere,playercard_special_rules,playercard_count,playercard_keyword1,playercard_keyword2,playercard_keyword3,playercard_keyword4,playercard_trait1,playercard_trait2,playercard_trait3,playercard_trait4,playercard_ally_quest,playercard_ally_attack,playercard_ally_defence,playercard_ally_hp,playercard_ally_secrecy
+28,3,Beorning Beekeeper,,Ally,4,Tactics,Action: Discard Beorning Beekeeper from play to deal 1 damage to each enemy in the staging area.,3,,,,,beorning ,,,,1,2,1,3,
+30,3,êomund,,Ally,3,Spirit,"Response: After êomund leaves play, ready all Rohan characters in play.",3,,,,,rohan,,,,2,1,1,2,
+32,3,Longbeard Map-Maker,,Ally,3,Lore,Action: Spend 1 Lore Resource to give Longbeard Map-Maker +1 Willpower until the end of the phase.,3,,,,,dwarf,,,,1,1,1,3,
+26,3,D£nedain Warning,,Attachment,1,Leadership,"Attach to a hero. Attached hero gains +1 Defense.
+Action: Pay 1 resource from attached hero's pool to attach D£nedain Warning to another hero.",3,,,,,signal,,,,,,,,
+29,3,Born Aloft,,Attachment,0,Tactics,"Attach to an ally.
+Action: Discard Born Aloft from play to return attached ally to its owner's hand.",3,,,,,condition,,,,,,,,
+31,3,Nor am I a Stranger,,Attachment,1,Spirit,Attach to a character. Attached character gains the Rohan trait.,3,,,,,title,,,,,,,,
+33,3,A Burning Brand,,Attachment,2,Lore,"Attach to Lore character.
+While attached character is defending, cancel any shadow effects on cards dealt to the attacking enemy.",3,,,,,item,,,,,,,,
+34,3,Song of Wisdom,,Attachment,1,Neutral,"Attach to a hero. 
+Attached hero gains a Lore resource icon.",3,,,,,song,,,,,,,,
+27,3,Second Breakfast,,Event,1,Leadership,Action: Each player returns the topmost attachment card from his discard pile to his hand.,3,,,,,,,,,,,,,
+4,2,Winged Guardian,,Ally,2,Tactics,"Winged Guardian cannot have restricted attachments. Forced: After an attack in which Winged Guardian defends resolves, pay 1 Tactics resource or discard Winged Guardian from play.",3,sentinel,,,,creature,eagle,,,0,0,4,1,
+6,2,Westfold Horse-Breaker,,Ally,2,Spirit,Action: Discard Westfold Horse-Breaker to choose and ready a hero.,3,,,,,rohan,,,,1,0,1,1,
+8,2,Rivendell Minstrel,,Ally,3,Lore,"Response: After you play Rivendell Minstrel from your hand, search your deck for 1 Song card and add it to your hand.  Shuffle your deck.",3,,,,,noldor,,,,2,0,0,1,
+2,2,D£nedain Mark,,Attachment,1,Leadership,Attach to a hero. Attached hero gains +1 Attack. Action: Pay 1 resource from attached hero's pool to attach D£nedain Mark to another hero.,3,,,,,signal ,,,,,,,,
+10,2,Song of Kings,,Attachment,1,Neutral,Attach to a hero.Attached hero gains a Leadership resource icon.,3,,,,,song ,,,,,,,,
+3,2,Campfire Tales,,Event,1,Leadership,Action: Each player draws 1 card.,3,,,,,,,,,,,,,
+5,2,The Eagles are Coming!,,Event,0,Tactics,Action: Search the top 5 cards of your deck for any number of Eagle cards and add them to your hand.  Shuffle the other cards back into your deck.,3,,,,,eagle,,,,,,,,
+7,2,Mustering the Rohirrim,,Event,1,Spirit,"Action: Search the top 10 cards of your deck for any 1 Rohan ally card and add it to your hand.  Then, shuffle the other cards back into your deck.",3,,,,,,,,,,,,,
+9,2,Strider's Path,,Event,1,Lore,"Response: After a location is revealed from the encounter deck, immediately travel to that location without resolving its Travel effect.  If another location is currently active, return it to the staging area.",3,,,,,,,,,,,,,
+53,4,Landroval,1,Ally,5,Tactics,"Landroval cannot have restricted attachments.
+Response: After a hero card is destroyed, return Landroval to his owner's hand to put that hero back into play, with 1 damage token on it. (Limit once per game.)",3,sentinel,,,,creature,eagle,,,1,3,1,4,
+55,4,Escort from Edoras,,Ally,2,Spirit,"While committed to a quest, Escort from Edoras gets +2 Willpower.
+Forced: After resolving a quest to which Escort from Edoras was committed, discard Escort from Edoras from play.",3,,,,,rohan,,,,2,0,0,1,
+57,4,Haldir of L¢rien,,Ally,4,Lore,,3,ranged,sentinel,,,silvan,,,,2,2,2,3,
+59,4,Radagast,1,Ally,5,Neutral,"Radagast collects 1 resource each resource phase. These resources can be used to pay for Creature cards played from your hand. 
+Action: Spend X resources from Radagast's pool to heal X wounds on any 1 Creature.",3,,,,,istari,,,,2,1,1,3,
+51,4,D£nedain Quest,,Attachment,2,Leadership,"Attach to a hero. Attached hero gains +1 Willpower.
+Action: Pay 1 resource from attached hero's pool to attach D£nedain Quest to another hero.",3,,,,,signal,,,,,,,,
+56,4,Ancient Mathom,,Attachment,1,Spirit,"Attach to a location.
+Response: After attached location is explored, the first player draws 3 cards.",3,,,,,mathom,,,,,,,,
+52,4,Parting Gifts,,Event,0,Leadership,Action: Move any number of resource tokens from a Leadership hero's resource pool to any other hero's resource pool.,3,,,,,,,,,,,,,
+54,4,To the Eyrie,,Event,2,Tactics,"Response: After an ally is destroyed, exhaust 1 Eagle character to move that ally from the discard pile to its owner's hand.",3,,,,,,,,,,,,,
+58,4,Infighting,,Event,1,Lore,Action: Move any number of damage from one enemy to another.,3,,,,,,,,,,,,,
+84,19,Knight of Minas Tirith,,Ally,3,Tactics,"If each of your heroes has a printed [Tactics] resource icon, Knight of Minas Tirith gains: ""Response: After Knight of Minas Tirith enters play, choose an enemy in the staging area. Engage that enemy and exhaust Knight of Minas Tirith to declare it as attacker (and resolve its attack) against that enemy.""",3,,,,,gondor,warrior,,,0,3,1,3,
+86,19,Pelargir Shipwright,,Ally,3,Spirit,Pelargir Shipwright gets +1 [Willpower] for each hero you control with a printed [Spirit] resource icon.,3,,,,,gondor,craftsman,,,0,1,1,3,
+82,19,Sword of Morthrond,1,Attachment,1,Leadership,"Attach to a Gondor ally.
+Attached ally gains the Outlands trait.",3,,,,,item,weapon,,,,,,,
+85,19,Gondorian Fire,,Attachment,0,Tactics,"Attach to a Gondor or D£nedain hero.
+Action: Spend 1 resource from attached hero's resource pool to give attached hero +1 [Attack] for each resource in its resource pool until the end of the phase. (Limit once per phase.)",3,,,,,gondor,,,,,,,,
+87,19,Map of Earnil,1,Attachment,4,Spirit,"Attach to a [Spirit] Hero.
+Reduce the cost to play Map of Earnil by 1 for each hero you control with a printed [Spirit] resource icon.
+Action: Discard Map of Earnil to play any [Spirit] event card in your discard pile as if it were in your hand. Then, place that event on the bottom of your deck.",3,,,,,record,,,,,,,,
+88,19,Ranger Bow,,Attachment,1,Lore,"Attach to a Ranger character. Restricted.
+Action: Exhaust Ranger Bow and attached character to deal 1 damage to an enemy in the staging area.",3,,,,,weapon,,,,,,,,
+89,19,Forest Patrol,,Attachment,1,Lore,"Play only if you control at least 1 Ranger character.
+Action: Deal 3 damage to an enemy with at least 1 Trap card attached to it.",3,,,,,,,,,,,,,
+90,19,Palantir,1,Attachment,1,Neutral,"Attach to a Noble hero.
+Planning Action: Exhaust Palantir and attached hero to name a card type and look at the top 3 cards of the encounter deck. For each of those cards that matches the named type, draw a card. For each of those cards that does not match the named type, raise your threat by 2.",3,,,,,artifact,item,,,,,,,
+83,19,Men of the West,,Event,X,Leadership,Action: Return X Outlands allies from your discard pile to your hand.,3,,,,,outlands ,,,,,,,,
+13,1,Guard of the Citadel,,Ally,2,Leadership,,3,,,,,gondor,warrior,,,1,1,0,2,
+14,1,Faramir,1,Ally,4,Leadership,Action: Exhaust Faramir to choose a player. Each character controlled by that player gets +1 Willpower until end of the phase.,2,,,,,gondor,noble,ranger,,2,1,2,3,
+15,1,Son of Arnor,,Ally,3,Leadership,"Response: After Son of Arnor enters play, choose an enemy card in the staging area or currently engaged with another player. Engage that enemy.",2,,,,,dunedain,,,,0,2,0,2,
+16,1,Snowbourn Scout,,Ally,1,Leadership,"Response: After Snowbourn Scout enters play, choose a location. Place 1 progress token on that location.",3,,,,,rohan,scout,,,0,0,1,1,
+17,1,Silverlode Archer,,Ally,3,Leadership,,2,ranged,,,,archer,silvan,,,1,2,0,1,
+18,1,Longbeard Orc Slayer,,Ally,4,Leadership,"Response: After Longbeard Orc Slayer enters play, deal 1 damage to each Orc enemy in play.",2,,,,,dwarf,warrior,,,0,2,1,3,
+19,1,Brok Ironfist,1,Ally,6,Leadership,"Response: After a Dwarf hero you control leaves play, put Brok Ironfist into play from your hand.",1,,,,,dwarf,warrior,,,2,2,1,4,
+28,1,Veteran Axehand,,Ally,2,Tactics,,3,,,,,dwarf,warrior,,,0,2,1,2,
+29,1,Gondorian Spearman,,Ally,2,Tactics,"Response: After Gondorian Spearman is declared as a defender, deal 1 damage to the attacking enemy.",3,sentinel,,,,gondor,warrior,,,0,1,1,1,
+30,1,Horseback Archer,,Ally,3,Tactics,,2,ranged,,,,rohan,archer,,,0,2,1,2,
+31,1,Beorn,1,Ally,6,Tactics,"Action: Beorn gains +5 Attack until the end of the phase. At the end of that phase in which you trigger this effect, shuffle Beorn back into your deck. (Limit once per round.)",1,,,,,Beorning.,warrior,,,1,3,3,6,
+43,1,Wandering Took,,Ally,2,Spirit,Action: Reduce your threat by 3 to give control of Wandering Took to another player. Raise that player's threat by 3.,2,,,,,hobbit ,,,,1,1,1,2,
+44,1,L¢rien Guide,,Ally,3,Spirit,"Response: After L¢rien Guide commits to a quest, place 1 progress token on the active location.",3,,,,,silvan,scout,,,1,1,0,2,
+45,1,Northern Tracker,,Ally,4,Spirit,"Response: After Northern Tracker commits to a quest, place 1 progress token on each location in the staging area.",2,,,,,dunedain,ranger,,,1,2,2,3,
+58,1,Daughter of the Nimrodel,,Ally,3,Lore,Action: Exhaust Daughter of the Nimrodel to heal up to 2 damage on any 1 hero.,3,,,,,silvan,,,,1,0,0,1,
+59,1,Erebor Hammersmith,,Ally,2,Lore,"Response: After you play Erebor Hammersmith, return the topmost attachment in any player's discard pile to his hand.",2,,,,,dwarf,craftsman,,,1,1,1,3,
+60,1,Henemarth Riversong,1,Ally,1,Lore,Action: Exhaust Henemarth Riversong to look at the top card of the encounter deck.,1,,,,,silvan,,,,1,1,0,1,
+61,1,Miner of the Iron Hills,,Ally,2,Lore,"Response: After Miner of the Iron Hills enters play, choose and discard 1 Condition attachment from play.",2,,,,,dwarf,,,,1,1,2,2,
+62,1,GlÇowine,1,Ally,2,Lore,Action: Exhaust GlÇowine to choose a player. That player draws 1 card.,2,,,,,minstrel,rohan,,,1,0,0,2,
+73,1,Gandalf (Core),1,Ally,5,Neutral,"At the end of the round, discard Gandalf from play.
+Response: After Gandalf enters play, (choose 1): draw 3 cards, deal 4 damage to 1 enemy in play, or reduce your threat by 5.",4,,,,,istari,,,,4,4,4,4,
+26,1,Steward of Gondor,1,Attachment,2,Leadership,Attach to a hero. Attached hero gains the Gondor trait. Action: Exhaust Steward of Gondor to add 2 resources to attached hero's resource pool.,2,,,,,gondor,title,,,,,,,
+27,1,Celebr°an's Stone,1,Attachment,2,Leadership,"Attach to a hero. Restricted. Attached hero gains +2 Willpower. If attached hero is Aragorn, he also gains a Spirit resource icon.",1,restricted,,,,artifact,item,,,,,,,
+39,1,Blade of Gondolin,,Attachment,1,Tactics,"Attach to a hero. Restricted. Attached hero gets +1 Attack when attacking an Orc. Response: After attached hero attacks and destroys an enemy, place 1 progress token on the current quest.",2,restricted,,,,item,weapon,,,,,,,
+40,1,Citadel Plate,,Attachment,4,Tactics,Attach to hero. Restricted. Attached hero gets +4 Hit Points.,2,restricted,,,,item,armour,,,,,,,
+41,1,Dwarven Axe,,Attachment,2,Tactics,Attach to a hero. Restricted. Attached hero gains +1 Attack. (+2 Attack instead if attached hero is a Dwarf.),2,restricted,,,,item,weapon,,,,,,,
+42,1,Horn of Gondor,1,Attachment,1,Tactics,"Attach to a hero. Restricted. Response: After a character leaves play, add 1 resource to attached hero's pool.",1,restricted,,,,item,artifact,,,,,,,
+55,1,The Favor of the Lady,,Attachment,2,Spirit,Attach to a hero. Attached hero gains +1 Willpower.,2,,,,,condition ,,,,,,,,
+56,1,Power in the Earth,,Attachment,1,Spirit,Attach to a location. Attached location gets -1 Threat.,2,,,,,condition ,,,,,,,,
+57,1,Unexpected Courage,,Attachment,2,Spirit,Attach to a hero. Action: Exhaust Unexpected Courage to ready attached hero.,1,,,,,condition ,,,,,,,,
+69,1,Forest Snare,,Attachment,3,Lore,Attach to an enemy engaged with a player. Attached enemy cannot attack.,2,,,,,item,trap,,,,,,,
+70,1,Protector of L¢rien,,Attachment,1,Lore,Attach to a hero. Action: Discard a card from your hand to give attached hero +1 Defense or +1 Willpower until the end of the phase.,2,,,,,title ,,,,,,,,
+71,1,Dark Knowledge,,Attachment,1,Lore,Attach to a hero. Attached hero gets -1 Willpower. Response: Exhaust Dark Knowledge to look at 1 shadow card that was just dealt to an enemy attacking you.,1,,,,,condition,,,,,,,,
+72,1,Self Preservation,,Attachment,3,Lore,"Attach to a character.
+Action: Exhaust Self Preservation to heal 2 points of damage from attached character.",2,,,,,skill ,,,,,,,,
+20,1,Ever Vigilant,,Event,1,Leadership,Action: Choose and ready 1 ally card.,2,,,,,,,,,,,,,
+21,1,Common Cause,,Event,0,Leadership,Action: Exhaust 1 hero you control to choose and ready a different hero.,2,,,,,,,,,,,,,
+22,1,For Gondor!,,Event,2,Leadership,"Action: Until the end of the phase, all characters get +1 Attack. All Gondor characters also get +1 Defense until the end of the phase.",2,,,,,,,,,,,,,
+23,1,Sneak Attack,,Event,1,Leadership,"Action: Put 1 ally card into play from your hand. At the end of the phase, if that ally is still in play, return it to your hand.",2,,,,,,,,,,,,,
+24,1,Valiant Sacrifice,,Event,1,Leadership,"Response: After an ally card leaves play, that card's controller draws 2 cards.",2,,,,,,,,,,,,,
+25,1,Grim Resolve,,Event,5,Leadership,Action: Ready all character cards in play.,1,,,,,,,,,,,,,
+32,1,Blade Mastery,,Event,1,Tactics,"Action: Choose a character. Until the end of the phase, that character gains +1 Attack and +1 Defense.",3,,,,,,,,,,,,,
+33,1,Rain of Arrows,,Event,1,Tactics,Action: Exhaust a character you control with the ranged keyword to choose a player. Deal 1 damage to each enemy engaged with that player.,2,,,,,,,,,,,,,
+34,1,Feint,,Event,1,Tactics,Combat Action: Choose an enemy engaged with a player. That enemy cannot attack this phase.,2,,,,,,,,,,,,,
+35,1,Quick Strike,,Event,1,Tactics,Action: Exhaust a character you control to immediately declare it as an attacker (and resolve this attack) against any eligible enemy target.,2,,,,,,,,,,,,,
+36,1,Thicket of Spears,,Event,3,Tactics,You must use resources from 3 different heroes' pools to pay for this card. Action: Choose a player. That player's engaged enemies do not attack this phase.,2,,,,,,,,,,,,,
+37,1,Swift Strike,,Event,2,Tactics,"Response: After a character is declared as a defender, deal 2 damage to the attacking enemy.",1,,,,,,,,,,,,,
+38,1,Stand Together,,Event,0,Tactics,Action: Choose a player. That player may declare any number of his eligible characters as defenders against each enemy attacking him this phase.,1,,,,,,,,,,,,,
+46,1,The Galadhrim's Greeting,,Event,3,Spirit,"Action: Reduce one player's threat by 6, or reduce each player's threat by 2.",2,,,,,,,,,,,,,
+47,1,Strength of Will,,Event,0,Spirit,"Response: After you travel to a location, exhaust a Spirit character to place 2 progress tokens on that location.",2,,,,,,,,,,,,,
+48,1,Hasty Stroke,,Event,1,Spirit,Response: Cancel a shadow effect just triggered during combat.,2,,,,,,,,,,,,,
+49,1,Will of the West,,Event,1,Spirit,Action: Choose a player. Shuffle that player's discard pile back into his deck.,2,,,,,,,,,,,,,
+50,1,A Test of Will,,Event,1,Spirit,"Response: Cancel the ""when revealed"" effects of a card that was just revealed from the encounter deck.",2,,,,,,,,,,,,,
+51,1,Stand and Fight,,Event,X,Spirit,Action: Choose an ally with a printed cost of X in any player's discard pile. Put that ally into play under your control. (The chosen ally can belong to any sphere of influence.),3,,,,,,,,,,,,,
+52,1,A Light in the Dark,,Event,2,Spirit,Action: Choose an enemy engaged with a player. Return that enemy to the staging area.,2,,,,,,,,,,,,,
+53,1,Dwarven Tomb,,Event,1,Spirit,Action: Return 1 Spirit card from your discard pile to your hand.,1,,,,,,,,,,,,,
+54,1,Fortune or Fate,,Event,5,Spirit,"Action: Choose a hero in any player's discard pile. Put that card into play, under its owner's control.",1,,,,,,,,,,,,,
+63,1,Lore of Imladris,,Event,2,Lore,Action: Choose a character. Heal all damage from that character.,3,,,,,,,,,,,,,
+64,1,L¢rien's Wealth,,Event,3,Lore,Action: Choose a player. That player draws 3 cards.,2,,,,,,,,,,,,,
+65,1,Radagast's Cunning,,Event,1,Lore,"Quest Action: Choose an enemy in the staging area. Until the end of the phase, that enemy does not contribute its Threat.",2,,,,,,,,,,,,,
+66,1,Secret Paths,,Event,1,Lore,"Quest Action: Choose a location in the staging area. Until the end of the phase, that location does not contribute its Threat.",2,,,,,,,,,,,,,
+67,1,Gandalf's Search,,Event,X,Lore,"Action: Look at the top X cards of any player's deck, add 1 of those cards to its owner's hand, and return the rest to the top of the deck in any order.",2,,,,,,,,,,,,,
+68,1,Beorn's Hospitality,,Event,5,Lore,Action: Choose a player. Heal all damage on each hero controlled by that player.,1,,,,,,,,,,,,,
+57,18,Denethor,1,Ally,4,Leadership,"Denethor gets -1 [Willpower] for each damaged hero you control.
+Discard Denethor if his [Willpower] is 0 or less.",3,,,,,gondor,noble,,,3,1,2,3,
+61,18,Minas Tirith Lampwright,,Ally,1,Spirit,"Response: After and encounter card with surge is revealed, discard Minas Tirith Lampwright to name enemy, location, or treachery. If the next encounter card revealed is the named type, discard it without resolving its effects.",3,,,,,gondor,craftsman,,,0,0,1,1,
+63,18,Ithilien Archer,,Ally,3,Lore,"Response: After Ithilien Archer attacks and damages an enemy, return that enemy to the staging area.",3,ranged,,,,gondor,ranger,,,1,2,1,2,
+58,18,Lord of Morthond,1,Attachment,1,Leadership,"Attach to a Gondor or Outlands hero.
+If each hero you control has a printed [Leadership] resource icon, Lord of Morthond gains ""Response: After you play a [Lore], [Spirit], or [Tactics] ally, draw one card.""",3,,,,,title,,,,,,,,
+59,18,Book of Eldacar,1,Attachment,4,Tactics,"Attach to a [Tactics] hero.
+Reduce the cost to play Book of Eldacar by 1 for each hero you control with a printed [Tactics] resource icon.
+Action: Discard Book of Eldacar to play any [Tactics] event card in your discard pile as if it were in your hand. Then place that event on the bottom of your deck.",3,,,,,record ,,,,,,,,
+64,18,Ithilien Pit,,Attachment,1,Lore,"Play Ithilien Pit into the staging area unattached.
+If unattached, attach Ithilien Pit to the next eligible enemy that enters the staging area.
+Any character may choose attached enemy as the target of an attack.",3,,,,,trap,,,,,,,,
+60,18,Gondorian Discipline,,Event,0,Tactics,Response: Cancel up to 2 points of damage just dealt to a Gondor character.,3,,,,,gondor,,,,,,,,
+62,18,Small Target,,Event,1,Spirit,"Response: After a Hobbit hero you control exhausts to defend an attack, choose another enemy engaged with you and reveal the attacking enemy's shadow card. If that shadow card has no shadow effect, resolve this enemy's attack against the chosen enemy. If that shadow card has a shadow effect, resolve this attack as normal.",3,,,,,,,,,,,,,
+65,18,Hobbit-sense,,Event,2,Neutral,"Play only if each of your heroes is a Hobbit.
+Combat Action: Enemies engaged with you do not attack this phase. You cannot declare attacks this phase.",3,,,,,,,,,,,,,
+102,13,Longbeard Elder,,Ally,3,Leadership,"Response: After Longbeard Elder commits to a quest, look at the top card of the encounter deck. If that card is a location, place 1 progress token on the current quest. Otherwise Longbeard Elder gets -1 [Willpower] until the end of the phase. ",3,,,,,dwarf,,,,2,1,1,2,
+104,13,Trollshaw Scout,,Ally,2,Tactics,"Trollshaw Scout does not exhaust to attack. Forced: After Trollshaw Scout attacks, either discard it from play or discard 1 card from your hand.",3,ranged,,,,noldor,scout,,,0,2,1,2,
+106,13,Imladris Stargazer,,Ally,2,Spirit,Action: Exhaust Imladris Stargazer to choose a player. That player looks at the top 5 cards of his deck and then returns them to the top of his deck in any order. ,3,,,,,noldor,,,,0,0,1,1,
+103,13,Path of Need,,Attachment,4,Leadership,"Limit 1 per deck. Attach to a location. Heroes do not exhaust to attack, defend, or commit to a quest while attached location is the active location.",3,,,,,condition,,,,,,,,
+107,13,Light of Valinor,,Attachment,0,Spirit,Attach to a Noldor or Silvan hero. Attached hero does not exhaust to commit to a quest. ,3,,,,,condition,,,,,,,,
+109,13,Healing Herbs,,Attachment,0,Lore,Attach to a [Lore] hero. Action: Discard Healing Herbs and exhaust attached hero to heal all damage on 1 character.,3,,,,,,,,,,,,,
+110,13,Asfaloth,,Attachment,2,Lore,Attach to a Noldor or Silvan hero. Action: Exhaust Asfaloth to place 1 progress token on any location. (2 tokens instead if attached hero is Glorfindel.,3,,,,,mount ,,,,,,,,
+105,13,Heavy Stroke,,Event,1,Tactics,"Response: After a Dwarf deals X damage to an enemy during combat, deal and additional X damage to that enemy. (Limit once per phase.) ",3,,,,,,,,,,,,,
+108,13,Daeron's Runes,,Event,0,Lore,"Action: Draw 2 cards. Then, discard 1 card from your hand. ",3,,,,,,,,,,,,,
+3,15,Errand-rider,,Ally,1,Leadership,Action: Exhaust Errand-rider to move 1 resource from the resource pool of a hero you control to another hero's resource pool.,3,,,,,gondor,,,,0,0,0,2,
+4,15,Citadel Custodian,,Ally,5,Leadership,Lower the cost to play Citadel Custodian by 1 for each Gondor ally in play.,3,,,,,gondor,,,,1,0,1,3,
+7,15,Defender of Rammas,,Ally,2,Tactics,,3,,,,,gondor,warrior,,,0,1,4,1,
+10,15,Damrod,,Ally,4,Spirit,Action: Discard Damrod from play to lower your threat by 1 for each enemy in the staging area.,3,,,,,gondor,ranger,,,1,2,2,2,
+14,15,Hunter of Lamedon,,Ally,2,Lore,"Response: After you play Hunter of Lamedon from your hand, reveal the top card of your deck. If it is an Outlands card, add it to your hand. Otherwise discard it.",3,,,,,gondor,outlands,,,1,1,1,1,
+15,15,Ithilien Tracker,,Ally,2,Lore,Action: Exhaust Ithilien Tracker to lower the Threat of the next enemy added to the staging area to 0 until the end of the phase.,3,,,,,gondor,ranger,,,0,1,0,3,
+16,15,Master of Lore,,Ally,3,Lore,"Action: Exhaust Master of Lore to name a card type. Lower the cost for you to play [Lore] cards of that type by 1 until the end of the phase (to a minimum of 1).
+
+Errata: Action: Exhaust Master of Lore to name a card type. Lower the cost for you to play the next [Lore] card of that type by 1 until the end of the phase (to a 
+minimum of 1).",3,,,,,gondor,,,,1,0,1,1,
+18,15,Envoy of Pelargir,,Ally,2,Neutral,"Response: After Envy of Pelargir enters play, add 1 resource to a Gondor or Noble hero's resource pool.",3,,,,,gondor,,,,1,1,0,1,
+9,15,Spear of the Citadel,,Attachment,2,Tactics,"Attach to a Tactics character. Restricted.
+Limit 1 per character.
+Response: After attached character is declared as a defender, deal 1 damage to the attacking enemy.",3,restricted,,,,,,,,,,,,
+13,15,Blood of N£menor,,Attachment,0,Spirit,"Attach to a Gondor of Dunedain hero.
+Action: Spend 1 resource from attached hero's resource pool to give attached hero +1 [Defense] for each resource in its resource pool until the end of the phase. (Limit once per phase)",3,,,,,,,,,,,,,
+17,15,Ranger Spikes,,Attachment,2,Lore,"Play Ranger Spikes into the staging area unattached.
+If unattached, attach Ranger Spikes to the next elegible enemy that enters the staging area.
+Players do not make engagement checks against attached enemy. Attached enemy gets -2 [Threat].",3,,,,,trap ,,,,,,,,
+5,15,Mutual Accord,,Event,0,Leadership,"Action: Until the end of the phase, each Gondor card in play gains the Rohan trait, and each Rohan card in play gains the Gondor trait.",3,,,,,,,,,,,,,
+6,15,Wealth of Gondor,,Event,0,Leadership,Action: Choose a Gondor hero. Add 1 resource to that hero's resource pool.,3,,,,,,,,,,,,,
+8,15,Behind Strong Walls,,Event,1,Tactics,Action: Ready a defending Gondor character. That character gets +1 [Defense] until the end of the phase.,3,,,,,,,,,,,,,
+11,15,Light the Beacons,,Event,5,Spirit,Action: All characters get +2 [Defense] and do not exhaust to defend until the end of the round.,3,,,,,,,,,,,,,
+12,15,A Watchful Place,,Event,1,Spirit,"Response: After a location leaves play as an explored location, return it to the top of the encounter deck.",3,,,,,,,,,,,,,
+6,8,Veteran of Nanduhirion,,Ally,4,Tactics,Veteran of Nanduhirion enters play with 1 damage on it.,3,,,,,dwarf,warrior,,,0,3,2,3,
+9,8,Zigil Miner,,Ally,2,Spirit,"Action: Exhaust Zigil Miner and name a number to discard the top 2 cards of your deck.  If at least one of those cards has a cost equal to the named number, choose a hero you control.  That hero adds resources to his resource pool equal to the named number.",3,,,,,dwarf,,,,1,1,1,1,
+11,8,Erebor Record Keeper,,Ally,1,Lore,"Erebor Record Keeper cannot attack or defend.
+Action: Exhaust Erebor Record Keeper and pay 1 Lore resource to choose and ready a Dwarf character.",3,,,,,dwarf,,,,1,0,0,1,
+3,8,Narvi's Belt,1,Attachment,2,Leadership,Attach to a Dwarf hero. Action: Exhaust Narvi's Belt to give attached hero a resource icon of your choice until the end of the phase.,3,,,,,item,,,,,,,,
+7,8,Dwarrowdelf Axe,,Attachment,1,Tactics,"Attach to a Dwarf character.  Restricted. Attached character gets +1 Attack. 
+Response: After attached character attacks, deal 1 damage to the defending enemy.",3,restricted,,,,item,weapon,,,,,,,
+13,8,Boots from Erebor,,Attachment,0,Neutral,Attach to a Dwarf or Hobbit character. Limit 1 Boots from Erebor per character. Attached character gets +1 hit point.,3,,,,,item,,,,,,,,
+4,8,Durin's Song,,Event,1,Leadership,"Action: Choose a Dwarf hero.  That hero gets +2 Willpower, +2 Attack, and +2 Defense until the end of the round.",3,,,,,,,,,,,,,
+5,8,Ever Onward,,Event,3,Leadership,"Response: After players quest unsuccessfully, choose a player.  That player does not raise his threat.",3,,,,,,,,,,,,,
+8,8,KhazÉd! KhazÉd!,,Event,0,Tactics,"Action: Choose a Dwarf character.  Until the end of the phase, that character gets +3 Attack.",3,,,,,,,,,,,,,
+10,8,Untroubled by Darkness,,Event,2,Spirit,Action: Each Dwarf character gets +1 Willpower until the end of the phase. (+2 Willpower instead if the active location is an Underground or Dark location.),3,,,,,,,,,,,,,
+12,8,Ancestral Knowledge,,Event,1,Lore,Action: Exhaust a Dwarf character to place 2 progress tokens on the active location.  (4 progress tokens instead if it is an Underground or Mountain location.),3,,,,,,,,,,,,,
+6,23,Gloin,1,Ally,3,Leadership,"While you control at least 5 Dwarf characters, Gloin gains: ""Response: After you play Gloin from your hand, choose a hero. Add 2 resources to that hero's resource pool.""",3,,,,,dwarf,,,,2,1,1,3,
+7,23,Bifur,1,Ally,3,Lore,"While you control at least 5 Dwarf characters, Bifur gains: ""Response: After you play Bifur from your hand, draw 2 cards.""",3,,,,,dwarf,,,,1,2,1,3,
+8,23,Dwalin,1,Ally,3,Spirit,"While you control at least 5 Dwarf characters, lower the cost to play Dwalin by 2.",3,,,,,dwarf,,,,1,1,2,3,
+14,23,Great Yew Bow,,Attachment,2,Neutral,"Attach to a hero with the printed Ranged keyword.
+Restricted.
+Combat Action: Choose an enemy in the staging area. Exhaust Great Yew Bow and attached hero to make a ranged attack against that enemy. Declare attached hero as the attacker. No other attackers can be declared for this attack.",3,restricted,,,,item,weapon,,,,,,,
+15,23,Black Arrow,1,Attachment,0,Tactics,"Limit 1 per deck.
+Attach to a hero with Ranged.
+Response: After attached hero declares an attack, add Black Arrow to the victory display to give attached hero +5 [Attack] for this attack.",3,,,,,item,artifact,,,,,,,
+16,23,Thror's Key,1,Attachment,1,Spirit,"Response: After a location is added to the staging area, attach Thror's Key to that location. While attached to a location, Thror's Key gains: ""Treat attached location's printed text box as blank, except for traits.""",3,,,,,item,artifact,,,,,,,
+17,23,Expert Treasure-hunter,,Attachment,0,Lore,"Attach to a hero.
+Response: After attached hero quests successfully, name a card type and discard the top card of your deck. If the discarded card is the named type, take it into your hand.",3,,,,,skill,,,,,,,,
+18,23,King Under the Mountain,1,Attachment,2,Leadership,"Attach to a Dwarf hero.
+Action: Exhaust King Under the Mountain to look at the top 2 cards of your deck. Add 1 to your hand and discard the other.",3,,,,,title,,,,,,,,
+9,23,Straight Shot,,Event,0,Tactics,Action: Exhaust a Weapon attachment to choos a non-unique enemy with 0 [Defense]. Discard the chosen enemy.,3,,,,,,,,,,,,,
+10,23,Desperate Alliance,,Event,0,Spirit,"Action: Choose a hero you control. Until the end of the phase, give control of that hero and all resouces in that hero's resource pool to another player. (Limit 1 per phase)",3,,,,,,,,,,,,,
+11,23,Ravens of the Mountain,,Event,1,Lore,"Action: Exhaust a hero you control to shuffle the encounter decks and reveal (Errata'd to ""look at"") its top card. Place progress tokens on the current quest equal to the revealed card's [Threat]. Then put that card back on top of the encounter deck.",3,,,,,,,,,,,,,
+12,23,To Me! O My Kinsfolk!,,Event,1,Leadership,"Action: If you control at least 1 Dwarf hero, put a Dwarf ally from your discard pile into play under your control. Put that ally on the bottom of your deck at the end of a phase.",3,,,,,,,,,,,,,
+13,23,The Lucky Number,,Event,1,Baggins,"Action: Choose a character in play (other than Bilbo Baggins). Add Bilbo Baggins' total [Willpower], [Attack], and [Defense] to that character's [Willpower], [Attack], and [Defense] respectively until the end of the phase. ",3,,,,,,,,,,,,,
+6,24,Fili,1,Ally,3,Leadership,"Response: After you play Fili from your hand during the planning phase, search your deck for Kili and put him into play under your control. Then, shuffle your deck. ",3,,,,,dwarf,,,,1,1,1,2,
+7,24,Kili,1,Ally,3,Spirit,"Response: After you play Kili from your hand during the planning phase, search your deck for Fili and put him into play under your control. Then, shuffle your deck. ",3,,,,,dwarf,,,,1,1,1,2,
+8,24,Bofur,1,Ally,3,Tactics,Action: Exhaust Bofur to search the top 5 cards of your deck for 1 Weapon attachment. Add that card to your hand and shuffle the other cards back into your deck.,3,,,,,dwarf,,,,2,2,0,3,
+9,24,Dori,1,Ally,3,Lore,"Response: After a hero is assigned any amount of damage, exhaust Dori to place that damage on Dori instead.",3,,,,,dwarf,,,,1,2,1,3,
+10,24,Gandalf,1,Ally,5,Neutral,"Gandalf does not exhaust to commit to a quest.
+Forced: At the end of the refresh phase, discard Gandalf from play. You may raise your threat by 2 to cancel this effect. ",3,,,,,istari,,,,4,4,4,4,
+11,24,Cram,,Attachment,0,Leadership,Attach to a hero. Action: Discard Cram to ready attached hero. ,3,,,,,item,,,,,,,,
+12,24,Spare Hood and Cloak,,Attachment,0,Spirit,"Action: Exhaust Spare Hood and Cloak and exhaust attached character to ready another character. Then, attach Spare Hood and Cloak to that character. ",3,,,,,item,,,,,,,,
+13,24,Thror's Map,1,Attachment,1,Lore,"Attach to a hero. Action: Exhaust Thror's Map to choose a location in the staging area. Make that location the active location. (If there is another active location, return it to the staging area.) ",3,,,,,item,artifact,,,,,,,
+14,24,A Very Good Tale,,Event,0,Leadership,Action: Exhaust 2 allies you control to shuffle your deck and discard the top 5 cards. Put up to 2 allies discarded by this effect into play under your control. The total cost of the allies put into play cannot exceed the total cost of the allies exhausted to pay for this effect. ,3,,,,,,,,,,,,,
+15,24,Foe-hammer,,Event,0,Tactics,"Response: After a hero you control attacks and destroys an enemy, exhaust a Weapon card attached to that hero to draw 3 cards.",3,,,,,,,,,,,,,
+16,24,Goblin-cleaver,,Event,0,Tactics,Combat Action: Exhaust a Weapon card attached to a hero you control to choose an enemy engaged with you. Deal 2 damage to that enemy. (Deal 3 damage instead if the enemy is an Orc.),3,,,,,,,,,,,,,
+17,24,Late Adventurer,,Event,0,Spirit,Quest Action: Exhaust a character you control that is not committed to the quest to commit that character to the quest.,3,,,,,,,,,,,,,
+18,24,Expecting Mischief,,Event,1,Lore,"Play during the quest phase, before the staging step.
+Action: Deal 2 damage to the first enemy revealed from the encounter deck this phase.",3,,,,,,,,,,,,,
+19,24,Burglar Baggins,,Event,1,Baggins,"Action: Bilbo Baggins gets +2 [Willpower], +2 [Attack], and +2 [Defense] until the end of the phase. (You may spend a [Baggins] resource from Bilbo Baggins' resource pool to play this card even if you do not control Bilbo Baggins.)",3,,,,,,,,,,,,,
+119,7,Eagles of the Misty Mountains,,Ally,4,Tactics,"Eagles of the Misty Mountains cannot have restricted attachments.  Eagles of the Misty Mountains gets +1 Attack and +1 Defense for each facedown attachment it has.
+Response: After another Eagle character leaves play, you may attach that card facedown to Eagles of the Misty Mountains.",3,,,,,creature,eagle,,,2,2,2,4,
+121,7,West Road Traveller,,Ally,2,Spirit,"Response: After you play West Road Traveller from your hand, switch the active location with any other location in the staging area.",3,,,,,rohan,,,,2,0,0,1,
+123,7,Mirkwood Runner,,Ally,3,Lore,"While Mirkwood Runner is attacking alone, the defending enemy does not count its Defense.",3,,,,,silvan,scout,,,1,2,0,2,
+117,7,D£nedain Signal,,Attachment,1,Leadership,"Attach to a hero. Attached hero gains sentinel.
+Action: Pay 1 resource from attached hero's pool to attach D£nedain's Signal to another hero.",3,,,,,signal,,,,,,,,
+120,7,Support of the Eagles,,Attachment,3,Tactics,"Attach to a Tactics hero.
+Action: Exhaust Support of the Eagles to choose an Eagle ally.  Until the end of the phase, attached hero adds that ally's Attack or Defense (choose 1) to its own.",3,,,,,boon  ,,,,,,,,
+118,7,Dawn Take You All,,Event,2,Leadership,"Play after shadow cards have been dealt, before any attacks have resolved.
+Combat Action: Each player may choose and discard 1 facedown shadow card from an enemy with which he is engaged.",3,,,,,,,,,,,,,
+122,7,Astonishing Speed,,Event,3,Spirit,"Action: Until the end of the phase, all Rohan characters get +2 Willpower.",3,,,,,,,,,,,,,
+124,7,Rumour from the Earth,,Event,0,Lore,"Action: Look at the top card of the encounter deck.  Then, you may pay 1 Lore resource to return Rumour from the Earth to your hand.",3,,,,,,,,,,,,,
+125,7,Shadow of the Past,,Event,2,Neutral,Action: Move the top card of the encounter discard pile to the top of the encounter deck.,3,,,,,,,,,,,,,
+29,10,D£nedain Wanderer,,Ally,5,Leadership,,3,ranged,sentinel,secrecy 3,,dunedain,ranger,,,1,2,2,2,
+33,10,Rider of the Mark,,Ally,3,Spirit,"Action: Spend 1 Spirit resource to give control of Rider of the Mark to another player. (Limit once per round.)
+Response: After Rider of the Mark changes control, discard a shadow card dealt to an enemy you are engaged with. ",3,,,,,rohan,,,,2,1,1,2,
+35,10,Bombur,1,Ally,3,Lore,Action: Exhaust Bombur to choose a location. That location gets   -1 Threat until the end of the phase. (That location does not contribute its Threat instead if it is an Underground location.) ,3,,,,,dwarf,,,,0,0,1,3,
+31,10,Rivendell Blade,,Attachment,1,Tactics,"Attach to a Noldor or Silvan character. Restricted.
+When attached character attacks an enemy, that enemy gets -2 Defense until the end of the phase. ",3,restricted,,,,item,weapon,,,,,,,
+34,10,Song of EÑrendil,,Attachment,1,Spirit,"Attach to a Spirit hero. Response: After Song of EÑrendil enters play, draw 1 card.
+Response: After another player raises his threat, raise your threat by 1 to reduce that player's threat by 1. ",3,,,,,song,,,,,,,,
+30,10,Lure of Moria,,Event,3,Leadership,Action: Ready all Dwarf characters.,3,,,,,,,,,,,,,
+32,10,Hail of Stones,,Event,1,Tactics,Action: Exhaust X characters to deal X damage to an enemy in the staging area. ,3,,,,,,,,,,,,,
+36,10,Out of the Wild,,Event,3,Lore,Action: Search the top 5 cards of the encounter deck for any 1 non-objective card worth no victory points and add it to your victory display. Shuffle the encounter deck. ,3,secrecy 2,,,,,,,,,,,,2
+37,10,The End Comes,,Event,0,Neutral,"Response: After a Dwarf character leaves play, shuffle the encounter discard pile back into the encounter deck. ",3,,,,,,,,,,,,,
+134,14,Master of the Forge,,Ally,2,Lore,Action: Exhaust Master of the Forge to search the top 5 cards of your deck for any 1 attachment and add it to your hand. Shuffle the other cards back into your deck. ,3,,,,,noldor,craftsman,,,0,0,1,1,
+130,14,Hardy Leadership,1,Attachment,2,Leadership,Unique. Attach to a [Leadership] hero. Each Dwarf character gets +1 hit point.,3,,,,,,,,,,,,,
+133,14,Miruvor,,Attachment,1,Spirit,"Attach to a hero. Action: Discard Miruvor to (choose two): ready attached hero, add 1 resource to attached hero's resource pool, attached hero gets +1 [Willpower] until the end of the round, or put Miruvor on the top of your deck.",3,,,,,item,,,,,,,,
+137,14,Vilya,1,Attachment,2,Neutral,"Attach to Elrond. He gains a [Spirit] resource icon.
+Action: Exhaust Elrond and Vilya to reveal the top card of your deck. You can immediately play or put into play the revealed card for no cost, if able. Otherwise, move the revealed card to the bottom of your deck. ",3,,,,,ring,artifact,,,,,,,
+129,14,We Are Not Idle,,Event,0,Leadership,Action: Exhaust X Dwarf characters to add X resources to a hero's resource pool and draw 1 card. ,3,,,,,,,,,,,,,
+131,14,Hands Upon the Bow,,Event,1,Tactics,Action: Exhaust a character you control with ranged to immediately declare it as an attacker (and resolve its attack) against an enemy in the staging area. It gets +1 [Attack] during this attack. ,3,,,,,,,,,,,,,
+132,14,O Elbereth! Gilthonial!,,Event,4,Spirit,"Response: After an enemy attacks you, put that enemy on the bottom of the encounter deck. If your threat is lower than that enemy's engagement cost, set your threat equal to the engagement cost of that enemy.",3,secrecy 4,,,,,,,,,,,,4
+135,14,"Peace, and Thought",,Event,1,Lore,Refresh Action: Exhaust 2 heroes to draw 5 cards. ,3,,,,,,,,,,,,,
+136,14,Risk Some Light,,Event,3,Lore,"Action: Look at the top 3 cards of the encounter deck. You may select 1 card and move it to the bottom of the encounter deck. Return any unselected cards to the top of the encounter deck, in any order. ",3,secrecy 3,,,,,,,,,,,,3
+6,28,Bill the Pony,1,Ally,2,Leadership,"Lower the cost to play Bill the Pony by 2 if you control Sam Gamgee. Cannot have attachments.
+Each Hobbit character gets +1 hit point.",3,,,,,creature,pony,,,1,1,0,2,
+7,28,Barliman Butterbur,1,Ally,2,Lore,"If each hero you control has the Hobbit trait, damage from undefended attacks against you may be assigned to Barliman Butterbur.",3,,,,,bree,,,,1,0,1,3,
+8,28,Farmer Maggot,1,Ally,3,Tactics,"Response: After Farmer Maggot enters play, deal 1 damage to an enemy engaged with you. (Deal 2 damage instead if that enemy's engagement cost is highger than your threat.)",3,,,,,hobbit,,,,1,2,0,2,
+13,28,Hobbit Cloak,,Attachment,1,Leadership,"Attach to a Hobbit hero. Limit 1 per hero.
+Attached hero gets +2 [Defense] while defending against an attack made by an enemy with an engagement cost higher than your threat. ",3,,,,,item,,,,,,,,
+14,28,Dagger of Westernesse,,Attachment,1,Tactics,"Attach to a hero. Restricted.
+Attached hero gets +1 [Attack] (+2 [Attack instead if attacking an enemy with an engagement cost higher than your threat). ",3,,,,,item,artifact,weapon,,,,,,
+15,28,Hobbit Pipe,,Attachment,0,Spirit,"Attach to a Hobbit. Limit 1 per character.
+Response: After your threat is reduced by an event card effect, exhaust Hobbit Pipe to draw a card.",3,,,,,item,pipe,,,,,,,
+16,28,Elf-stone,,Attachment,1,Lore,"Attach to the active location. Attached location gets +1 quest point. 
+Response: After attached location leaves play as an explored location, the first player puts 1 ally into play from his hand.",3,,,,,artifact,item,,,,,,,
+17,28,Mr. Underhill,,Attachment,0,Neutral,"Setup: Attach to the Ring-bearer.
+Action: Add Mr. Underhill to the victory display to choose an enemy engaged with you. Until the end of the round, that enemy cannot attack you.",1,permanent ,,,,boon,title,,,,,,,
+18,28,Tireless Ranger,,Attachment,0,Neutral,"Setup: Attach to a hero.
+Attached hero gets +1 [Defense] and gains the Ranger trait.",1,permanent ,,,,boon,title,,,,,,,
+19,28,Skilled Healerr,,Attachment,0,Neutral,"Setup: Attach to a hero. 
+Attached hero gets +2 hit points and gains the Healer trait.",1,permanent ,,,,boon,title,,,,,,,
+20,28,Valiant Warrior,,Attachment,0,Neutral,"Setup: Attach to a hero.
+Attached hero gets +1 [Attack] and gains the Warrior trait. ",1,permanent ,,,,boon,title,,,,,,,
+21,28,Noble Hero,,Attachment,,Neutral,"Setup: Attach to a hero.
+Attached hero gets +1 [Willpower] and gains the Noble trait.",1,permanent ,,,,boon,title,,,,,,,
+9,28,Halfling Determination,,Event,1,Tactics,"Action: Choose a Hobbit character. That character gets +2 [Willpower], +2 [Attack], and +2 [Defense] until the end of the phase. ",3,,,,,,,,,,,,,
+10,28,Smoke Rings,,Event,2,Spirit,Action: Reduce your threat by 1 for each Pipe you control. Each hero with a Pipe attachment gets +1 [Willpower] until the end of the phase.,3,,,,,,,,,,,,,
+11,28,Take No Notice,,Event,3,Lore,"Lower the cost to play Take No Notice by 1 for each Hobbit or Ranger hero you control.
+Action: Add 5 to each enemy's engagement cost until the end of the round. ",3,,,,,,,,,,,,,
+12,28,Frodo's Intuition,,Event,2,Fellowship,Action: Each hero you control gets +1 [Willpower] until the end of the round. Draw 1 card for each Hobbit hero you control.,3,,,,,,,,,,,,,
+108,20,Squire of the Citadel,,Ally,1,Leadership,"Response: After Squire of the Citadel leaves play, add 1 resource to a Gondor hero's resource pool.",3,,,,,gondor,,,,0,0,1,1,
+110,20,Guthlaf,1,Ally,3,Tactics,"If there is at least 1 Rohan hero in play, lower the cost to play Guthlaf by 1.
+If there is at least 1 Gondor hero in play, Guthlaf gains sentinel. ",3,,,,,rohan,,,,1,1,2,2,
+112,20,Emery,1,Ally,3,Spirit,"Action: Discard the top 3 cards of your deck to put Emery into play from your hand, under any player's control. Then, if any of the discarded cards have the [Tactics], [Lore], or [Leadership] sphere, discard Emery.",3,,,,,gondor,,,,1,1,2,2,
+114,20,Anborn,1,Ally,4,Lore,Action: Exhaust Anborn to return 1 Trap card from your discard pile to your hand. ,3,,,,,gondor,ranger,,,,,,,
+109,20,Tome of Atanatar,1,Attachment,4,Leadership,"Attach to a [Leadership] hero. 
+Reduce the cost to play Tome of Atanator by 1 for each hero you control with a printed [Leadership] resource icon.
+Action: Discard Tome of Atanator to play any [Leadership] event card in your discard pile as if it were in your hand. Then, place that event on the bottom of your deck.",3,,,,,record,,,,,,,,
+115,20,Poisoned Stakes,,Attachment,2,Lore,"Play Poisoned Stakes into the staging area unattached.
+If unattached, attach Poisoned Stakes to the next eligible enemy that enters the staging area.
+At the end of each round, deal 2 damage to attached enemy.",3,,,,,trap,,,,,,,,
+111,20,The Hammer-stroke,,Event,2,Tactics,Encounter Action: Engage each enemy in play.,3,,,,,,,,,,,,,
+113,20,Children of the Sea,,Event,0,Spirit,"Action: Choose a Silvan or Noldor ally you control. That ally gets +2 [Willpower] until the end of the phase. At the end of the phase, shuffle that ally into its owner?s deck if it is still in play. ",3,,,,,,,,,,,,,
+116,20,Well-Equipped,,Event,0,Neutral,Action: Discard the top 2 cards of your deck. You may attach 1 attachment card discarded by this effect to an eligible Dwarf character in play. ,3,,,,,,,,,,,,,
+96,6,D£nedain Watcher,,Ally,3,Leadership,Response: Discard D£nedain Watcher from play to cancel the shadow effects of a card just triggered.,3,,,,,hobbit,,,,1,1,1,2,
+98,6,Vassal of the Windlord,,Ally,1,Tactics,"Vassal of the Windlord cannot have restricted attachments.
+Forced: After an attack in which Vassal of the Windlord attacked resolves, discard Vassal of the Windlord from play.",3,ranged,,,,creature,eagle,,,0,3,0,1,
+100,6,Elfhelm,,Ally,4,Spirit,"While Elfhelm is ready, he gains:""Response: After your threat is raised as the result of questing unsuccessfully, or by an encounter or quest card effect, reduce your threat by 1.""",3,,,,,rohan,warrior,,,1,2,2,3,
+102,6,Silvan Tracker,,Ally,3,Lore,"Response: After a Silvan character readies during the refresh phase, heal 1 damage from that character.",3,,,,,silvan,,,,1,1,1,3,
+97,6,D£nedain Cache,,Attachment,2,Leadership,"Attach to a hero. Attached hero gains ranged.
+Action: Pay 1 resource from attached hero's pool to attach D£nedain Cache to another hero.",3,,,,,item,,,,,,,,
+99,6,Song of Mocking,,Attachment,1,Tactics,"Attach to a hero.
+Action: Exhaust Song of Mocking to choose another hero.  Until the end of the phase, attached hero takes all damage assigned to the chosen hero.",3,,,,,song,,,,,,,,
+103,6,Fast Hitch,,Attachment,1,Lore,"Attach to a Hobbit character.
+Action: Exhaust Fast Hitch to ready attached character.",3,,,,,skill,,,,,,,,
+104,6,Song of Battle,,Attachment,1,Neutral,Attach to a hero. Attached hero gains a Tactics resource icon.,3,,,,,song,,,,,,,,
+101,6,We Do Not Sleep,,Event,5,Spirit,"Action: Until the end of the phase, Rohan characters do not exhaust to commit to quests.",3,,,,,,,,,,,,,
+33,17,Forlong,1,Ally,3,Leadership,"While you control Outlands allies that belong to 4 different spheres, ready Forlong at the beginning of each phase.",3,,,,,outlands ,,,,1,1,1,3,
+37,17,Silvan Refugee,,Ally,1,Spirit,"Forced: After a character leaves play, discard Silvan Refugee from play.",3,,,,,silvan,,,,2,0,0,1,
+39,17,Harbor Master,,Ally,3,Lore,"Response: After a card effect adds any number of resources to the resource pool of a hero you control, Harbor Master gains +1 [Defense] until the end of the round.",3,,,,,,,,,1,2,0,3,
+41,17,White Tower Watchman,,Ally,3,Neutral,"If each hero you control belongs to the same sphere of influence, you may assign damage from undefended enemy attacks to the White Tower Watchman instead of a hero you control.",3,,,,,gondor,,,,1,0,2,3,
+35,17,Mighty Prowess,,Attachment,1,Tactics,"Attach to a [Tactics] hero. Limit 1 per hero.
+Response: After attached hero attacks and destroys an enemy, deal 1 damage to another enemy that shares a Trait with the enemy just destroyed.",3,,,,,skill,,,,,,,,
+34,17,Strength of Arms,,Event,2,Leadership,"Play only if each hero you control has a printed [Leadership] resource icon.
+Action: Ready each ally in play.",3,,,,,,,,,,,,,
+36,17,Trained for War,,Event,2,Tactics,"Play only if each hero you control has a printed [Tactics] resource icon.
+Action: Until the end of the phase, if the current quest has no keyword it gains battle.
+(Characters quest using [Attack] instead of [Willpower].)",3,,,,,,,,,,,,,
+38,17,Against the Shadow,,Event,2,Spirit,"Play only if each hero y ou control has the printed [Spirit] resource icon.
+Action: Until the end of the phase, [Spirit] characters use their [Willpower] instead of [Defense].",3,,,,,noldor,,,,,,,,
+40,17,Advance Warning,,Event,2,Lore,"Play only if each hero you control has a printed [Lore] resource icon.
+Action: Until the end of the phase, enemies do not make engagement checks.",3,,,,,,,,,,,,,
+73,5,Keen-eyed Took,,Ally,2,Leadership,"Response: After Keen-eyed Took enters play, reveal the top card of each player's deck.
+Action: Return Keen-eyed Took to your hand to discard the top card of each player's deck.",3,,,,,hobbit,,,,1,0,0,2,
+75,5,Descendant of Thorondor,,Ally,4,Tactics,"Descendant of Thorondor cannot have restricted attachments.
+Response: After Descendant of Thorondor enters or leaves play, deal 2 damage to any 1 enemy in the staging area.",3,,,,,creature,eagle,,,1,2,1,2,
+77,5,The Riddermark's Finest,,Ally,2,Spirit,Action: Exhaust and discard The Riddermark's Finest to place 2 progress tokens on any location.,3,,,,,creature,rohan,,,1,1,0,2,
+79,5,Gildor Inglorion,,Ally,5,Lore,"Action: Exhaust Gildor Inglorion to look at the top 3 cards of your deck. Switch one of those cards with a card from your hand. Then, return the 3 cards to the top of your deck, in any order.",3,,,,,noldor,,,,3,2,3,3,
+81,5,Song of Travel,,Attachment,1,Neutral,Attach to a hero. Attached hero gains a Spirit resource icon.,3,,,,,song,,,,,,,,
+74,5,Rear Guard,,Event,1,Leadership,Quest Action: Discard a Leadership ally to give each hero committed to this quest +1 Willpower until the end of the phase.,3,,,,,,,,,,,,,
+76,5,Meneldor's Flight,,Event,0,Tactics,Action: Choose an Eagle ally.  Return that character to its owner's hand.,3,,,,,,,,,,,,,
+78,5,Ride to Ruin,,Event,1,Spirit,Action: Discard a Rohan ally to choose a location. Place 3 progress tokens on that location.,3,,,,,,,,,,,,,
+80,5,Gildor's Counsel,,Event,3,Lore,"Play during the Quest phase, before characters are committed to the Quest.
+Action: Reveal 1 less card from the encounter deck this phase. (To a minimum of 1.)",3,,,,,,,,,,,,,
+77,12,Erestor,1,Ally,4,Leadership,Action: Choose and discard 1 card from your hand to draw 1 card. (Limit once per round.) ,3,,,,,noldor,,,,2,0,1,3,
+79,12,Erebor Battle Master,,Ally,3,Tactics,Erebor Battle Master gets +1 [Attack] for each other Dwarf character you control.,3,,,,,dwarf,warrior,,,0,1,1,2,
+83,12,Warden of Healing,,Ally,2,Lore,"Action: Exhaust Warden of Healing to heal 1 damage on up to 2 different characters. Then, you may pay 2 [Lore] resources to ready Warden of Healing. ",3,,,,,gondor,healer,,,1,0,1,1,
+80,12,Ring Mail,,Attachment,2,Tactics,Attach to a Dwarf or Hobbit character. Restricted. Attached character gets +1 hit point and +1 [Defense]. ,3,restricted,,,,item,armour,,,,,,,
+82,12,Ever My Heart Rises,,Attachment,0,Spirit,"Attach to a Dwarf character. Response: After you travel to a Mountain or Underground location, ready attached character and reduce your threat by 1. ",3,,,,,condition,,,,,,,,
+85,12,Love of Tales,,Attachment,0,Lore,"Attach to a [Lore] hero. Limit 1 per hero. Response: After a Song card is played, add 1 resource to attached hero's resource pool. ",3,,,,,condition,,,,,,,,
+78,12,Fresh Tracks,,Event,1,Leadership,"Response: After an enemy is added to the staging area, deal 1 damage to that enemy. Players ignore that enemy while making engagement checks this round. ",3,,,,,,,,,,,,,
+81,12,Out of Sight,,Event,5,Spirit,Action: Enemies engaged with you cannot attack this phase.,3,secrecy 3,,,,,,,,,,,,3
+84,12,Word of Command,,Event,1,Lore,Action: Exhaust an Istari character to search your deck for 1 card and add it to your hand. Shuffle your deck. ,3,,,,,,,,,,,,,
+135,21,Pelargir Ship Captain,,Ally,2,Leadership,"Response: After Pelargir Ship Captain enters play, move 1 resource from the resource pool of a hero you control to another hero's resource pool. ",3,,,,,gondor,,,,1,1,0,2,
+141,21,Ered Nimrais Prospector,,Ally,2,Lore,"Response: After Ered Nimrais Prospector enters play, discard the top 3 cards of your deck. Then, choose and shuffle 1 card from your discard pile back into your deck. ",3,,,,,dwarf,,,,1,1,1,2,
+136,21,Visionary Leadership,,Attachment,2,Leadership,"Attach to a Gondor hero.
+While attached hero has at least 1 resource in its resource pool, Gondor characters get +1 [Willpower]. ",3,,,,,skill,,,,,,,,
+137,21,Spear of the Mark,,Attachment,1,Tactics,"Attach to a Rohan character. Restricted.
+Attached character gets +1 [Attack]. (+2 [Attack] instead if attacking an enemy in the staging area). ",3,,,,,item,weapon,,,,,,,
+139,21,Steed of the Mark,,Attachment,1,Spirit,"Attach to a Gondor or Rohan hero.
+Response: After attached hero commits to a quest, spend 1 resource from attached hero's resource pool to ready attached hero. ",3,,,,,mount,,,,,,,,
+142,21,Scroll of Isildur,,Attachment,4,Lore,"Attach to a [Lore] hero.
+Reduce the cost to play Scroll of Isildur by 1 for each hero you control with a printed [Lore] resource icon.
+Action: Discard Scroll of Isildur to play any [Lore] event card in your discard pile as if it were in your hand. Then, place that event on the bottom of your deck. ",3,,,,,record,,,,,,,,
+138,21,Forth Eorlingas!,,Event,2,Tactics,Combat Action: Each Rohan hero can be declared as an attacker against enemies in the staging area this phase. ,3,,,,,,,,,,,,,
+140,21,Lay of Nimrodel,,Event,1,Spirit,"Action: Choose a [Spirit] hero. Until the end of the phase, that hero gets +1 [Willpower] for each resource in its resource pool. ",3,,,,,song,,,,,,,,
+143,21,Hidden Cache,,Event,0,Neutral,"Response: After Hidden Cache is discarded from your deck, add 2 resources to the resource pool of a hero you control.
+Action: Spend 1 resource to draw 1 card. ",3,,,,,,,,,,,,,
+6,9,Bofur,1,Ally,3,Spirit,"Quest Action: Spend 1 Spirit resource to put Bofur into play from your hand, exhausted and committed to a guest.  If you quest successfully this phase and Bofur is still in play, return him to your hand.",3,,,,,dwarf,,,,2,1,1,3,
+8,9,Ravenhill Scout,,Ally,3,Lore,Action: Exhaust Ravenhill Scout to move up to 2 progress tokens from 1 location to another location.,3,,,,,dale,scout,,,0,1,1,3,
+5,9,Keeping Count,,Attachment,0,Tactics,"Attach to a hero. Limit 1 per hero. Attached hero gets +1 Attack for each resource token on another copy of Keeping Count that is above the current number of resource tokens on this card.    Forced: After attached hero attacks and destroys an enemy, place 1 resource token on this card.",3,,,,,,,,,,,,,
+10,9,Good Meal,,Attachment,0,Neutral,Attach to a Hobbit hero. Action: Discard Good Meal to lower the cost of the next event you play this round that matches attached hero's sphere by 2.,3,,,,,,,,,,,,,
+2,9,Taking Initiative,,Event,0,Leadership,"Action: Discard the top card of your deck. If the discarded card's printed cost is equal to or higher than the number of characters you control, draw 2 cards and deal 2 damage to any enemy.",3,,,,,,,,,,,,,
+3,9,Timely Aid,,Event,4,Leadership,"Action: Reveal the top 5 cards of your deck and put 1 revealed ally into play, if able. Shuffle all other revealed cards back into your deck.",3,secrecy 3,,,,,,,,,,,,3
+4,9,Unseen Strike,,Event,0,Tactics,"Action: Choose a character you control.  Until the end of the phase, that character gets +3 Attack while attacking an enemy with a higher engagement cost than your threat.",3,,,,,,,,,,,,,
+7,9,Renewed Friendship,,Event,0,Spirit,"Response: After another player plays an attachment on a hero you control, you may (choose 1): ready 1 of that player's heroes, have that player draw 1 card, or lower that player's threat by 2.",3,,,,,,,,,,,,,
+9,9,Needful to Know,,Event,2,Lore,"Action: Raise your threat by 1 to look at the top card of the encounter deck. Then, reduce your threat by X, where X is the threat of that card.",3,Secrecy 2.,,,,,,,,,,,,2
+2,16,Warrior of Lossarnach,,Ally,2,Leadership,Each Outlands character you control gets +1 [Defense],3,,,,,outlands ,,,,1,1,1,1,
+4,16,Knights of the Swan,,Ally,1,Tactics,Each Outlands character you control gets +1 [Attack],3,,,,,outlands ,,,,0,0,0,1,
+6,16,Ethir Swordsman,,Ally,2,Spirit,Each Outlands character you control gets +1 [Willpower],3,,,,,outlands ,,,,1,1,1,1,
+8,16,Anfalas Herdsman,,Ally,1,Lore,Each Outlands character you control gets +1 hit point.,3,,,,,outlands ,,,,0,0,0,1,
+5,16,Gondorian Shield,,Attachment,1,Tactics,"Attach to a hero. Restricted.
+Limit 1 per hero.
+Attached hero gains +1 [Defense]. (+2 [Defense] instead if attached hero has the Gondor trait.)",3,restricted,,,,armour,item,,,,,,,
+7,16,Ring of Barahir,1,Attachment,1,Spirit,"Attach to a hero.
+Attached hero gets +1 hit points for each Artifact attachment attached to it.
+If attached hero is Aragorn, he also gains a [Lore] resource icon.",3,,,,,artifact,item,ring,,,,,,
+3,16,Gaining Strength,,Event,0,Leadership,Action: Discard 2 resources from your hero's resource pool to add 3 resources to that hero's resource pool.,3,,,,,,,,,,,,,
+9,16,Mithrandir's Advice,,Event,1,Lore,Action: Draw 1 card for each hero you control with a printed [Lore] resource icon.,3,,,,,,,,,,,,,
+10,16,A Good Harvest,,Event,0,Neutral,"Action: Name a sphere. Until the end of the phase, you can spend resources of any sphere when paying for cards that belong to the named sphere.",3,,,,,,,,,,,,,
+3,22,Saruman,1,Ally,3,Neutral,"At the end of the round, discard Saruman from play.
+Response: After Saruman enters play, choose a non-unique enemy or location in the staging area. While Saruman is in play, the chosen enemy or location is considered to be out of play.",3,doomed 3,,,,istari,isengard,,,3,5,4,4,
+4,22,Orthanc Guard,,Ally,2,Leadership,"Response: After you raise your threat from the Doomed keyword, read Orthanc Guard.",3,,,,,isengard  ,,,,1,0,2,2,
+5,22,Isengard Messenger,,Ally,2,Lore,"Response: After you raise your threat from the Doomed keyword, Isengard Messenger gets +1 [Willpower] until the end of the round. (Limit twice per round.)",3,,,,,isengard  ,,,,1,0,1,2,
+6,22,Westfold Outrider,,Ally,2,Tactics,Action: Discard Westfold Outrider to choose an enemy not engaged with you. Engage the chosen enemy.,3,,,,,rohan,sout,,,0,2,1,2,
+7,22,Westfold Horse-breeder,,Ally,1,Spirit,"Response: After Westfold Horse-breeder enters play, search the top 10 cards of your deck for a Mount attachment and add it to your hand. Shuffle your deck.",3,,,,,rohan,,,,1,0,0,1,
+8,22,Rohan Warhorse,,Attachment,1,Tactics,"Attach to a [Tactics] or Rohan hero. Restricted.
+Response: After attached hero participates in an attack that destroys an enemy, exhaust Rohan Warhorse to read attached hero.",3,,,,,mount,,,,,,,,
+9,22,Silver Lamp,,Attachment,2,Spirit,"Attach to a [Spirit] hero.
+While attached hero is ready, shadow cards dealt to enemies engaged with you are dealt face up. (Shadow card effects are still resolved when resolving enemy attacks.)",3,,,,,item,,,,,,,,
+10,22,Keys of Orthanc,1,Attachment,1,Neutral,"Attach to a hero.
+Response: After you raise your threat from the Doomed keyword, exhaust Keys of Orthanc to add 1 resource to attached hero?s resource pool.",3,,,,,item,,,,,,,,
+11,22,Legacy of N£menor,,Event,0,Leadership,Action: Add 1 resource to each hero's resource pool.,3,doomed 4,,,,,,,,,,,,
+12,22,Deep Knowledge,,Event,0,Lore,Action: Each player draws 2 cards.,3,doomed 2  ,,,,,,,,,,,,
+13,22,The Wizard's Voice,,Event,0,Tactics,"Action: Each player chooses 1 enemy engaged with him. Until the end of the phase, each chosen enemy cannot attack the player that chose it.",3,doomed 3  ,,,,,,,,,,,,
+14,22,Power of Orthanc,,Event,0,Spirit,Action: Each player may choose and discard a Condition attachment from play. ,3,doomed 2  ,,,,,,,,,,,,
+15,22,The Seeing-stone,,Event,0,Neutral,"Action: Search your deck for a card with the Doomed keyword and add it to your hand. 
+Shuffle your deck. ",3,doomed 1,,,,,,,,,,,,
+56,11,Watcher of the Bruinen,,Ally,2,Tactics,"Watcher of the Bruinen does not exhaust to defend.
+Forced: After Watcher of the Bruinen defends, either discard it from play or discard 1 card from your hand.",3,sentinel,,,,noldor,warrior,,,0,1,2,2,
+58,11,Arwen Und¢miel,1,Ally,2,Spirit,"Response: After Arwen Und¢miel exhausts, choose a character. That character gains sentinel and gets +1 Defense until the end of the round.",3,,,,,noldor,noble,,,2,0,1,2,
+55,11,Sword that was Broken,,Attachment,3,Leadership,"Attach to a hero. Attached hero gains a Leadership resource icon. If attached hero is Aragorn, each character you control gets +1 Willpower.",3,,,,,artifact,,,,,,,,
+57,11,Rivendell Bow,,Attachment,1,Tactics,"Attach to a Noldor or Silvan character, or to Aragorn.
+Limit 1 per character.
+Attached character gains ranged. If attached character has a printed ranged keyword, it gets +1 Attack during a ranged attack.",3,,,,,item,weapon,,,,,,,
+61,11,Legacy of Durin,1,Attachment,1,Lore,"Attach to a Dwarf hero.
+Response: After you play a Dwarf character from your hand, draw 1 card.",3,,,,,condition,,,,,,,,
+62,11,Resourceful,,Attachment,4,Neutral,"Attach to a hero you control.
+Attached hero collects 1 additional resource during the resource phase each round.",3,secrecy 3,,,,,,,,,,,,3
+54,11,Grave Cairn,,Event,1,Leadership,"Response: After a character leaves play, add its Defense to another character's Defense until the end of the round.",3,,,,,,,,,,,,,
+59,11,Elrond's Counsel,,Event,0,Spirit,"Action: If you control a unique Noldor character, give another character +1 Willpower until the end of the phase and lower your threat by 3.",3,,,,,,,,,,,,,
+60,11,Short Cut,,Event,1,Lore,"Response: After a location enters play, exhaust a Hobbit character to shuffle that location back into the encounter deck. Then, reveal 1 card from the encounter deck and add it to the staging area.",3,,,,,,,,,,,,,

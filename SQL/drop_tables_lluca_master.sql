@@ -1,0 +1,11 @@
+USE lluca_master; 
+DROP TABLE control_data;
+DROP TABLE deckparts;
+DROP TABLE encounter_cards;
+DROP TABLE heroes;
+DROP TABLE keywords_and_rules;
+DROP TABLE player_account;
+DROP TABLE player_cards;
+DROP TABLE quest_cards;
+DROP TABLE saved_decks;
+DROP TABLE saved_quests;

@@ -1,0 +1,88 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainMenuActivity"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in"
+        android:id="@+id/button"
+        android:onClick="loadSignInActivity"
+        android:layout_weight=".5"
+        style="@style/spacing_style"
+         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Logout"
+        android:id="@+id/sign_out_button"
+        android:onClick="logoutCurrentUser"
+        android:layout_weight=".5"
+        style="@style/spacing_style"
+        />
+    </LinearLayout>
+
+    <TextView
+        android:text="@string/main_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/abc_action_button_min_width_overflow_material"
+        android:id="@+id/main_menu_textview"
+        style="@style/spacing_style"
+        />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="@string/deckbuilder"
+        android:id="@+id/deckbuilder_button"
+        style="@style/spacing_style"
+        android:onClick="loadDeckListActivity"
+         />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="@string/questlog"
+        android:id="@+id/questlog_button"
+        android:onClick="questLog"
+        style="@style/spacing_style"
+        />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="@string/llucapaedia"
+        android:id="@+id/llucapaedia_button"
+        style="@style/spacing_style"
+        android:onClick="llucapaedia"
+        />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cardlist"
+        android:id="@+id/cardlist_button"
+        style="@style/spacing_style"
+        android:onClick="loadCardBrowserActivity"
+        />
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="@string/legal"
+        android:id="@+id/legal_button"
+        style="@style/spacing_style"
+        android:onClick="showLegalInfo"
+        />
+
+</LinearLayout>
