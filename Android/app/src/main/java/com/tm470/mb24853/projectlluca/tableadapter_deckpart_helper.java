@@ -16,6 +16,9 @@ import android.widget.TextView;
     //Owned packs subclass - These are what will do the work, one per thing that needs binding
     public class tableadapter_deckpart_helper extends CursorAdapter {
 
+    Context context;
+    LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(context, null, null, 1);
+
         //Constructor
         public tableadapter_deckpart_helper(Context context, Cursor c, boolean autoRequery) {
             super(context, c, autoRequery);
@@ -28,17 +31,24 @@ import android.widget.TextView;
         }
 
         @Override
-        public void bindView(View view, Context context, Cursor cursor) {
+        public void bindView(View view, Context context, Cursor deckpart_cursor) {
 
             //find the fields to populate
             TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
             TextView deckpart_cycle = (TextView) view.findViewById(R.id.template_deckpart_cycle);
+
+
             //Get data from cursor
-            String name = cursor.getString(cursor.getColumnIndex("deckpart_name"));
-            String cycle = cursor.getString(cursor.getColumnIndex("deckpart_cycle"));
+            String name = deckpart_cursor.getString(deckpart_cursor.getColumnIndex("deckpart_name"));
+            String cycle = deckpart_cursor.getString(deckpart_cursor.getColumnIndex("deckpart_cycle"));
+
+
+
             //Populate views
             deckpart_name.setText(name);
             deckpart_cycle.setText(cycle);
+
+
         }
 
     }

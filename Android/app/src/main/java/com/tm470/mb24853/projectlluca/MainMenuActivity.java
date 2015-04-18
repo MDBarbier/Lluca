@@ -2,6 +2,7 @@ package com.tm470.mb24853.projectlluca;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -85,12 +86,14 @@ public class MainMenuActivity extends ActionBarActivity {
     public void questLog(View view)
     {
         makeMeToast("Not implemented in this release.", 1);
+
     }
 
     //MDB: loads llucapaedia
     public void llucapaedia(View view)
     {
         makeMeToast("Not implemented in this release.", 1);
+
     }
 
     //MDB: loads the deck list screen IF there is a user logged in

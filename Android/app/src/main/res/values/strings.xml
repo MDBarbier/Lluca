@@ -35,7 +35,7 @@
     <string name="dummy_sync_date">*never*</string>
     <string name="logout">Log out</string>
     <string name="logout_label">Click here to log out of your account:</string>
-    <string name="edit_deck_button">Edit packs</string>
+    <string name="edit_deck_button">Owned packs</string>
     <string name="edit_decks">Click here to edit which Adventure Packs you own:</string>
 
     <!-- Create account screen -->
@@ -48,9 +48,10 @@
 
 
     <!-- Edit owned pack screen -->
-    <string name="back_button">Cancel</string>
-    <string name="save_owned_button">Save changes</string>
+    <string name="back_button">Back</string>
+    <string name="save_owned_button">Edit your packs</string>
     <string name="title_activity_edit_packs">Edit owned Adventure Packs</string>
+    <string name="your_packs">Your currently owned packs: </string>
 
 
     <!-- Deck list -->
@@ -74,6 +75,11 @@
     <!-- Card browser -->
     <string name="title_activity_card_browser">Card Browser</string>
     <string name="Logout">Logout</string>
+    <string name="title_activity_add_packs_to_user">AddPacksToUser</string>
+
+    <!-- Add packs -->
+    <string name="available_packs">Packs available (tap to add or remove): </string>
+    <string name="return_to_profile">Return to user profile</string>
 
 
 </resources>

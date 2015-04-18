@@ -80,6 +80,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tm470.mb24853.projectlluca.MainMenuActivity" />
         </activity>
+        <activity
+            android:name=".AddPacksToUserActivity"
+            android:label="@string/title_activity_add_packs_to_user"
+            android:parentActivityName=".EditOwnedPacksActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tm470.mb24853.projectlluca.EditOwnedPacksActivity" />
+        </activity>
     </application>
 
 </manifest>

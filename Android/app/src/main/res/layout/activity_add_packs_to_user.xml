@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.tm470.mb24853.projectlluca.EditOwnedPacksActivity"
+    tools:context="com.tm470.mb24853.projectlluca.AddPacksToUserActivity"
     android:weightSum="1">
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/your_packs"
+        android:text="@string/available_packs"
         android:textSize="20dp"
         style="@style/spacing_style"/>
 
@@ -31,11 +31,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save_owned_button"
-            android:id="@+id/save_deck_button"
+            android:text="@string/return_to_profile"
+            android:id="@+id/return_to_user_profile"
             android:layout_gravity="bottom"
             android:layout_weight="1"
-            android:onClick="saveChanges"/>
+            android:onClick="returnToUserProfile"
+            />
 
 
     </LinearLayout>

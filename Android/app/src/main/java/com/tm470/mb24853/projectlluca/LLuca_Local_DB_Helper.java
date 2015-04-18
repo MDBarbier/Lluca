@@ -15,6 +15,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
     LLuca_Local_DB_schema schema = new LLuca_Local_DB_schema();
 
+
     // Database definition (NOTE upon schema change increment db version unless reinstalling app)
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "LLuca_Local.db";
@@ -26,6 +27,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
     {
         db.execSQL(schema.getPlayerAccountCreate());
         db.execSQL(schema.getDeckpartCreate());
+        db.execSQL(schema.getOwnedPacksCreate());
         db.execSQL(schema.getDeckpartPopulate());
 
     }
@@ -44,6 +46,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         // to simply to discard the data and start over
         db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_PLAYERS);
         db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_DECKPARTS);
+        db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_OWNED_PACKS);
         onCreate(db);
      }
 
@@ -206,7 +209,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         cursor = db.rawQuery(query, null);
         userAccountClass user = new userAccountClass();
 
-        //get data from cursor - there will only ever be one row with a given username
+        //get data from cursor
         if (cursor.moveToFirst())
         {
             cursor.moveToFirst();
@@ -228,10 +231,20 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
     public Cursor getDeckpartDataCursor()
     {
+
         String query = "Select * FROM " + schema.TABLE_NAME_DECKPARTS;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
         cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public Cursor getOwnershipAndDeckpartCursor()
+    {
+        userAccountClass user = getCurrentUser();
+        String query = "Select * FROM " + schema.TABLE_NAME_DECKPARTS + " INNER JOIN " + schema.TABLE_NAME_OWNED_PACKS + " ON " + schema.TABLE_NAME_DECKPARTS + "." + schema.COLUMN_NAME_DECKPART_NAME + " = " + schema.TABLE_NAME_OWNED_PACKS + "." + schema.COLUMN_NAME_PACK_NAME + " WHERE " + schema.TABLE_NAME_OWNED_PACKS + "." + schema.COLUMN_NAME_OWNING_USER + " = " + "\"" + user.getUsername() + "\"" ;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
         return cursor;
     }
 
@@ -243,7 +256,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         cursor = db.rawQuery(query, null);
         deckpartClass deckPackList = new deckpartClass();
 
-        //get data from cursor - there will only ever be one row with a given username
+        //get data from cursor
         if (cursor.moveToFirst())
         {
             cursor.moveToFirst();
@@ -257,5 +270,73 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         else {deckPackList = null;}
 
         return deckPackList;
+    }
+
+    public boolean doesPlayerOwnPack(String packname)
+    {
+        //get current user
+        userAccountClass user = getCurrentUser();
+
+        //cycle through the owned_pack table
+        String query = "Select * FROM " + schema.TABLE_NAME_OWNED_PACKS + " WHERE " + schema.COLUMN_NAME_PACK_NAME + " = " + "\"" + packname + "\"" + " AND " + schema.COLUMN_NAME_OWNING_USER + " = " + "\"" + user.getUsername() + "\"";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+
+
+        //get data from cursor - there will only ever be one row with a given owning user and a given packname
+        if (cursor.moveToFirst())
+        {
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+         }
+
+    }
+
+    public void setPackOwnership(String packname)
+    {
+        //get current user
+        userAccountClass user = getCurrentUser();
+
+        //cycle through the owned_pack table
+        String query = "Select * FROM " + schema.TABLE_NAME_OWNED_PACKS + " WHERE " + schema.COLUMN_NAME_PACK_NAME + " = " + "\"" + packname + "\"" + " AND " + schema.COLUMN_NAME_OWNING_USER + " = " + "\"" + user.getUsername() + "\"";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst())
+        {
+            //remove row
+            String removeSQL = "DELETE FROM " + schema.TABLE_NAME_OWNED_PACKS + " WHERE " + schema.COLUMN_NAME_PACK_NAME + " = " + "\"" + packname + "\"" + " AND " + schema.COLUMN_NAME_OWNING_USER + " = " + "\"" + user.getUsername() + "\"";
+            db.execSQL(removeSQL);
+            cursor.close();
+            db.close();
+
+        }
+        else
+        {
+            try {
+
+                ContentValues values = new ContentValues();
+                values.put(schema.COLUMN_NAME_OWNING_USER, user.getUsername());
+                values.put(schema.COLUMN_NAME_PACK_NAME, packname);
+
+                db.insert(schema.TABLE_NAME_OWNED_PACKS, null, values);
+                db.close();
+
+            }
+            catch (Exception e)
+            {
+                //do nothing
+                cursor.close();
+                db.close();
+            }
+            cursor.close();
+        }
+
     }
 }
