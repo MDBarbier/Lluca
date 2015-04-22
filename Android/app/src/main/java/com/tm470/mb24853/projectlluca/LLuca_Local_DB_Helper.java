@@ -29,7 +29,10 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         db.execSQL(schema.getDeckpartCreate());
         db.execSQL(schema.getOwnedPacksCreate());
         db.execSQL(schema.getDeckpartPopulate());
-
+        db.execSQL(schema.getPlayercardCreation());
+        db.execSQL(schema.getPlayerCardPopulation1());
+        db.execSQL(schema.getPlayerCardPopulation2());
+        db.execSQL(schema.getencountercardCreation());
     }
 
     //Constructor
