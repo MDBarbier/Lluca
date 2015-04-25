@@ -1,0 +1,55 @@
+//-------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    // ENCOUNTER CARDS
+    //
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+
+    //table definition for encounter cards
+    public static final String TABLE_NAME_ENCOUNTERCARD = "encounter_cards";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_NO = "encountercard_no";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_BOX = "encountercard_box";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_NAME = "encountercard_name";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_TYPE = "encountercard_type";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_THREAT = "encountercard_threat";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_ENGAGE = "encountercard_engage";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_ATTACK = "encountercard_attack";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_DEFENCE = "encountercard_defence";
+	public static final String COLUMN_NAME_ENCOUNTERCARD_HP = "encountercard_hp";
+	public static final String COLUMN_NAME_ENCOUNTERCARD_SPECIALRULES = "encountercard_specialrules";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_SHADOW = "encountercard_shadow";
+	public static final String COLUMN_NAME_ENCOUNTERCARD_UNIQUE = "encountercard_unique";
+	public static final String COLUMN_NAME_ENCOUNTERCARD_VP = "encountercard_vp";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_TRAIT1 = "encountercard_trait1";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_TRAIT2 = "encountercard_trait2";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_TRAIT3 = "encountercard_trait3";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_TRAIT4 = "encountercard_trait4";
+	public static final String COLUMN_NAME_ENCOUNTERCARD_KEYWORD1 = "encountercard_keyword1";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_KEYWORD2 = "encountercard_keyword2";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_KEYWORD3 = "encountercard_keyword3";
+    public static final String COLUMN_NAME_ENCOUNTERCARD_KEYWORD4 = "encountercard_keyword4";
+
+    //SQL for creation
+    private static final String SQL_CREATE_ENCOUNTERCARD_TABLE = "CREATE TABLE " + TABLE_NAME_ENCOUNTERCARD + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_ENCOUNTERCARD_NO + " INT, " + COLUMN_NAME_ENCOUNTERCARD_BOX + " INT, " + COLUMN_NAME_ENCOUNTERCARD_NAME + " TEXT, " + COLUMN_NAME_ENCOUNTERCARD_TYPE + " TEXT, " + COLUMN_NAME_ENCOUNTERCARD_THREAT + " INT, " + COLUMN_NAME_ENCOUNTERCARD_ENGAGE + " INT, " + COLUMN_NAME_ENCOUNTERCARD_ATTACK + " INT, " + COLUMN_NAME_ENCOUNTERCARD_DEFENCE + " INT, " + COLUMN_NAME_ENCOUNTERCARD_HP + " INT, " + COLUMN_NAME_ENCOUNTERCARD_SPECIALRULES + " TEXT, " + COLUMN_NAME_ENCOUNTERCARD_SHADOW + " TEXT, " + COLUMN_NAME_ENCOUNTERCARD_UNIQUE + " INT, " + COLUMN_NAME_ENCOUNTERCARD_VP + " INT, " + COLUMN_NAME_ENCOUNTERCARD_TRAIT1 + " TEXT, " + COLUMN_NAME_ENCOUNTERCARD_TRAIT2 + " TEXT, " + COLUMN_NAME_ENCOUNTERCARD_TRAIT3 + " TEXT, " + COLUMN_NAME_ENCOUNTERCARD_TRAIT4 + " TEXT, " + COLUMN_NAME_ENCOUNTERCARD_KEYWORD1 + " TEXT, " + COLUMN_NAME_ENCOUNTERCARD_KEYWORD2 + " TEXT, " + COLUMN_NAME_ENCOUNTERCARD_KEYWORD3 + " TEXT, " + COLUMN_NAME_ENCOUNTERCARD_KEYWORD4 + " TEXT)";
+
+    //Getter for creation
+    public String getencountercardCreation()
+    {
+        return SQL_CREATE_ENCOUNTERCARD_TABLE;
+    }
+
+    //SQL for population (too big to do in one go so split into 2)
+    private static final String SQL_POPULATE_ENCOUNTERCARDS_INSERT = "INSERT INTO 'encounter_cards' ('COLUMN_NAME_ENCOUNTERCARD_NO', 'COLUMN_NAME_ENCOUNTERCARD_BOX', 'COLUMN_NAME_ENCOUNTERCARD_NAME', 'COLUMN_NAME_ENCOUNTERCARD_TYPE', 'COLUMN_NAME_ENCOUNTERCARD_THREAT', 'COLUMN_NAME_ENCOUNTERCARD_ENGAGE', 'COLUMN_NAME_ENCOUNTERCARD_ATTACK', 'COLUMN_NAME_ENCOUNTERCARD_DEFENCE', 'COLUMN_NAME_ENCOUNTERCARD_HP', 'COLUMN_NAME_ENCOUNTERCARD_SPECIALRULES', 'COLUMN_NAME_ENCOUNTERCARD_SHADOW', 'COLUMN_NAME_ENCOUNTERCARD_UNIQUE', 'COLUMN_NAME_ENCOUNTERCARD_VP', 'COLUMN_NAME_ENCOUNTERCARD_TRAIT1', 'COLUMN_NAME_ENCOUNTERCARD_TRAIT2', 'COLUMN_NAME_ENCOUNTERCARD_TRAIT3', 'COLUMN_NAME_ENCOUNTERCARD_TRAIT4', 'COLUMN_NAME_ENCOUNTERCARD_KEYWORD1', 'COLUMN_NAME_ENCOUNTERCARD_KEYWORD2', 'COLUMN_NAME_ENCOUNTERCARD_KEYWORD3', 'COLUMN_NAME_ENCOUNTERCARD_KEYWORD4') VALUES ";
+    private static final String SQL_POPULATE_ENCOUNTERCARDS1 = "";
+    private static final String SQL_POPULATE_ENCOUNTERCARDS2 = "";
+
+
+    //Getter for population (first half)
+    public String getencountercardPopulation1()
+    {
+        return SQL_POPULATE_ENCOUNTERCARDS_INSERT + SQL_POPULATE_ENCOUNTERCARDS1;
+    }
+    //Getter for population (second half)
+    public String getencountercardPopulation2()
+    {
+        return SQL_POPULATE_ENCOUNTERCARDS_INSERT + SQL_POPULATE_ENCOUNTERCARDS2;
+    }

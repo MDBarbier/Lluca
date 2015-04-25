@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - lluca_master@localhost" uuid="abc4290a-a408-435b-993e-aea39ebef285">
+      <secret-storage>master_key</secret-storage>
+      <user-name>lluca_bot</user-name>
+      <schema-pattern>lluca_master.*</schema-pattern>
+      <default-schemas>lluca_master.*</default-schemas>
+    </data-source>
+  </component>
+</project>

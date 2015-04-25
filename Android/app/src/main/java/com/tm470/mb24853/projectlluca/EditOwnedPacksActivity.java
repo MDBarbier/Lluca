@@ -69,7 +69,7 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
     //MDB: loads the profile screen having saved changes
     public void saveChanges(View view)
     {
-        //TODO save changes to owned packs here
+
 
         userAccountClass user = db_helper.getCurrentUser();
         Intent intent = new Intent(this, AddPacksToUserActivity.class);

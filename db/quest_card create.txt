@@ -1,0 +1,59 @@
+//-------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    // HERO CARDS
+    //
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+
+    //table definition for hero cards
+    public static final String TABLE_NAME_QUESTCARD = "quest_cards";
+    public static final String COLUMN_NAME_QUESTCARD_NO = "questcard_number";
+    public static final String COLUMN_NAME_QUESTCARD_BOX = "questcard_box";
+	public static final String COLUMN_NAME_QUESTCARD_DECKPART = "questcard_deckpart";
+    public static final String COLUMN_NAME_QUESTCARD_NAME = "questcard_name";
+    public static final String COLUMN_NAME_QUESTCARD_TYPE = "questcard_type";
+    public static final String COLUMN_NAME_QUESTCARD_PART = "questcard_part";
+    public static final String COLUMN_NAME_QUESTCARD_PROGRESS_REQ = "questcard_progres_req";
+    public static final String COLUMN_NAME_QUESTCARD_COST = "questcard_cost";
+	public static final String COLUMN_NAME_QUESTCARD_UNIQUE = "questcard_unique";
+	public static final String COLUMN_NAME_QUESTCARD_TEXT = "questcard_text";
+	public static final String COLUMN_NAME_QUESTCARD_COUNT = "questcard_count";
+	public static final String COLUMN_NAME_QUESTCARD_KEYWORD1 = "questcard_keyword1";
+    public static final String COLUMN_NAME_QUESTCARD_KEYWORD2 = "questcard_keyword2";
+    public static final String COLUMN_NAME_QUESTCARD_KEYWORD3 = "questcard_keyword3";
+    public static final String COLUMN_NAME_QUESTCARD_KEYWORD4 = "questcard_keyword4";
+    public static final String COLUMN_NAME_QUESTCARD_TRAIT1 = "questcard_trait1";
+    public static final String COLUMN_NAME_QUESTCARD_TRAIT2 = "questcard_trait2";
+    public static final String COLUMN_NAME_QUESTCARD_TRAIT3 = "questcard_trait3";
+    public static final String COLUMN_NAME_QUESTCARD_TRAIT4 = "questcard_trait4";
+	public static final String COLUMN_NAME_QUESTCARD_HP = "questcard_hp";
+	public static final String COLUMN_NAME_QUESTCARD_QUEST = "questcard_quest";
+	public static final String COLUMN_NAME_QUESTCARD_ATTACK = "questcard_attack";
+	public static final String COLUMN_NAME_QUESTCARD_DEF = "questcard_def";
+	public static final String COLUMN_NAME_QUESTCARD_SECRECY = "questcard_secrecy";
+	public static final String COLUMN_NAME_QUESTCARD_VP = "questcard_vp";
+
+    //SQL for creation
+    private static final String SQL_CREATE_QUESTCARD_TABLE = "CREATE TABLE " + TABLE_NAME_QUESTCARD + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_QUESTCARD_NUMBER + " INT, " + COLUMN_NAME_QUESTCARD_BOX + " INT, " + COLUMN_NAME_QUESTCARD_DECKPART + " INT, " + COLUMN_NAME_QUESTCARD_NAME + " TEXT, " + COLUMN_NAME_QUESTCARD_TYPE + " TEXT, " + COLUMN_NAME_QUESTCARD_PART + " INT, " + COLUMN_NAME_QUESTCARD_PROGRESS_REQ + " INT, " + COLUMN_NAME_QUESTCARD_COST + " INT, " + COLUMN_NAME_QUESTCARD_UNIQUE + " TEXT," + COLUMN_NAME_QUESTCARD_TEXT + " TEXT, " + COLUMN_NAME_QUESTCARD_COUNT + " INT, " + COLUMN_NAME_QUESTCARD_KEYWORD1 + " TEXT, " + COLUMN_NAME_QUESTCARD_KEYWORD2 + " TEXT, " + COLUMN_NAME_QUESTCARD_KEYWORD3 + " TEXT, " + COLUMN_NAME_QUESTCARD_KEYWORD4 + " TEXT, " + COLUMN_NAME_QUESTCARD_TRAIT1 + " TEXT, " + COLUMN_NAME_QUESTCARD_TRAIT2 + " TEXT, " + COLUMN_NAME_QUESTCARD_TRAIT3 + " TEXT, " + COLUMN_NAME_QUESTCARD_TRAIT4 + " TEXT, " + COLUMN_NAME_QUESTCARD_HP + " INT, " + COLUMN_NAME_QUESTCARD_QUEST + " INT, " + COLUMN_NAME_QUESTCARD_ATTACK + " INT, " + COLUMN_NAME_QUESTCARD_DEF + " INT, " + COLUMN_NAME_QUESTCARD_SECRECY + " INT, " + COLUMN_NAME_QUESTCARD_VP + " INT)";
+
+    //Getter for creation
+    public String getquestcardCreation()
+    {
+        return SQL_CREATE_QUESTCARD_TABLE;
+    }
+
+    //SQL for population (too big to do in one go so split into 2)
+    private static final String SQL_POPULATE_QUESTCARDS1 = "";
+    private static final String SQL_POPULATE_QUESTCARDS_INSERT = "INSERT INTO 'quest_cards' ('COLUMN_NAME_QUESTCARD_NUMBER', 'COLUMN_NAME_QUESTCARD_BOX', 'COLUMN_NAME_QUESTCARD_DECKPART', 'COLUMN_NAME_QUESTCARD_NAME', 'COLUMN_NAME_QUESTCARD_TYPE', 'COLUMN_NAME_QUESTCARD_PART', 'COLUMN_NAME_QUESTCARD_PROGRESS_REQ', 'COLUMN_NAME_QUESTCARD_COST', 'COLUMN_NAME_QUESTCARD_UNIQUE', 'COLUMN_NAME_QUESTCARD_TEXT', 'COLUMN_NAME_QUESTCARD_COUNT', 'COLUMN_NAME_QUESTCARD_KEYWORD1', 'COLUMN_NAME_QUESTCARD_KEYWORD2', 'COLUMN_NAME_QUESTCARD_KEYWORD3', 'COLUMN_NAME_QUESTCARD_KEYWORD4', 'COLUMN_NAME_QUESTCARD_TRAIT1', 'COLUMN_NAME_QUESTCARD_TRAIT2', 'COLUMN_NAME_QUESTCARD_TRAIT3', 'COLUMN_NAME_QUESTCARD_TRAIT4') VALUES ";
+    private static final String SQL_POPULATE_QUESTCARDS2 = "";
+
+
+    //Getter for population (first half)
+    public String getquestcardPopulation1()
+    {
+        return SQL_POPULATE_QUESTCARDS_INSERT + SQL_POPULATE_QUESTCARDS1;
+    }
+    //Getter for population (second half)
+    public String getquestcardPopulation2()
+    {
+        return SQL_POPULATE_QUESTCARDS_INSERT + SQL_POPULATE_QUESTCARDS2;
+    }

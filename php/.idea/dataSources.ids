@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - lluca_master@localhost" uuid="abc4290a-a408-435b-993e-aea39ebef285">
+    <database-info product="MySQL" version="5.6.21" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="lluca_master"/>
+    <table name="control_data" schema="" catalog="lluca_master" type="TABLE">
+      <column name="version" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="version"/>
+    </table>
+    <table name="deckparts" schema="" catalog="lluca_master" type="TABLE">
+      <column name="deckpart_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="deckpart_name" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="deckpart_box_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="deckpart_box" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="deckpart_cycle" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="encounter_cards" schema="" catalog="lluca_master" type="TABLE">
+      <column name="encountercard_no" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="encountercard_deckpart" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="encountercard_name" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encountercard_type" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encountercard_threat" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="encountercard_engage" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="encountercard_attack" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="encountercard_defence" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="encountercard_hp" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="encountercard_special_rules" sqlType="VARCHAR" precision="400" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encountercard_shadow" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encountercard_unique" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="encountercard_vp" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="encountercard_trait1" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encountercard_trait2" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encountercard_trait3" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encountercard_trait4" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encountercard_keyword1" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encountercard_keyword2" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encountercard_keyword3" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="encountercard_keyword4" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="heroes" schema="" catalog="lluca_master" type="TABLE">
+      <column name="herocard_no" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="herocard_box" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="herocard_name" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="herocard_threat" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="herocard_quest" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="herocard_attack" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="herocard_defence" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="herocard_hp" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="herocard_sphere" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="herocard_specialrules" sqlType="VARCHAR" precision="400" scale="0" nullable="true" jdbcType="12"/>
+      <column name="herocard_keyword1" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="herocard_keyword2" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="herocard_keyword3" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="herocard_keyword4" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="herocard_trait1" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="herocard_trait2" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="herocard_trait3" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="herocard_trait4" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="keywords_and_rules" schema="" catalog="lluca_master" type="TABLE">
+      <column name="rule_no" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="rule_name" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="rule_description" sqlType="VARCHAR" precision="500" scale="0" nullable="true" jdbcType="12"/>
+      <column name="rule_effects" sqlType="VARCHAR" precision="400" scale="0" nullable="true" jdbcType="12"/>
+    </table>
+    <table name="player_account" schema="" catalog="lluca_master" type="TABLE">
+      <column name="user_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="user_password" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="email_address" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cards_c0" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap1" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap2" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap3" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap4" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap5" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap6" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_d7" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap8" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap9" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap10" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap11" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap12" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap13" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_d14" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap15" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap16" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap17" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap18" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap19" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="cards_ap20" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="user_name"/>
+    </table>
+    <table name="player_cards" schema="" catalog="lluca_master" type="TABLE">
+      <column name="playercard_no" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="playercard_box" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="playercard_name" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_unique" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="playercard_type" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_cost" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="playercard_sphere" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_special_rules" sqlType="VARCHAR" precision="400" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="playercard_keyword1" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_keyword2" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_keyword3" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_keyword4" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_trait1" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_trait2" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_trait3" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_trait4" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="playercard_ally_quest" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="playercard_ally_attack" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="playercard_ally_defence" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="playercard_ally_hp" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="playercard_secrecy" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+    </table>
+    <table name="quest_cards" schema="" catalog="lluca_master" type="TABLE">
+      <column name="questcard_number" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_box" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_deckpart" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_name" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="questcard_type" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="questcard_part" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_progress_req" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_cost" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_unique" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_text" sqlType="VARCHAR" precision="400" scale="0" nullable="true" jdbcType="12"/>
+      <column name="questcard_count" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_keyword1" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="questcard_keyword2" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="questcard_keyword3" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="questcard_keyword4" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="questcard_trait1" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="questcard_trait2" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="questcard_trait3" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="questcard_trait4" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="questcard_hp" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_quest" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_attack" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_def" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_secrecy" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="questcard_vp" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+    </table>
+    <table name="saved_decks" schema="" catalog="lluca_master" type="TABLE">
+      <column name="user_name" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
+      <column name="deck_name" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
+      <column name="deck_description" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="date_created" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="card1" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card2" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card3" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card4" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card5" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card6" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card7" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card8" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card9" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card10" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card11" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card12" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card13" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card14" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card15" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card16" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card17" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card18" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card19" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card20" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card21" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card22" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card23" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card24" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card25" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card26" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card27" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card28" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card29" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card30" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card31" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card32" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card33" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card34" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card35" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card36" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card37" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card38" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card39" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card40" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card41" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card42" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card43" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card44" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card45" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card46" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card47" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card48" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card49" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card50" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card51" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card52" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card53" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card54" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card55" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card56" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card57" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card58" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card59" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="card60" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="user_name,deck_name"/>
+    </table>
+    <table name="saved_quests" schema="" catalog="lluca_master" type="TABLE">
+      <column name="user_name" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
+      <column name="deck_name" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
+      <column name="quest_completed" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="quest_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="quest_player_assigned_name" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="deck_used" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="date_completed" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="vps_achieved" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="no_of_players" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero1" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero2" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero3" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero4" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero5" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero6" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero7" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero8" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero9" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero10" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero11" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero12" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero13" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero14" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero15" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="hero16" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="user_name,deck_name"/>
+    </table>
+  </data-source>
+</component>

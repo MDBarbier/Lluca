@@ -1,0 +1,52 @@
+//-------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    // HERO CARDS
+    //
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+
+    //table definition for hero cards
+    public static final String TABLE_NAME_HEROCARD = "hero_cards";
+    public static final String COLUMN_NAME_HEROCARD_NO = "herocard_no";
+    public static final String COLUMN_NAME_HEROCARD_BOX = "herocard_box";
+    public static final String COLUMN_NAME_HEROCARD_NAME = "herocard_name";
+    public static final String COLUMN_NAME_HEROCARD_THREAT = "herocard_threat";
+    public static final String COLUMN_NAME_HEROCARD_QUEST = "herocard_quest";
+    public static final String COLUMN_NAME_HEROCARD_ATTACK = "herocard_attack";
+    public static final String COLUMN_NAME_HEROCARD_DEFENCE = "herocard_defence";
+	public static final String COLUMN_NAME_HEROCARD_HP = "herocard_hp";
+	public static final String COLUMN_NAME_HEROCARD_SPHERE = "herocard_sphere";
+	public static final String COLUMN_NAME_HEROCARD_SPECIALRULES = "herocard_specialrules";
+	public static final String COLUMN_NAME_HEROCARD_KEYWORD1 = "herocard_keyword1";
+    public static final String COLUMN_NAME_HEROCARD_KEYWORD2 = "herocard_keyword2";
+    public static final String COLUMN_NAME_HEROCARD_KEYWORD3 = "herocard_keyword3";
+    public static final String COLUMN_NAME_HEROCARD_KEYWORD4 = "herocard_keyword4";
+    public static final String COLUMN_NAME_HEROCARD_TRAIT1 = "herocard_trait1";
+    public static final String COLUMN_NAME_HEROCARD_TRAIT2 = "herocard_trait2";
+    public static final String COLUMN_NAME_HEROCARD_TRAIT3 = "herocard_trait3";
+    public static final String COLUMN_NAME_HEROCARD_TRAIT4 = "herocard_trait4";
+
+    //SQL for creation
+    private static final String SQL_CREATE_HEROCARD_TABLE = "CREATE TABLE " + TABLE_NAME_HEROCARD + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_HEROCARD_NO + " INT, " + COLUMN_NAME_HEROCARD_BOX + " INT, " + COLUMN_NAME_HEROCARD_NAME + " TEXT, " + COLUMN_NAME_HEROCARD_THREAT + " INT, " + COLUMN_NAME_HEROCARD_QUEST + " INT, " + COLUMN_NAME_HEROCARD_ATTACK + " INT, " + COLUMN_NAME_HEROCARD_DEFENCE + " INT, " + COLUMN_NAME_HEROCARD_HP + " INT, " + COLUMN_NAME_HEROCARD_SPHERE + " TEXT," + COLUMN_NAME_HEROCARD_SPECIALRULES + " TEXT, " + COLUMN_NAME_HEROCARD_KEYWORD1 + " TEXT, " + COLUMN_NAME_HEROCARD_KEYWORD2 + " TEXT, " + COLUMN_NAME_HEROCARD_KEYWORD3 + " TEXT, " + COLUMN_NAME_HEROCARD_KEYWORD4 + " TEXT, " + COLUMN_NAME_HEROCARD_TRAIT1 + " TEXT, " + COLUMN_NAME_HEROCARD_TRAIT2 + " TEXT, " + COLUMN_NAME_HEROCARD_TRAIT3 + " TEXT, " + COLUMN_NAME_HEROCARD_TRAIT4 + " TEXT)";
+
+    //Getter for creation
+    public String getherocardCreation()
+    {
+        return SQL_CREATE_HEROCARD_TABLE;
+    }
+
+    //SQL for population (too big to do in one go so split into 2)
+    private static final String SQL_POPULATE_HEROCARDS_INSERT = "INSERT INTO 'hero_cards' ('COLUMN_NAME_HEROCARD_NO', 'COLUMN_NAME_HEROCARD_BOX', 'COLUMN_NAME_HEROCARD_NAME', 'COLUMN_NAME_HEROCARD_TYPE', 'COLUMN_NAME_HEROCARD_THREAT', 'COLUMN_NAME_HEROCARD_ENGAGE', 'COLUMN_NAME_HEROCARD_ATTACK', 'COLUMN_NAME_HEROCARD_DEFENCE', 'COLUMN_NAME_HEROCARD_HP', 'COLUMN_NAME_HEROCARD_SPECIALRULES', 'COLUMN_NAME_HEROCARD_SHADOW', 'COLUMN_NAME_HEROCARD_UNIQUE', 'COLUMN_NAME_HEROCARD_VP', 'COLUMN_NAME_HEROCARD_TRAIT1', 'COLUMN_NAME_HEROCARD_TRAIT2', 'COLUMN_NAME_HEROCARD_TRAIT3', 'COLUMN_NAME_HEROCARD_TRAIT4', 'COLUMN_NAME_HEROCARD_KEYWORD1', 'COLUMN_NAME_HEROCARD_KEYWORD2', 'COLUMN_NAME_HEROCARD_KEYWORD3', 'COLUMN_NAME_HEROCARD_KEYWORD4') VALUES ";
+    private static final String SQL_POPULATE_HEROCARDS1 = "";
+    private static final String SQL_POPULATE_HEROCARDS2 = "";
+
+
+    //Getter for population (first half)
+    public String getherocardPopulation1()
+    {
+        return SQL_POPULATE_HEROCARDS_INSERT + SQL_POPULATE_HEROCARDS1;
+    }
+    //Getter for population (second half)
+    public String getherocardPopulation2()
+    {
+        return SQL_POPULATE_HEROCARDS_INSERT + SQL_POPULATE_HEROCARDS2;
+    }

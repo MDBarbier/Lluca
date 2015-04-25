@@ -25,14 +25,25 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
+        //Create the tables
         db.execSQL(schema.getPlayerAccountCreate());
         db.execSQL(schema.getDeckpartCreate());
         db.execSQL(schema.getOwnedPacksCreate());
-        db.execSQL(schema.getDeckpartPopulate());
         db.execSQL(schema.getPlayercardCreation());
+        db.execSQL(schema.getencountercardCreation());
+        db.execSQL(schema.getherocardCreation());
+        db.execSQL(schema.getquestcardCreation());
+
+        //Populate the tables
+        db.execSQL(schema.getDeckpartPopulate());
         db.execSQL(schema.getPlayerCardPopulation1());
         db.execSQL(schema.getPlayerCardPopulation2());
-        db.execSQL(schema.getencountercardCreation());
+        db.execSQL(schema.getencountercardPopulation1());
+        db.execSQL(schema.getencountercardPopulation2());
+        db.execSQL(schema.getencountercardPopulation3());
+        db.execSQL(schema.getherocardPopulation1());
+        db.execSQL(schema.getquestcardPopulation1());
+        db.execSQL(schema.getquestcardPopulation2());
     }
 
     //Constructor
