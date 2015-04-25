@@ -2,9 +2,14 @@ package com.tm470.mb24853.projectlluca;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +25,9 @@ public class MainMenuActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        //populate the tables if not done already
+        new InitialPopulation().execute();
 
         if (db_helper.isAnyUserLoggedIn())
         {
@@ -148,4 +156,33 @@ public class MainMenuActivity extends ActionBarActivity {
         Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
         toast.show();
     }
+
+    public class InitialPopulation extends AsyncTask<Void, Void, Void>
+    {
+        @Override
+        protected Void doInBackground(Void... params) {
+
+           SQLiteDatabase db = db_helper.getWritableDatabase();
+           LLuca_Local_DB_schema schema = new LLuca_Local_DB_schema();
+            Log.w("Async", "Inside Async Task");
+            if(!db_helper.getPopulationStatus()) {
+                //Populate the tables
+                db.execSQL(schema.getDeckpartPopulate());
+                db.execSQL(schema.getPlayerCardPopulation1());
+                db.execSQL(schema.getPlayerCardPopulation2());
+                db.execSQL(schema.getencountercardPopulation1());
+                db.execSQL(schema.getencountercardPopulation2());
+                db.execSQL(schema.getencountercardPopulation3());
+                db.execSQL(schema.getherocardPopulation1());
+                db.execSQL(schema.getquestcardPopulation1());
+                db.execSQL(schema.getquestcardPopulation2());
+                db.execSQL(schema.getSqlCreateControlDataRecord());
+                db_helper.setPopulationStatus(1);
+                return null;
+            }
+            return null;
+        }
+    }
+
+
 }

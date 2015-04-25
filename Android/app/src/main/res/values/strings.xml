@@ -80,6 +80,11 @@
     <!-- Add packs -->
     <string name="available_packs">Packs available (tap to add or remove): </string>
     <string name="return_to_profile">Return to user profile</string>
+    <string name="search_tip">Search for a card</string>
+    <string name="action_search">action_search</string>
+    <string name="Settings">Settings</string>
+    <string name="Search">Search</string>
+    <string name="Filters">Filters</string>
 
 
 </resources>

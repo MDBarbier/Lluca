@@ -85,4 +85,6 @@
         android:onClick="showLegalInfo"
         />
 
+
+
 </LinearLayout>

@@ -1,11 +1,43 @@
 package com.tm470.mb24853.projectlluca;
 
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.IntentSender;
+import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.UserHandle;
 import android.provider.BaseColumns;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.Display;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by Admin on 28/03/2015.
@@ -33,20 +65,10 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         db.execSQL(schema.getencountercardCreation());
         db.execSQL(schema.getherocardCreation());
         db.execSQL(schema.getquestcardCreation());
-
-        //Populate the tables
-        db.execSQL(schema.getDeckpartPopulate());
-        db.execSQL(schema.getPlayerCardPopulation1());
-        db.execSQL(schema.getPlayerCardPopulation2());
-        db.execSQL(schema.getencountercardPopulation1());
-        db.execSQL(schema.getencountercardPopulation2());
-        db.execSQL(schema.getencountercardPopulation3());
-        db.execSQL(schema.getherocardPopulation1());
-        db.execSQL(schema.getquestcardPopulation1());
-        db.execSQL(schema.getquestcardPopulation2());
+        db.execSQL(schema.getSqlCreateControlDataTable());
     }
 
-    //Constructor
+   //Constructor
     public LLuca_Local_DB_Helper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
     {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -132,6 +154,12 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         {
             return false;
         }
+    }
+
+    //Delete a user
+    public void deleteUser(String userName)
+    {
+
     }
 
     //Method to get and return a user account
@@ -262,6 +290,51 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         return cursor;
     }
 
+    public Cursor getPlayerCardListCursor()
+    {
+        String query = "Select * FROM " + schema.TABLE_NAME_PLAYERCARD;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public Cursor getEncounterCardListCursor()
+    {
+        String query = "Select * FROM " + schema.TABLE_NAME_ENCOUNTERCARD;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public Cursor getHeroCardListCursor()
+    {
+        String query = "Select * FROM " + schema.TABLE_NAME_HEROCARD;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public Cursor getQuestCardListCursor()
+    {
+        String query = "Select * FROM " + schema.TABLE_NAME_QUESTCARD;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public Cursor getOwnedCardListCursor()
+    {
+        String query = "Select * FROM " + schema.TABLE_NAME_PLAYERCARD;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
     public deckpartClass getDeckpartData()
     {
         String query = "Select * FROM " + schema.TABLE_NAME_DECKPARTS;
@@ -353,4 +426,55 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         }
 
     }
+
+    //get population status
+    public boolean getPopulationStatus() {
+        String query = "Select * FROM " + schema.TABLE_NAME_CONTROL_DATA;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        int populationStatus = 0;
+
+        //get data from cursor - there will only ever be one row with a given owning user and a given packname
+        if (cursor.moveToFirst())
+        {
+            cursor.moveToFirst();
+            populationStatus = (cursor.getInt(0));
+            if (populationStatus == 1) {
+                cursor.close();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    //set population status
+    public void setPopulationStatus(int status) {
+
+
+            try {
+                SQLiteDatabase db = this.getWritableDatabase();
+                ContentValues values = new ContentValues();
+
+                values.put(schema.COLUMN_NAME_POPULATED, status);
+                db.update(schema.TABLE_NAME_CONTROL_DATA, values, null, null);
+                Log.w("pop status", "Setting to 1");
+            }
+            catch (Exception e)
+            {
+                Log.w("pop status", e.toString());
+            }
+
+
+     }
+
 }

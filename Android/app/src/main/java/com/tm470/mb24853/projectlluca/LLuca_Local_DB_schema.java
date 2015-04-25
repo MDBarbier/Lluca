@@ -5,11 +5,31 @@ package com.tm470.mb24853.projectlluca;
  */
 public class LLuca_Local_DB_schema {
 
-    //db definition
-    public static final int DATABASE_VERSION = 1;
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    // CONTROL_DATA
+    //
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    public static final String TABLE_NAME_CONTROL_DATA = "control_data";
+    public static final String COLUMN_NAME_DATABASE_VERSION = "database_version";
     public static final String DATABASE_NAME = "LLuca_Local.db";
     public static final String KEY_ID = "_id";
+    public static final String COLUMN_NAME_POPULATED = "populated";
 
+    //SQL statement to create player_account table
+    private static final String SQL_CREATE_CONTROL_DATA_TABLE = "CREATE TABLE " + TABLE_NAME_CONTROL_DATA + " (" + COLUMN_NAME_POPULATED + " INT)";
+
+    //SQL statement to create a control record
+    private static final String SQL_CREATE_CONTROL_DATA_RECORD = "INSERT INTO 'control_data' ('populated') VALUES (0)";
+
+    public String getSqlCreateControlDataRecord() {
+        return SQL_CREATE_CONTROL_DATA_RECORD;
+    }
+
+    public String getSqlCreateControlDataTable() {
+        return SQL_CREATE_CONTROL_DATA_TABLE;
+    }
 
     //-------------------------------------------------------------------------------------------------------------------------------------//
     //

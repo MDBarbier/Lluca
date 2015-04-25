@@ -27,7 +27,7 @@ import android.widget.TextView;
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             //inflates the template xml layout file
-            return LayoutInflater.from(context).inflate(R.layout.listviewtemplate,parent, false);
+            return LayoutInflater.from(context).inflate(R.layout.listviewtemplate_deckpart,parent, false);
         }
 
         @Override
