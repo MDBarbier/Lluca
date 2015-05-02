@@ -21,33 +21,132 @@ CREATE TABLE player_account
 user_name varchar(50) NOT NULL PRIMARY KEY,
 user_password varchar(50),
 email_address varchar(50),
-lastSyncTime datetime
-);
+cards_c0 int,
+cards_ap1 int,
+cards_ap2 int,
+cards_ap3 int,
+cards_ap4 int,
+cards_ap5 int,
+cards_ap6 int,
+cards_d7 int,
+cards_ap8 int,
+cards_ap9 int,
+cards_ap10 int,
+cards_ap11 int,
+cards_ap12 int,
+cards_ap13 int,
+cards_d14 int,
+cards_ap15 int,
+cards_ap16 int,
+cards_ap17 int,
+cards_ap18 int,
+cards_ap19 int,
+cards_ap20 int);
 
 /*
-* This is an EAV table for holding the details of a players owned packs
-* Each record refers to the player by their user name and has the pack name
+* Holds the data of saved quests
 */
-CREATE TABLE owned_packs
+CREATE TABLE saved_quests
 (
-id int NOT NULL PRIMARY KEY,
-owning_user varchar(50) NOT NULL,
-pack_name varchar(80)
+user_name varchar(40) NOT NULL,
+deck_name varchar(40) NOT NULL,
+PRIMARY KEY (user_name, deck_name),
+quest_completed varchar(40),
+quest_id int,
+quest_player_assigned_name varchar(80),
+deck_used int,
+date_completed date,
+vps_achieved int,
+no_of_players int,
+hero1 int, /* these fields refer to heroes.hero_id*/
+hero2 int,
+hero3 int,
+hero4 int,
+hero5 int,
+hero6 int,
+hero7 int,
+hero8 int,
+hero9 int,
+hero10 int,
+hero11 int,
+hero12 int,
+hero13 int,
+hero14 int,
+hero15 int,
+hero16 int
 );
+
 
 /*
 * Holds the data of a players saved decks
-* Uses EAV format
-* A row with no card_name indicates a deck that has been created
-* but no cards have been added
 */
-CREATE TABLE custom_decks
+CREATE TABLE saved_decks
 (
-id int NOT NULL PRIMARY KEY,
-owning_user varchar(50) NOT NULL,
-card_name varchar(40),
-deck_name varchar(40) NOT NULL
-);
+user_name varchar(40) NOT NULL,
+deck_name varchar(40) NOT NULL,
+PRIMARY KEY (user_name, deck_name),
+deck_description varchar (200),
+date_created date,
+card1 varchar(40),
+card2 varchar(40),
+card3 varchar(40),
+card4 varchar(40),
+card5 varchar(40),
+card6 varchar(40),
+card7 varchar(40),
+card8 varchar(40),
+card9 varchar(40),
+card10 varchar(40),
+card11 varchar(40),
+card12 varchar(40),
+card13 varchar(40),
+card14 varchar(40),
+card15 varchar(40),
+card16 varchar(40),
+card17 varchar(40),
+card18 varchar(40),
+card19 varchar(40),
+card20 varchar(40),
+card21 varchar(40),
+card22 varchar(40),
+card23 varchar(40),
+card24 varchar(40),
+card25 varchar(40),
+card26 varchar(40),
+card27 varchar(40),
+card28 varchar(40),
+card29 varchar(40),
+card30 varchar(40),
+card31 varchar(40),
+card32 varchar(40),
+card33 varchar(40),
+card34 varchar(40),
+card35 varchar(40),
+card36 varchar(40),
+card37 varchar(40),
+card38 varchar(40),
+card39 varchar(40),
+card40 varchar(40),
+card41 varchar(40),
+card42 varchar(40),
+card43 varchar(40),
+card44 varchar(40),
+card45 varchar(40),
+card46 varchar(40),
+card47 varchar(40),
+card48 varchar(40),
+card49 varchar(40),
+card50 varchar(40),
+card51 varchar(40),
+card52 varchar(40),
+card53 varchar(40),
+card54 varchar(40),
+card55 varchar(40),
+card56 varchar(40),
+card57 varchar(40),
+card58 varchar(40),
+card59 varchar(40),
+card60 varchar(40));
 
 
 
@@ -90,7 +189,7 @@ playercard_secrecy int);
 CREATE TABLE encounter_cards
 (
 encountercard_no int,
-encountercard_box int,
+encountercard_deckpart int,
 encountercard_name varchar(40),
 encountercard_type varchar(40),
 encountercard_threat int,
@@ -113,6 +212,17 @@ encountercard_keyword4 varchar(40)
 );
 
 /*
+* Holds the data of keywords and rules
+*/
+CREATE TABLE keywords_and_rules
+(
+rule_no int,
+rule_name varchar(40),
+rule_description varchar(500),
+rule_effects varchar(400)
+);
+
+/*
 * Holds the data of hero cards
 */
 CREATE TABLE heroes
@@ -126,7 +236,7 @@ herocard_attack int,
 herocard_defence int,
 herocard_hp int,
 herocard_sphere varchar(40),
-herocard_special_rules varchar(400),
+herocard_specialrules varchar(400),
 herocard_keyword1 varchar(40),
 herocard_keyword2 varchar(40),
 herocard_keyword3 varchar(40),
@@ -141,7 +251,7 @@ herocard_trait4 varchar(40));
 */
 CREATE TABLE quest_cards
 (
-questcard_no int,
+questcard_number int,
 questcard_box int,
 questcard_deckpart int,	
 questcard_name varchar(40),	
@@ -163,7 +273,7 @@ questcard_trait4 varchar(40),
 questcard_hp int,
 questcard_quest int,
 questcard_attack int,
-questcard_defence int,
+questcard_def int,
 questcard_secrecy int,
 questcard_vp int
 );

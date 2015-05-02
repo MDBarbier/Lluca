@@ -65,14 +65,6 @@
                 android:value="com.tm470.mb24853.projectlluca.DeckListActivity" />
         </activity>
         <activity
-            android:name=".CreateDeckActivity"
-            android:label="@string/title_activity_create_deck"
-            android:parentActivityName=".DeckListActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tm470.mb24853.projectlluca.DeckListActivity" />
-        </activity>
-        <activity
             android:name=".CardBrowserActivity"
             android:label="@string/title_activity_card_browser"
             android:parentActivityName=".MainMenuActivity" >
@@ -81,12 +73,24 @@
                 android:value="com.tm470.mb24853.projectlluca.MainMenuActivity" />
         </activity>
         <activity
+            android:name=".CustomDeckCardBrowserActivity"
+            android:label="Add cards to deck"
+            android:parentActivityName=".DeckListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tm470.mb24853.projectlluca.DeckListActivity" />
+        </activity>
+        <activity
             android:name=".AddPacksToUserActivity"
             android:label="@string/title_activity_add_packs_to_user"
             android:parentActivityName=".EditOwnedPacksActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tm470.mb24853.projectlluca.EditOwnedPacksActivity" />
+        </activity>
+        <activity
+            android:name=".testLayout"
+            android:label="@string/title_activity_test_layout" >
         </activity>
     </application>
 

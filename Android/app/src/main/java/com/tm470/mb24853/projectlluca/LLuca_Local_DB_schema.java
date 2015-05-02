@@ -78,6 +78,27 @@ public class LLuca_Local_DB_schema {
         return SQL_CREATE_OWNED_PACKS_TABLE;
     }
 
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    // CUSTOM DECKS
+    //
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+
+    //table definition for owned packs
+    public static final String TABLE_NAME_CUSTOM_DECKS = "custom_decks";
+    public static final String COLUMN_NAME_DECK_OWNING_USER = "owning_user" ;
+    public static final String COLUMN_NAME_DECK_CARD_NAME = "card_name";
+    public static final String COLUMN_NAME_DECK_DECK_NAME = "deck_name";
+
+
+    //SQL statement to create player_account table
+    private static final String SQL_CREATE_CUSTOM_DECKS_TABLE = "CREATE TABLE " + TABLE_NAME_CUSTOM_DECKS + " (" + KEY_ID+ " INTEGER PRIMARY KEY, " + COLUMN_NAME_DECK_OWNING_USER + " TEXT NOT NULL, " + COLUMN_NAME_DECK_CARD_NAME + " TEXT, " + COLUMN_NAME_DECK_DECK_NAME + " TEXT NOT NULL)";
+
+    //Getter for the player account table SQL
+    public String getCustomDecksCreate()
+    {
+        return SQL_CREATE_CUSTOM_DECKS_TABLE;
+    }
 
     //-------------------------------------------------------------------------------------------------------------------------------------//
     //

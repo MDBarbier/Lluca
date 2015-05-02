@@ -5,137 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnCount="3"
-    android:rowCount="11"
+    android:rowCount="19"
     android:columnOrderPreserved="true">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/editDeckTextName"
+        android:layout_row="8"
+        android:layout_column="1"
+        android:textSize="22dp" />
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="320dp"
+        android:layout_height="487dp"
         android:id="@+id/listView"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:layout_rowSpan="8" />
-
-    <GridLayout
-        android:layout_width="fill_parent"
-        android:layout_height="192dp"
-        android:layout_row="8"
-        android:layout_column="1"
-        android:columnCount="6"
-        android:rowCount="6">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hero_filter_button"
-            android:id="@+id/hero_filter_button"
-            android:layout_row="1"
-            android:layout_column="0"
-            />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sphere_filter_button"
-            android:id="@+id/sphere_filter_button"
-            android:layout_row="1"
-            android:layout_column="2"
-            />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/checkBox4"
-            android:layout_row="1"
-            android:layout_column="3" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/quest_filter_button"
-            android:id="@+id/quest_filter_button"
-            android:layout_row="2"
-            android:layout_column="0"
-            />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/checkBox"
-            android:layout_row="1"
-            android:layout_column="1" />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/checkBox2"
-            android:layout_row="2"
-            android:layout_column="1" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cost_filter_button"
-            android:id="@+id/cost_filter_button"
-            android:layout_row="2"
-            android:layout_column="2"
-            />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/checkBox5"
-            android:layout_row="2"
-            android:layout_column="3" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/type_filter_button"
-            android:id="@+id/type_filter_button"
-            android:layout_row="3"
-            android:layout_column="0"
-            />
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:id="@+id/checkBox3"
-            android:layout_row="3"
-            android:layout_column="1" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/apply_filter_button"
-            android:id="@+id/apply_filter_button"
-            android:layout_row="3"
-            android:layout_column="3"
-            android:onClick="applyFilter"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save_new_deck_button"
-            android:id="@+id/save_new_deck_button"
-            android:layout_row="5"
-            android:layout_column="3"
-            android:onClick="saveCreatedDeck"/>
-
-    </GridLayout>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/enter_new_deck_name"
         android:layout_row="10"
-        android:layout_column="1"
-        android:hint="Edit deck name"
-        android:width="300dp" />
+        android:layout_column="1" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_row="18"
+        android:layout_column="1">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Add cards to deck"
+            android:id="@+id/edit_deck_addcards"
+            android:layout_weight="0.5"
+            android:onClick="add_cards_to_deck"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Delete Deck"
+            android:id="@+id/edit_deck_deletedeck"
+            android:layout_weight="0.5"
+            android:onClick="delete_deck"/>
+    </LinearLayout>
 
 </GridLayout>

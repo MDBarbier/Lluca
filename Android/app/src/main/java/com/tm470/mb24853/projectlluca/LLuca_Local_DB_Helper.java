@@ -66,6 +66,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         db.execSQL(schema.getherocardCreation());
         db.execSQL(schema.getquestcardCreation());
         db.execSQL(schema.getSqlCreateControlDataTable());
+        db.execSQL(schema.getCustomDecksCreate());
     }
 
    //Constructor
@@ -235,7 +236,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
             values.put(schema.COLUMN_NAME_PASSWORD, password);
             values.put(schema.COLUMN_NAME_EMAIL, emailAddress);
             values.put(schema.COLUMN_NAME_LOGGED_IN, loggedIn);
-            db.update(schema.TABLE_NAME_PLAYERS,values,whereClause,null);
+            db.update(schema.TABLE_NAME_PLAYERS, values, whereClause, null);
             return true;
         }
         else { return false;}
@@ -473,8 +474,47 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
             {
                 Log.w("pop status", e.toString());
             }
-
-
      }
+
+    //creates a new custom deck
+    public void createCustomDeck(userAccountClass user, String deckName)
+    {
+        try
+        {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(schema.COLUMN_NAME_DECK_OWNING_USER, user.getUsername());
+            values.put(schema.COLUMN_NAME_DECK_DECK_NAME, deckName);
+
+            db.insert(schema.TABLE_NAME_CUSTOM_DECKS, null, values);
+            db.close();
+        }
+        catch(Exception e)
+        {
+            //do nothing
+        }
+    }
+
+    public void deleteCustomDeck(String deckName)
+    {
+        userAccountClass user = getCurrentUser();
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlDelete = "DELETE FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_DECK_NAME + " = '" + deckName + "' AND " + schema.COLUMN_NAME_DECK_OWNING_USER + " = '" + user.getUsername() + "'";
+        db.execSQL(sqlDelete);
+        db.close();
+    }
+
+    //gets entries in the custom deck table which match the current player
+    public Cursor getCustomDeckNames()
+    {
+        userAccountClass user = getCurrentUser();
+        //String query = "Select distinct " + schema.COLUMN_NAME_DECK_DECK_NAME + " FROM " + schema.TABLE_NAME_CUSTOM_DECKS;
+        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " where " + schema.COLUMN_NAME_DECK_OWNING_USER + " = '" + user.getUsername() + "' AND " + schema.COLUMN_NAME_DECK_CARD_NAME + " IS NULL"  ;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+
+        return cursor;
+    }
 
 }

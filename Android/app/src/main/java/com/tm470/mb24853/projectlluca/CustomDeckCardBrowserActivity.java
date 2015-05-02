@@ -3,8 +3,8 @@ package com.tm470.mb24853.projectlluca;
 import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class CardBrowserActivity extends ActionBarActivity {
+public class CustomDeckCardBrowserActivity extends ActionBarActivity {
 
     LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
 
