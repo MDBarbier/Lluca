@@ -87,5 +87,36 @@
     <string name="Filters">Filters</string>
     <string name="title_activity_test_layout">testLayout</string>
 
+    <string-array name="typeSpinner">
+    <item>All</item>
+        <item>Ally</item>
+    <item>Event</item>
+    <item>Attachment</item>
+    </string-array>
+
+    <string name="title_activity_deck_card_list_filters">DeckCardListFiltersActivity</string>
+
+    <string-array name="sphereSpinner">
+        <item>All</item>
+        <item>Leadership</item>
+        <item>Tactics</item>
+        <item>Spirit</item>
+        <item>Lore</item>
+        <item>Baggins</item>
+        <item>Neutral</item>
+    </string-array>
+
+    <string-array name="costSpinner">
+        <item>Any</item>
+        <item>Zero</item>
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+
+    </string-array>
+
+
 
 </resources>

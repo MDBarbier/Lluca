@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Sphere:"
+        android:id="@+id/textView3"
+        android:textIsSelectable="false"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        style="@style/spacing_style"
+        />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardSphereFilterSpinner"
+        style="@style/spacing_style"
+        android:entries="@array/sphereSpinner"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Type:"
+        android:id="@+id/textView4"
+        android:textIsSelectable="false"
+        android:textSize="20dp"
+        style="@style/spacing_style"
+        />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardTypeFilterSpinner"
+        android:entries="@array/typeSpinner"
+        style="@style/spacing_style"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Cost:"
+        android:textIsSelectable="false"
+        android:textSize="20dp"
+        style="@style/spacing_style"
+        />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardCostFilterSpinner"
+        android:entries="@array/costSpinner"
+        style="@style/spacing_style"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apply filters"
+        android:id="@+id/applyCardFilterButton"
+        android:onClick="applyFilters"
+        android:layout_marginTop="70dp"
+        style="@style/spacing_style"
+        />
+
+
+</LinearLayout>

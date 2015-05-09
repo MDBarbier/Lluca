@@ -300,6 +300,82 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         return cursor;
     }
 
+    public Cursor getFilteredPlayerCardListCursor(String typeFilter, String sphere, String cost)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        int actualCost = 999;
+
+        switch (cost){
+            case "One":
+                actualCost = 1;
+                break;
+            case "Two":
+                actualCost = 2;
+                break;
+            case "Three":
+                actualCost = 3;
+                break;
+            case "Four":
+                actualCost = 4;
+                break;
+            case "Five":
+                actualCost = 5;
+                break;
+            case "Zero":
+                actualCost = 0;
+                break;
+            default:
+                break;
+        }
+        if (typeFilter.equals("All") && sphere.equals("All") && cost.equals("Any")) {
+            cursor = getPlayerCardListCursor();
+        }
+        else if (typeFilter.equals("All") && sphere.equals("All")){
+            String query = "Select * FROM " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_COST + " = " + actualCost;
+            cursor = db.rawQuery(query, null);
+        }
+        else if (sphere.equals("All") && cost.equals("Any")){
+            String query = "Select * FROM " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_TYPE + " = " + "\"" + typeFilter + "\"";
+            cursor = db.rawQuery(query, null);
+        }
+        else if (cost.equals("Any") && typeFilter.equals("All")){
+            String query = "Select * FROM " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_SPHERE + " = " + "\"" + sphere + "\"";
+            cursor = db.rawQuery(query, null);
+        }
+        else if (cost.equals("Any"))
+        {
+            String query = "Select * FROM " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_TYPE + " = " + "\"" + typeFilter + "\"" + " AND " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_SPHERE + " = " + "\"" + sphere + "\"";
+            cursor = db.rawQuery(query, null);
+        }
+        else if (typeFilter.equals("All"))
+        {
+            String query = "Select * FROM " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_COST + " = " + actualCost + " AND " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_SPHERE + " = " + "\"" + sphere + "\"";
+            cursor = db.rawQuery(query, null);
+        }
+        else if (sphere.equals("All"))
+        {
+            String query = "Select * FROM " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_TYPE + " = " + "\"" + typeFilter + "\"" + " AND " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_COST + " = " + actualCost;
+            cursor = db.rawQuery(query, null);
+        }
+        else
+        {
+            String query = "Select * FROM " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_TYPE + " = " + "\"" + typeFilter + "\"" + " AND " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_SPHERE + " = " + "\"" + sphere + "\""  + " AND " + schema.TABLE_NAME_PLAYERCARD + "." + schema.COLUMN_NAME_PLAYERCARD_COST + " = " + actualCost;
+            cursor = db.rawQuery(query, null);
+
+        }
+
+        //TODO
+
+        //copy contents of cursor to temp table
+
+        //query the temp table for cards that fall into owned packs
+
+        //return amended cursor
+        return cursor;
+
+    }
+
     public Cursor getEncounterCardListCursor()
     {
         String query = "Select * FROM " + schema.TABLE_NAME_ENCOUNTERCARD;
@@ -517,4 +593,90 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         return cursor;
     }
 
+    public boolean isCardInDeck(String deckname, String cardName)
+    {
+        //get current user
+        userAccountClass user = getCurrentUser();
+
+        //cycle through the owned_pack table
+        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_DECK_NAME + " = " + "\"" + deckname + "\"" + " AND " + schema.COLUMN_NAME_DECK_OWNING_USER + " = " + "\"" + user.getUsername() + "\" AND " + schema.COLUMN_NAME_DECK_CARD_NAME+ " = " + "\"" + cardName + "\"";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+
+       if (cursor.moveToFirst())
+        {
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+
+    }
+
+    public void putCardInDeck(String deckName, String cardName)
+    {
+        //get current user
+        userAccountClass user = getCurrentUser();
+
+        //cycle through the owned_pack table
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+                ContentValues values = new ContentValues();
+                values.put(schema.COLUMN_NAME_DECK_OWNING_USER, user.getUsername());
+                values.put(schema.COLUMN_NAME_DECK_DECK_NAME, deckName);
+                values.put(schema.COLUMN_NAME_DECK_CARD_NAME, cardName);
+
+                db.insert(schema.TABLE_NAME_CUSTOM_DECKS, null, values);
+                db.close();
+
+            }
+            catch (Exception e)
+            {
+                //do nothing
+
+                db.close();
+            }
+    }
+
+    public Cursor getCardsInDeck(String deckName)
+    {
+        userAccountClass user = getCurrentUser();
+        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_DECK_NAME + " = " + "\"" + deckName + "\"" + " AND " + schema.COLUMN_NAME_DECK_OWNING_USER + " = " + "\"" + user.getUsername() + "\"";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public void deleteCardFromDeck(String deckName, String cardName)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        userAccountClass user = getCurrentUser();
+
+        try {
+
+                String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_DECK_NAME + " = " + "\"" + deckName + "\"" + " AND " + schema.COLUMN_NAME_DECK_OWNING_USER + " = " + "\"" + user.getUsername() + "\" AND " + schema.COLUMN_NAME_DECK_CARD_NAME+ " = " + "\"" + cardName + "\"";
+                cursor = db.rawQuery(query, null);
+
+                if (cursor.moveToFirst())
+                {
+                    //remove row
+                    String removeSQL = "DELETE FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_DECK_NAME + " = " + "\"" + deckName + "\"" + " AND " + schema.COLUMN_NAME_DECK_OWNING_USER + " = " + "\"" + user.getUsername() + "\" AND " + schema.COLUMN_NAME_DECK_CARD_NAME+ " = " + "\"" + cardName + "\"";
+                    db.execSQL(removeSQL);
+                    cursor.close();
+                    db.close();
+
+                }
+        } catch (Exception e) {
+                //do nothing
+                db.close();
+            }
+
+
+    }
 }

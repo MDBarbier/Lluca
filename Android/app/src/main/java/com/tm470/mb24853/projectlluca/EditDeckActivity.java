@@ -3,12 +3,15 @@ package com.tm470.mb24853.projectlluca;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +25,46 @@ public class EditDeckActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_deck);
 
-        Intent intent = getIntent();
         Bundle bundle = getIntent().getExtras();
-        String deckname = bundle.getString("deckname");
+        final String deckname = bundle.getString("deckname");
 
         TextView deckName = (TextView) findViewById(R.id.editDeckTextName);
         deckName.setText(deckname);
+
+        //loads the available deckparts into list view
+        Cursor cursor = db_helper.getCardsInDeck(deckname);
+        //Cursor cursor = db_helper.getPlayerCardListCursor();
+        final ListView cards = (ListView) findViewById(R.id.cardsInDecklistView);
+        final tableadapter_customdeckcards_helper adapter = new tableadapter_customdeckcards_helper(this, cursor, false);
+        cards.setAdapter(adapter);
+
+        cards.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                TextView currentCard = (TextView) view.findViewById(R.id.custom_deck_template_card_name);
+                String text = currentCard.getText().toString();
+                String textToToast = "Card name: " + text;
+                Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        cards.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView currentCard = (TextView) view.findViewById(R.id.custom_deck_template_card_name);
+                String text = currentCard.getText().toString();
+                db_helper.deleteCardFromDeck(deckname, text);
+                makeMeToast("Card removed", 1);
+                adapter.notifyDataSetInvalidated();
+                Cursor cursor2 = db_helper.getCardsInDeck(deckname);
+                final tableadapter_customdeckcards_helper adapter2 = new tableadapter_customdeckcards_helper(EditDeckActivity.this, cursor2, false);
+                cards.setAdapter(adapter2);
+                return true;
+            }
+        });
     }
 
 
@@ -51,27 +88,6 @@ public class EditDeckActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    //MDB: saves the deck and returns to deck list
-    public void saveCreatedDeck(View view)
-    {
-        //save the deck here
-        Intent intent= new Intent(this, DeckListActivity.class);
-        startActivity(intent);
-    }
-
-    //MDB: applies the configured filters to the list view
-    public void applyFilter(View view)
-    {
-        //get selected filters
-        //apply selected filters to card list
-        //refresh listview
-        int howBrownDoYouWantIt = Toast.LENGTH_LONG;
-        Context context = getApplicationContext();
-        String textToToast = "Selected filters applied and card list refreshed";
-        Toast toast = Toast.makeText(context, textToToast, howBrownDoYouWantIt);
-        toast.show();
     }
 
     public void delete_deck(View view)
@@ -116,6 +132,15 @@ public class EditDeckActivity extends ActionBarActivity {
 
     public void add_cards_to_deck(View view)
     {
+        //loads the card browser screen and passes through the deckname
+        Bundle bundle = getIntent().getExtras();
+        String deckname = bundle.getString("deckname");
+        Intent intent = new Intent(this, AddCardsToDeckCardBrowserActivity.class);
+        intent.putExtra("deckname", deckname);
+        intent.putExtra("typeFilter", "All");
+        intent.putExtra("sphere", "All");
+        intent.putExtra("cost", "Any");
+        startActivity(intent);
 
     }
 

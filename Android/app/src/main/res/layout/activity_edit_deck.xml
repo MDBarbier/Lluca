@@ -17,10 +17,19 @@
         android:layout_column="1"
         android:textSize="22dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Long press to remove a card"
+        android:layout_row="9"
+        android:layout_column="1"
+        android:textSize="15dp" />
+
+
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="487dp"
-        android:id="@+id/listView"
+        android:layout_height="460dp"
+        android:id="@+id/cardsInDecklistView"
         android:layout_row="10"
         android:layout_column="1" />
 
@@ -28,7 +37,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_row="18"
+        android:layout_row="16"
         android:layout_column="1">
 
         <Button
