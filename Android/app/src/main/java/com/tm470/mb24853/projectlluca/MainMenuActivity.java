@@ -164,7 +164,7 @@ public class MainMenuActivity extends ActionBarActivity {
 
            SQLiteDatabase db = db_helper.getWritableDatabase();
            LLuca_Local_DB_schema schema = new LLuca_Local_DB_schema();
-            Log.w("Async", "Inside Async Task");
+            Log.w("Async", "Inside Population Async Task");
             if(!db_helper.getPopulationStatus()) {
                 //Populate the tables
                 db.execSQL(schema.getDeckpartPopulate());

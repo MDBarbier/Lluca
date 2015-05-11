@@ -10,9 +10,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,11 +53,12 @@ public class CardBrowserActivity extends ActionBarActivity {
 
         switch (item.getItemId()) {
             case R.id.action_search:
-                makeMeToast("search",1);
-
+                //makeMeToast("search",1);
+                searchDialog();
                 return true;
             case R.id.action_settings:
-                makeMeToast("settings",1);
+                makeMeToast("No settings for this page",1);
+                //settingsDialog();
                 return true;
             case R.id.action_filter:
                 //makeMeToast("filters",1);
@@ -222,5 +226,66 @@ public class CardBrowserActivity extends ActionBarActivity {
         });
 
         filterDialogBox.show();
+    }
+
+    public void searchDialog()
+    {
+        final Dialog searchDialogBox = new Dialog(this);
+        searchDialogBox.setContentView(R.layout.custom_dialogue_searchfilters);
+        searchDialogBox.setTitle("Search");
+        final Button okButton = (Button) searchDialogBox.findViewById(R.id.okButtonSearch);
+        final EditText searchQueryField = (EditText) searchDialogBox.findViewById(R.id.searchQueryField);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String searchQuery = searchQueryField.getText().toString();
+                searchDialogBox.dismiss();
+            }
+        });
+
+        searchDialogBox.show();
+
+        //TODO filter search by what Type is selected
+    }
+
+    //handles the clicking of the action bar settings icon
+    public void settingsDialog()
+    {
+        final Dialog settingsDialogBox = new Dialog(this);
+        settingsDialogBox.setContentView(R.layout.custom_dialogue_settingsfilters);
+        settingsDialogBox.setTitle("Adjust settings: ");
+        final Button okButton = (Button) settingsDialogBox.findViewById(R.id.okButtonSettings);
+        final Switch onlyOwnedSwitch = (Switch) settingsDialogBox.findViewById(R.id.ownedCardsSwitch);
+
+        if (db_helper.getOnlyOwnedStatus())
+        {
+            onlyOwnedSwitch.setChecked(true);
+        }
+
+        onlyOwnedSwitch.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v){
+                if (onlyOwnedSwitch.isChecked()) {
+                    db_helper.setOnlyOwnedStatus(1);
+                }
+                else
+                {
+                    db_helper.setOnlyOwnedStatus(0);
+                }
+            }
+        });
+
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                settingsDialogBox.dismiss();
+            }
+        });
+
+        settingsDialogBox.show();
     }
 }

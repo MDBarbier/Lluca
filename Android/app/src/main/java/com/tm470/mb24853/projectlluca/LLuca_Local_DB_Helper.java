@@ -301,6 +301,11 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         return cursor;
     }
 
+    //this method applied the filters a player might choose and copies the cards that match that into filtered_player_cards table (it always empties it before it starts)
+    //it then determines whether the user has the the option of only listing cards they own
+    //if user has set this option it goes through each card in the filtered_player_cards table and checks if the player owns the box that it comes in
+    //if the player does not own the box that contains the card, it is deleted
+    //NB this is a big method with a log of processing - should be run async
     public Cursor getFilteredPlayerCardListCursor(String typeFilter, String sphere, String cost)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -406,8 +411,6 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
             cursor = db.rawQuery(query3, null);
 
         }
-
-        //TODO
 
         if (getOnlyOwnedStatus())
         {
@@ -558,7 +561,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
     public boolean doesPlayerOwnCard(String cardname) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Log.w("matt", "inside method");
+
         //What box is the card in?
         String query = "Select * from " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.COLUMN_NAME_PLAYERCARD_NAME + " = " + "\"" + cardname + "\"";
         Cursor c = db.rawQuery(query, null);
@@ -861,5 +864,37 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
             }
 
 
+    }
+
+    public Cursor searchQueryCursor(String searchTerm)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM player_cards WHERE playercard_name LIKE \"%" + searchTerm + "%\"";
+        Cursor c = db.rawQuery(query, null);
+        return c;
+    }
+
+    public Cursor searchHeroQueryCursor(String searchTerm)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM heroes WHERE herocard_name LIKE \"%" + searchTerm + "%\"";
+        Cursor c = db.rawQuery(query,null);
+        return c;
+    }
+
+    public Cursor searchEncounterQueryCursor(String searchTerm)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM encounter_cards WHERE encountercard_name LIKE \"%" + searchTerm + "%\"";
+        Cursor c = db.rawQuery(query,null);
+        return c;
+    }
+
+    public Cursor searchQuestQueryCursor(String searchTerm)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM quest_cards WHERE questcard_name LIKE \"%" + searchTerm + "%\"";
+        Cursor c = db.rawQuery(query,null);
+        return c;
     }
 }

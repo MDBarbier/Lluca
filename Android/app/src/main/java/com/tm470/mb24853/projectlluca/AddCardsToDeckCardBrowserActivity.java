@@ -4,14 +4,18 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -26,18 +30,10 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_browser);
-        Bundle bundle = getIntent().getExtras();
 
-        // NOTE when adding another thing here add it to the public void add_cards_to_deck(View view) method in EditDeckActivity.java
-        // also need to update the onclick handler for the OK button in the settings dialog
-        String deckname = bundle.getString("deckname");
-        String typeFilter = bundle.getString("typeFilter");
-        String sphere = bundle.getString("sphere");
-        String cost = bundle.getString("cost");
-        
 
-        Cursor cursor = db_helper.getFilteredPlayerCardListCursor(typeFilter, sphere, cost);
-        updateListView(cursor);
+        new FilteringOperations().execute("");
+
     }
 
     @Override
@@ -61,8 +57,8 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
 
         switch (item.getItemId()) {
             case R.id.action_search:
-                makeMeToast("search",1);
-
+                //makeMeToast("search",1);
+                searchDialog();
                 return true;
             case R.id.action_settings:
                 //makeMeToast("settings",1);
@@ -139,6 +135,27 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
 
     }
 
+    public void searchDialog()
+    {
+        final Dialog searchDialogBox = new Dialog(this);
+        searchDialogBox.setContentView(R.layout.custom_dialogue_searchfilters);
+        searchDialogBox.setTitle("Search");
+        final Button okButton = (Button) searchDialogBox.findViewById(R.id.okButtonSearch);
+        final EditText searchQueryField = (EditText) searchDialogBox.findViewById(R.id.searchQueryField);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String searchQuery = searchQueryField.getText().toString();
+                new FilteringOperations().execute(searchQuery);
+                searchDialogBox.dismiss();
+            }
+        });
+
+        searchDialogBox.show();
+    }
+
     //handles the clicking of the action bar settings icon
     public void settingsDialog()
     {
@@ -171,18 +188,47 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                Bundle bundle = getIntent().getExtras();
-                String deckname = bundle.getString("deckname");
-                String typeFilter = bundle.getString("typeFilter");
-                String sphere = bundle.getString("sphere");
-                String cost = bundle.getString("cost");
-                Cursor cursor = db_helper.getFilteredPlayerCardListCursor(typeFilter, sphere, cost);
-                updateListView(cursor);
+                new FilteringOperations().execute("");
                 settingsDialogBox.dismiss();
             }
         });
 
         settingsDialogBox.show();
+    }
+
+    public class FilteringOperations extends AsyncTask<String, Void, Cursor>
+    {
+        @Override
+        protected Cursor doInBackground(String... params) {
+
+            SQLiteDatabase db = db_helper.getWritableDatabase();
+            LLuca_Local_DB_schema schema = new LLuca_Local_DB_schema();
+            Log.w("Async", "Inside Filter Async Task");
+            Bundle bundle = getIntent().getExtras();
+
+            // NOTE when adding another thing here add it to the public void add_cards_to_deck(View view) method in EditDeckActivity.java
+            // also need to update the onclick handler for the OK button in the settings dialog
+            String deckname = bundle.getString("deckname");
+            String typeFilter = bundle.getString("typeFilter");
+            String sphere = bundle.getString("sphere");
+            String cost = bundle.getString("cost");
+            String query = params[0];
+
+            if (query.equals("")) {
+                Cursor cursor = db_helper.getFilteredPlayerCardListCursor(typeFilter, sphere, cost);
+                return cursor;
+            }
+            else
+            {
+                Cursor cursor = db_helper.searchQueryCursor(query);
+                return cursor;
+            }
+        }
+
+        protected void onPostExecute(Cursor result) {
+            Log.w("Async", "in onPostExecute");
+            updateListView(result);
+        }
     }
 
 

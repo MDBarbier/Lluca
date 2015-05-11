@@ -140,6 +140,7 @@ public class EditDeckActivity extends ActionBarActivity {
         intent.putExtra("typeFilter", "All");
         intent.putExtra("sphere", "All");
         intent.putExtra("cost", "Any");
+
         startActivity(intent);
 
     }
