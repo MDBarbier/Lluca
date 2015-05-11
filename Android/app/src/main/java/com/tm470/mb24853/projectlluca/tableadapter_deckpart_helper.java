@@ -35,12 +35,12 @@ import android.widget.TextView;
 
             //find the fields to populate
             TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
-            TextView deckpart_cycle = (TextView) view.findViewById(R.id.template_deckpart_cycle);
+            TextView deckpart_cycle = (TextView) view.findViewById(R.id.template_deckpart_box);
 
 
             //Get data from cursor
             String name = deckpart_cursor.getString(deckpart_cursor.getColumnIndex("deckpart_name"));
-            String cycle = deckpart_cursor.getString(deckpart_cursor.getColumnIndex("deckpart_cycle"));
+            String cycle = deckpart_cursor.getString(deckpart_cursor.getColumnIndex("deckpart_box"));
 
 
 

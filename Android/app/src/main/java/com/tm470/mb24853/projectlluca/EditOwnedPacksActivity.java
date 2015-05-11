@@ -26,7 +26,7 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
         //loads the available deckparts into list view
         Cursor deckpart_cursor = db_helper.getOwnershipAndDeckpartCursor();
         ListView deckparts = (ListView) findViewById(R.id.ownedPackListView);
-        tableadapter_deckpart_helper adapter = new tableadapter_deckpart_helper(this, deckpart_cursor, false);
+        final tableadapter_deckpart_helper adapter = new tableadapter_deckpart_helper(this, deckpart_cursor, false);
         deckparts.setAdapter(adapter);
         deckparts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -39,6 +39,24 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
                 //String textToToast = "Deckpart name: " + text + " Owned: " + owned.toString();
                 //Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        deckparts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                ListView deckparts = (ListView) findViewById(R.id.ownedPackListView);
+                makeMeToast("Pack removed", 1);
+                TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
+                TextView deckpart_box = (TextView) view.findViewById(R.id.template_deckpart_box);
+                String box = deckpart_box.getText().toString();
+                String deck = deckpart_name.getText().toString();
+                db_helper.setPackOwnership(deck,box);
+                adapter.notifyDataSetInvalidated();
+                Cursor deckpart_cursor = db_helper.getOwnershipAndDeckpartCursor();
+                final tableadapter_deckpart_helper adapter = new tableadapter_deckpart_helper(EditOwnedPacksActivity.this, deckpart_cursor, false);
+                deckparts.setAdapter(adapter);
+                return true;
             }
         });
     }

@@ -16,12 +16,13 @@ public class LLuca_Local_DB_schema {
     public static final String DATABASE_NAME = "LLuca_Local.db";
     public static final String KEY_ID = "_id";
     public static final String COLUMN_NAME_POPULATED = "populated";
+    public static final String COLUMN_NAME_ONLYOWNED = "only_owned";
 
     //SQL statement to create player_account table
-    private static final String SQL_CREATE_CONTROL_DATA_TABLE = "CREATE TABLE " + TABLE_NAME_CONTROL_DATA + " (" + COLUMN_NAME_POPULATED + " INT)";
+    private static final String SQL_CREATE_CONTROL_DATA_TABLE = "CREATE TABLE " + TABLE_NAME_CONTROL_DATA + " (" + COLUMN_NAME_POPULATED + " INT, " + COLUMN_NAME_ONLYOWNED + " INT)";
 
     //SQL statement to create a control record
-    private static final String SQL_CREATE_CONTROL_DATA_RECORD = "INSERT INTO 'control_data' ('populated') VALUES (0)";
+    private static final String SQL_CREATE_CONTROL_DATA_RECORD = "INSERT INTO 'control_data' ('populated', 'only_owned') VALUES (0,0)";
 
     public String getSqlCreateControlDataRecord() {
         return SQL_CREATE_CONTROL_DATA_RECORD;
@@ -67,10 +68,10 @@ public class LLuca_Local_DB_schema {
     public static final String COLUMN_NAME_OWNED_PACK_ID = "id";
     public static final String COLUMN_NAME_OWNING_USER = "owning_user" ;
     public static final String COLUMN_NAME_PACK_NAME = "pack_name";
-
+    public static final String COLUMN_NAME_BOX_NAME = "box_name";
 
     //SQL statement to create player_account table
-    private static final String SQL_CREATE_OWNED_PACKS_TABLE = "CREATE TABLE " + TABLE_NAME_OWNED_PACKS + " (" + COLUMN_NAME_OWNED_PACK_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_OWNING_USER + " TEXT NOT NULL, " + COLUMN_NAME_PACK_NAME + " TEXT)";
+    private static final String SQL_CREATE_OWNED_PACKS_TABLE = "CREATE TABLE " + TABLE_NAME_OWNED_PACKS + " (" + COLUMN_NAME_OWNED_PACK_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_OWNING_USER + " TEXT NOT NULL, " + COLUMN_NAME_PACK_NAME + " TEXT, " + COLUMN_NAME_BOX_NAME + " TEXT)";
 
     //Getter for the player account table SQL
     public String getOwnedPacksCreate()
@@ -191,6 +192,24 @@ public class LLuca_Local_DB_schema {
         return SQL_POPULATE_PLAYERCARDS_INSERT + SQL_POPULATE_PLAYERCARDS2;
     }
 
+
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    // FILTERED PLAYER CARDS
+    //
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+
+    //table definition for deckparts
+    public static final String TABLE_NAME_FILTERED_PLAYERCARD = "filtered_player_cards";
+
+    //SQL for creation
+    private static final String SQL_CREATE_FILTERED_PLAYERCARD_TABLE = "CREATE TABLE " + TABLE_NAME_FILTERED_PLAYERCARD + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_PLAYERCARD_NO + " INT, " + COLUMN_NAME_PLAYERCARD_BOX + " INT, " + COLUMN_NAME_PLAYERCARD_NAME + " TEXT, " + COLUMN_NAME_PLAYERCARD_UNIQUE + " INT, " + COLUMN_NAME_PLAYERCARD_TYPE + " TEXT, " + COLUMN_NAME_PLAYERCARD_COST + " INT, " + COLUMN_NAME_PLAYERCARD_SPHERE + " TEXT, " + COLUMN_NAME_PLAYERCARD_SPECIAL_RULES+ " TEXT, " + COLUMN_NAME_PLAYERCARD_COUNT + " INT, " + COLUMN_NAME_PLAYERCARD_KEYWORD1 + " TEXT, " +  COLUMN_NAME_PLAYERCARD_KEYWORD2 + " TEXT, " + COLUMN_NAME_PLAYERCARD_KEYWORD3 + " TEXT, " + COLUMN_NAME_PLAYERCARD_KEYWORD4 + " TEXT, " + COLUMN_NAME_PLAYERCARD_TRAIT1 + " TEXT, " + COLUMN_NAME_PLAYERCARD_TRAIT2 + " TEXT, " + COLUMN_NAME_PLAYERCARD_TRAIT3 + " TEXT, " + COLUMN_NAME_PLAYERCARD_TRAIT4 + " TEXT, " + COLUMN_NAME_PLAYERCARD_ALLY_QUEST + " TEXT, " + COLUMN_NAME_PLAYERCARD_ALLY_ATTACK + " TEXT, " + COLUMN_NAME_PLAYERCARD_ALLY_DEFENCE + " TEXT, " + COLUMN_NAME_PLAYERCARD_ALLY_HP + " TEXT, " + COLUMN_NAME_PLAYERCARD_SECRECY + " TEXT)";
+
+    //Getter for creation
+    public String getFilteredPlayercardCreation()
+    {
+        return SQL_CREATE_FILTERED_PLAYERCARD_TABLE;
+    }
 
     //-------------------------------------------------------------------------------------------------------------------------------------//
     //

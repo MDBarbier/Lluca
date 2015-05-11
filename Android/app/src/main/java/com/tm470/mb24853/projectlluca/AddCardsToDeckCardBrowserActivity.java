@@ -1,6 +1,5 @@
 package com.tm470.mb24853.projectlluca;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.nio.DoubleBuffer;
 
 
 public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
@@ -33,12 +29,12 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
         Bundle bundle = getIntent().getExtras();
 
         // NOTE when adding another thing here add it to the public void add_cards_to_deck(View view) method in EditDeckActivity.java
+        // also need to update the onclick handler for the OK button in the settings dialog
         String deckname = bundle.getString("deckname");
         String typeFilter = bundle.getString("typeFilter");
         String sphere = bundle.getString("sphere");
         String cost = bundle.getString("cost");
-        //makeMeToast("\"" + typeFilter + "\"",1);
-        //makeMeToast("\"" + sphere + "\"",1);
+        
 
         Cursor cursor = db_helper.getFilteredPlayerCardListCursor(typeFilter, sphere, cost);
         updateListView(cursor);
@@ -69,7 +65,8 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
 
                 return true;
             case R.id.action_settings:
-                makeMeToast("settings",1);
+                //makeMeToast("settings",1);
+                settingsDialog();
                 return true;
             case R.id.action_filter:
                 //makeMeToast("filters",1);
@@ -99,10 +96,10 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
                     Bundle bundle = getIntent().getExtras();
                     String deckname = bundle.getString("deckname");
                     db_helper.putCardInDeck(deckname, text);
-                    if (db_helper.isCardInDeck(deckname, text))
-                    {
-                    String textToToast = "Card name: " + text + " added to deck.";
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();}
+                    if (db_helper.isCardInDeck(deckname, text)) {
+                        String textToToast = "Card name: " + text + " added to deck.";
+                        Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             });
@@ -141,5 +138,52 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
         startActivity(intent);
 
     }
+
+    //handles the clicking of the action bar settings icon
+    public void settingsDialog()
+    {
+        final Dialog settingsDialogBox = new Dialog(this);
+        settingsDialogBox.setContentView(R.layout.custom_dialogue_settingsfilters);
+        settingsDialogBox.setTitle("Adjust settings: ");
+        final Button okButton = (Button) settingsDialogBox.findViewById(R.id.okButtonSettings);
+        final Switch onlyOwnedSwitch = (Switch) settingsDialogBox.findViewById(R.id.ownedCardsSwitch);
+
+        if (db_helper.getOnlyOwnedStatus())
+        {
+           onlyOwnedSwitch.setChecked(true);
+        }
+
+        onlyOwnedSwitch.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v){
+                if (onlyOwnedSwitch.isChecked()) {
+                    db_helper.setOnlyOwnedStatus(1);
+                }
+                else
+                {
+                    db_helper.setOnlyOwnedStatus(0);
+                }
+            }
+        });
+
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Bundle bundle = getIntent().getExtras();
+                String deckname = bundle.getString("deckname");
+                String typeFilter = bundle.getString("typeFilter");
+                String sphere = bundle.getString("sphere");
+                String cost = bundle.getString("cost");
+                Cursor cursor = db_helper.getFilteredPlayerCardListCursor(typeFilter, sphere, cost);
+                updateListView(cursor);
+                settingsDialogBox.dismiss();
+            }
+        });
+
+        settingsDialogBox.show();
+    }
+
 
 }

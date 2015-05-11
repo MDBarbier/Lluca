@@ -33,8 +33,10 @@ public class AddPacksToUserActivity extends ActionBarActivity {
                                     long id) {
 
                 TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
+                TextView deckpart_box = (TextView) view.findViewById(R.id.template_deckpart_box);
                 String text = deckpart_name.getText().toString();
-                db_helper.setPackOwnership(text);
+                String text2 = deckpart_box.getText().toString();
+                db_helper.setPackOwnership(text,text2);
                 if (db_helper.doesPlayerOwnPack(text))
                 {
                     String textToToast = "Added to collection";
