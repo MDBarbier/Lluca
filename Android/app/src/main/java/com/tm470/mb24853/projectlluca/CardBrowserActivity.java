@@ -89,10 +89,7 @@ public class CardBrowserActivity extends ActionBarActivity {
 
                     TextView currentCard = (TextView) view.findViewById(R.id.template_card_name);
                     String text = currentCard.getText().toString();
-                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
-                    String textToToast = "Card name: " + text;
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-
+                    displayCardDialog(text);
                 }
             });
 
@@ -110,10 +107,7 @@ public class CardBrowserActivity extends ActionBarActivity {
 
                     TextView currentCard = (TextView) view.findViewById(R.id.template_encountercard_name);
                     String text = currentCard.getText().toString();
-                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
-                    String textToToast = "Card name: " + text;
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-
+                    displayEncounterCardDialog(text);
                 }
             });
 
@@ -131,10 +125,7 @@ public class CardBrowserActivity extends ActionBarActivity {
 
                     TextView currentCard = (TextView) view.findViewById(R.id.template_herocard_name);
                     String text = currentCard.getText().toString();
-                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
-                    String textToToast = "Card name: " + text;
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-
+                    displayHeroCardDialog(text);
                 }
             });
 
@@ -152,10 +143,7 @@ public class CardBrowserActivity extends ActionBarActivity {
 
                     TextView currentCard = (TextView) view.findViewById(R.id.template_questcard_name);
                     String text = currentCard.getText().toString();
-                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
-                    String textToToast = "Card name: " + text;
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-
+                    displayQuestCardDialog(text);
                 }
             });
 
@@ -178,10 +166,7 @@ public class CardBrowserActivity extends ActionBarActivity {
 
                     TextView currentCard = (TextView) view.findViewById(R.id.template_card_name);
                     String text = currentCard.getText().toString();
-                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
-                    String textToToast = "Card name: " + text;
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-
+                    displayCardDialog(text);
                 }
             });
 
@@ -199,9 +184,7 @@ public class CardBrowserActivity extends ActionBarActivity {
 
                     TextView currentCard = (TextView) view.findViewById(R.id.template_encountercard_name);
                     String text = currentCard.getText().toString();
-                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
-                    String textToToast = "Card name: " + text;
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+                    displayEncounterCardDialog(text);
 
                 }
             });
@@ -220,10 +203,7 @@ public class CardBrowserActivity extends ActionBarActivity {
 
                     TextView currentCard = (TextView) view.findViewById(R.id.template_herocard_name);
                     String text = currentCard.getText().toString();
-                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
-                    String textToToast = "Card name: " + text;
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-
+                    displayHeroCardDialog(text);
                 }
             });
 
@@ -241,10 +221,7 @@ public class CardBrowserActivity extends ActionBarActivity {
 
                     TextView currentCard = (TextView) view.findViewById(R.id.template_questcard_name);
                     String text = currentCard.getText().toString();
-                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
-                    String textToToast = "Card name: " + text;
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-
+                    displayQuestCardDialog(text);
                 }
             });
 
@@ -287,7 +264,7 @@ public class CardBrowserActivity extends ActionBarActivity {
 
         rb1.setOnClickListener(new RadioGroup.OnClickListener() {
             public void onClick(View v) {
-                makeMeToast("playercard",1);
+                //makeMeToast("playercard",1);
                 Cursor c = db_helper.getPlayerCardListCursor();
                 updateListView(1);
                 filterDialogBox.dismiss();
@@ -295,7 +272,7 @@ public class CardBrowserActivity extends ActionBarActivity {
         });
         rb2.setOnClickListener(new RadioGroup.OnClickListener() {
             public void onClick(View v) {
-                makeMeToast("encountercard",1);
+                //makeMeToast("encountercard",1);
                 Cursor c = db_helper.getEncounterCardListCursor();
                 updateListView(2);
                 filterDialogBox.dismiss();
@@ -303,7 +280,7 @@ public class CardBrowserActivity extends ActionBarActivity {
         });
         rb3.setOnClickListener(new RadioGroup.OnClickListener() {
             public void onClick(View v) {
-                makeMeToast("herocard",1);
+                //makeMeToast("herocard",1);
                 Cursor c = db_helper.getHeroCardListCursor();
                updateListView(3);
                 filterDialogBox.dismiss();
@@ -311,7 +288,7 @@ public class CardBrowserActivity extends ActionBarActivity {
         });
         rb4.setOnClickListener(new RadioGroup.OnClickListener() {
             public void onClick(View v) {
-                makeMeToast("questcard",1);
+                //makeMeToast("questcard",1);
                 Cursor c = db_helper.getQuestCardListCursor();
                 updateListView(4);
                 filterDialogBox.dismiss();
@@ -451,6 +428,186 @@ public class CardBrowserActivity extends ActionBarActivity {
         else {traits = "None";}
 
         final String textForDisplay = "Name: " + card.getPlayercard_name() + "\nNumber: " + card.getPlayercard_no() + "\nCost: " + card.getPlayercard_cost() + "\nQuest: " + card.getPlayercard_ally_quest() + "\nAttack: " + card.getPlayercard_ally_attack() + "\nDefence: " + card.getPlayercard_ally_hp() + "\nHP: " + card.getPlayercard_ally_hp() + "\nKeywords: " + keywords + "\nTraits: " + traits + "\nSpecial Text: " + card.getPlayercard_special_rules();
+        cardDataView.setText(textForDisplay);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cardDetailsDialogue.dismiss();
+            }
+        });
+
+        cardDetailsDialogue.show();
+        //makeMeToast(textToToast,1);
+    }
+
+    public void displayHeroCardDialog(String text)
+    {
+        final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
+        cardDetailsDialogue.setTitle("Card details");
+        final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
+        final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);
+
+        heroesClass card = db_helper.findAHeroCard(text);
+        String keywords;
+        String traits;
+
+        if (!card.getHerocard_keyword1().equals("")) {
+            keywords = card.getHerocard_keyword1();
+            if (!card.getHerocard_keyword2().equals(""))
+            {
+                keywords = keywords + ", " + card.getHerocard_keyword2();
+                if (!card.getHerocard_keyword3().equals(""))
+                {
+                    keywords = keywords + ", " + card.getHerocard_keyword3();
+                    if (!card.getHerocard_keyword4().equals(""))
+                    {
+                        keywords = keywords + card.getHerocard_keyword4();
+                    }
+                }
+            }
+        }
+        else { keywords = "None"; }
+        if (!card.getHerocard_trait1().equals("")){
+
+            traits = card.getHerocard_trait1();
+            if (!card.getHerocard_trait2().equals(""))
+            {
+                traits = traits + ", " + card.getHerocard_trait2();
+                if (!card.getHerocard_trait3().equals(""))
+                {
+                    traits = traits + ", " + card.getHerocard_trait3();
+                    if (!card.getHerocard_trait4().equals(""))
+                    {
+                        traits = traits + ", " + card.getHerocard_trait4();
+                    }
+                }
+            }
+        }
+        else {traits = "None";}
+
+        final String textForDisplay = "Name: " + card.getHerocard_name() + "\nNumber: " + card.getHerocard_no()+ "\nThreat: " + card.getHerocard_threat() + "\nQuest: " + card.getHerocard_quest() + "\nAttack: " + card.getHerocard_attack() + "\nDefence: " + card.getHerocard_defence() + "\nHP: " + card.getHerocard_hp()+ "\nKeywords: " + keywords + "\nTraits: " + traits + "\nSpecial Text: " + card.getHerocard_specialrules();
+        cardDataView.setText(textForDisplay);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cardDetailsDialogue.dismiss();
+            }
+        });
+
+        cardDetailsDialogue.show();
+        //makeMeToast(textToToast,1);
+    }
+
+    public void displayEncounterCardDialog(String text)
+    {
+        final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
+        cardDetailsDialogue.setTitle("Card details");
+        final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
+        final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);
+
+        encountercardClass card = db_helper.findAnEncounterCard(text);
+        String keywords;
+        String traits;
+
+        if (!card.getEncountercard_keyword1().equals("")) {
+            keywords = card.getEncountercard_keyword1();
+            if (!card.getEncountercard_keyword2().equals(""))
+            {
+                keywords = keywords + ", " + card.getEncountercard_keyword2();
+                if (!card.getEncountercard_keyword3().equals("")) {
+                    keywords = keywords + ", " + card.getEncountercard_keyword3();
+                    if (!card.getEncountercard_keyword4().equals(""))
+                    {
+                        keywords = keywords + card.getEncountercard_keyword4();
+                    }
+                }
+            }
+        }
+        else { keywords = "None"; }
+        if (!card.getEncountercard_trait1().equals("")){
+
+            traits = card.getEncountercard_trait1();
+            if (!card.getEncountercard_trait2().equals(""))
+            {
+                traits = traits + ", " + card.getEncountercard_trait2();
+                if (!card.getEncountercard_trait3().equals("")) {
+                    traits = traits + ", " + card.getEncountercard_trait3();
+                    if (!card.getEncountercard_trait4().equals("")) {
+                        traits = traits + ", " + card.getEncountercard_trait4();
+                    }
+                }
+            }
+        }
+        else {traits = "None";}
+
+        final String textForDisplay = "Name: " + card.getEncountercard_name() + "\nNumber: " + card.getEncountercard_no() + "\nType: " + card.getEncountercard_type() + "\nThreat: " + card.getEncountercard_threat() + "\nEngagement: " + card.getEncountercard_engage() + "\nAttack: " + card.getEncountercard_attack() + "\nDefence: " + card.getEncountercard_defence() + "\nHP: " + card.getEncountercard_hp() + "\nShadow: " + card.getEncountercard_shadow() + "\nKeywords: " + keywords + "\nTraits: " + traits + "\nSpecial Text: " + card.getEncountercard_special_rules();
+        cardDataView.setText(textForDisplay);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cardDetailsDialogue.dismiss();
+            }
+        });
+
+        cardDetailsDialogue.show();
+        //makeMeToast(textToToast,1);
+    }
+
+    public void displayQuestCardDialog(String text)
+    {
+        final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
+        cardDetailsDialogue.setTitle("Card details");
+        final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
+        final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);
+
+        questcardClass card = db_helper.findAQuestCard(text);
+        String keywords;
+        String traits;
+
+        if (!card.getQuestcard_keyword1().equals("")) {
+            keywords = card.getQuestcard_keyword1();
+            if (!card.getQuestcard_keyword2().equals(""))
+            {
+                keywords = keywords + ", " + card.getQuestcard_keyword2();
+                if (!card.getQuestcard_keyword3().equals(""))
+                {
+                    keywords = keywords + ", " + card.getQuestcard_keyword3();
+                    if (!card.getQuestcard_keyword4().equals(""))
+                    {
+                        keywords = keywords + card.getQuestcard_keyword4();
+                    }
+                }
+            }
+        }
+        else { keywords = "None"; }
+        if (!card.getQuestcard_trait1().equals("")){
+
+            traits = card.getQuestcard_trait1();
+            if (!card.getQuestcard_trait2().equals(""))
+            {
+                traits = traits + ", " + card.getQuestcard_trait2();
+                if (!card.getQuestcard_trait3().equals(""))
+                {
+                    traits = traits + ", " + card.getQuestcard_trait3();
+                    if (!card.getQuestcard_trait4().equals(""))
+                    {
+                        traits = traits + ", " + card.getQuestcard_trait4();
+                    }
+                }
+            }
+        }
+        else {traits = "None";}
+
+        final String textForDisplay = "Name: " + card.getQuestcard_name() + "\nNumber: " + card.getEncountercard_no() + "\nProgress req: " + card.getQuestcard_progress() + "\nBox: " + card.getQuestcard_box() + "\nPart: " + card.getQuestcard_part() + "\nParent quest: " + card.getEncountercard_deckpart() + "\nKeywords: " + keywords + "\nTraits: " + traits + "\nSpecial Text: " + card.getQuestcard_text();
         cardDataView.setText(textForDisplay);
 
         okButton.setOnClickListener(new View.OnClickListener() {

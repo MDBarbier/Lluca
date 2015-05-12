@@ -220,7 +220,7 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
 
 
             dialog = new ProgressDialog(AddCardsToDeckCardBrowserActivity.this);
-            dialog.setMessage("Please wait... shufflng the cards");
+            dialog.setMessage("Please wait... shuffling the cards");
             dialog.setIndeterminate(true);
             dialog.setCancelable(false);
             dialog.show();
@@ -323,4 +323,6 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
         cardDetailsDialogue.show();
         //makeMeToast(textToToast,1);
     }
+
+
 }

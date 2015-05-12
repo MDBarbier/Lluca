@@ -45,6 +45,9 @@ public class heroesClass {
         this.herocard_trait4 = herocard_trait4;
     }
 
+    public heroesClass() {
+    }
+
     public int getHerocard_no() {
         return herocard_no;
     }

@@ -6,9 +6,7 @@ package com.tm470.mb24853.projectlluca;
 public class encountercardClass {
 
     private int encountercard_no;
-    private int encountercard_deckpart;
-
-
+    private int encountercard_box;
     private int encountercard_threat;
     private int encountercard_engage;
     private int encountercard_attack;
@@ -29,28 +27,7 @@ public class encountercardClass {
     private String encountercard_keyword3;
     private String encountercard_keyword4;
 
-    public encountercardClass(int encountercard_no, int encountercard_deckpart, int encountercard_threat, int encountercard_engage, int encountercard_attack, int encountercard_defence, int encountercard_hp, int encountercard_unique, int encountercard_vp, String encountercard_name, String encountercard_type, String encountercard_special_rules, String encountercard_shadow, String encountercard_trait1, String encountercard_trait2, String encountercard_trait3, String encountercard_trait4, String encountercard_keyword1, String encountercard_keyword2, String encountercard_keyword3, String encountercard_keyword4) {
-        this.encountercard_no = encountercard_no;
-        this.encountercard_deckpart = encountercard_deckpart;
-        this.encountercard_threat = encountercard_threat;
-        this.encountercard_engage = encountercard_engage;
-        this.encountercard_attack = encountercard_attack;
-        this.encountercard_defence = encountercard_defence;
-        this.encountercard_hp = encountercard_hp;
-        this.encountercard_unique = encountercard_unique;
-        this.encountercard_vp = encountercard_vp;
-        this.encountercard_name = encountercard_name;
-        this.encountercard_type = encountercard_type;
-        this.encountercard_special_rules = encountercard_special_rules;
-        this.encountercard_shadow = encountercard_shadow;
-        this.encountercard_trait1 = encountercard_trait1;
-        this.encountercard_trait2 = encountercard_trait2;
-        this.encountercard_trait3 = encountercard_trait3;
-        this.encountercard_trait4 = encountercard_trait4;
-        this.encountercard_keyword1 = encountercard_keyword1;
-        this.encountercard_keyword2 = encountercard_keyword2;
-        this.encountercard_keyword3 = encountercard_keyword3;
-        this.encountercard_keyword4 = encountercard_keyword4;
+    public encountercardClass() {
     }
 
     public int getEncountercard_no() {
@@ -61,12 +38,12 @@ public class encountercardClass {
         this.encountercard_no = encountercard_no;
     }
 
-    public int getEncountercard_deckpart() {
-        return encountercard_deckpart;
+    public int getEncountercard_box() {
+        return encountercard_box;
     }
 
-    public void setEncountercard_deckpart(int encountercard_deckpart) {
-        this.encountercard_deckpart = encountercard_deckpart;
+    public void setEncountercard_box(int encountercard_box) {
+        this.encountercard_box = encountercard_box;
     }
 
     public int getEncountercard_threat() {

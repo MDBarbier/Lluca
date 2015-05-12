@@ -930,4 +930,106 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         }
         return card;
     }
+
+    public heroesClass findAHeroCard(String name)
+    {
+        heroesClass card = new heroesClass();
+        card.setHerocard_name(name);
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + schema.TABLE_NAME_HEROCARD + " WHERE " + schema.COLUMN_NAME_HEROCARD_NAME+ " = \"" + card.getHerocard_name()+ "\"";
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst())
+        {
+            card.setHerocard_no(cursor.getInt(1));
+            card.setHerocard_box(cursor.getInt(2));
+            card.setHerocard_threat(cursor.getInt(4));
+            card.setHerocard_quest(cursor.getInt(5));
+            card.setHerocard_attack(cursor.getInt(6));
+            card.setHerocard_defence(cursor.getInt(7));
+            card.setHerocard_hp(cursor.getInt(8));
+            card.setHerocard_name(cursor.getString(3));
+            card.setHerocard_sphere(cursor.getString(9));
+            card.setHerocard_specialrules(cursor.getString(10));
+            card.setHerocard_keyword1(cursor.getString(11));
+            card.setHerocard_keyword2(cursor.getString(12));
+            card.setHerocard_keyword3(cursor.getString(13));
+            card.setHerocard_keyword4(cursor.getString(14));
+            card.setHerocard_trait1(cursor.getString(15));
+            card.setHerocard_trait2(cursor.getString(16));
+            card.setHerocard_trait3(cursor.getString(17));
+            card.setHerocard_trait4(cursor.getString(18));
+        }
+        return card;
+    }
+
+    public questcardClass findAQuestCard(String name)
+    {
+        questcardClass card = new questcardClass();
+        card.setQuestcard_name(name);
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + schema.TABLE_NAME_QUESTCARD + " WHERE " + schema.COLUMN_NAME_QUESTCARD_NAME + " = \"" + card.getQuestcard_name() + "\"";
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst())
+        {
+            card.setQuestcard_no(cursor.getInt(1));
+            card.setQuestcard_box(cursor.getInt(2));
+            card.setQuestcard_deckpart(cursor.getInt(3));
+            card.setQuestcard_name(cursor.getString(4));
+            card.setQuestcard_type(cursor.getString(5));
+            card.setQuestcard_part(cursor.getInt(6));
+            card.setQuestcard_progress(cursor.getInt(7));
+            card.setQuestcard_cost(cursor.getInt(8));
+            card.setQuestcard_unique(cursor.getInt(9));
+            card.setQuestcard_text(cursor.getString(10));
+            card.setQuestcard_count(cursor.getInt(11));
+            card.setQuestcard_keyword1(cursor.getString(12));
+            card.setQuestcard_keyword2(cursor.getString(13));
+            card.setQuestcard_keyword3(cursor.getString(14));
+            card.setQuestcard_keyword4(cursor.getString(15));
+            card.setQuestcard_trait1(cursor.getString(16));
+            card.setQuestcard_trait2(cursor.getString(17));
+            card.setQuestcard_trait3(cursor.getString(18));
+            card.setQuestcard_trait4(cursor.getString(19));;
+            card.setQuestcard_hp(cursor.getInt(16));
+            card.setQuestcard_attack(cursor.getInt(17));
+            card.setQuestcard_defence(cursor.getInt(18));
+            card.setQuestcard_secrecy(cursor.getInt(19));
+            card.setQuestcard_vp(cursor.getInt(20));
+        }
+        return card;
+    }
+
+    public encountercardClass findAnEncounterCard(String name)
+    {
+        encountercardClass card = new encountercardClass();
+        card.setEncountercard_name(name);
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + schema.TABLE_NAME_ENCOUNTERCARD+ " WHERE " + schema.COLUMN_NAME_ENCOUNTERCARD_NAME+ " = \"" + card.getEncountercard_name() + "\"";
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst())
+        {
+            card.setEncountercard_no(cursor.getInt(1));
+            card.setEncountercard_box(cursor.getInt(2));
+            card.setEncountercard_name(cursor.getString(3));
+            card.setEncountercard_type(cursor.getString(4));
+            card.setEncountercard_threat(cursor.getInt(5));
+            card.setEncountercard_engage(cursor.getInt(6));
+            card.setEncountercard_attack(cursor.getInt(7));
+            card.setEncountercard_defence(cursor.getInt(8));
+            card.setEncountercard_hp(cursor.getInt(9));
+            card.setEncountercard_special_rules(cursor.getString(10));
+            card.setEncountercard_shadow(cursor.getString(11));
+            card.setEncountercard_trait1(cursor.getString(14));
+            card.setEncountercard_trait2(cursor.getString(15));
+            card.setEncountercard_trait3(cursor.getString(16));
+            card.setEncountercard_trait4(cursor.getString(17));
+            card.setEncountercard_keyword1(cursor.getString(18));
+            card.setEncountercard_keyword2(cursor.getString(19));
+            card.setEncountercard_keyword3(cursor.getString(20));
+            card.setEncountercard_keyword4(cursor.getString(21));
+            card.setEncountercard_vp(cursor.getInt(13));
+
+        }
+        return card;
+    }
 }
