@@ -897,4 +897,37 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         Cursor c = db.rawQuery(query,null);
         return c;
     }
+
+    public playercardClass findACard(String name)
+    {
+        playercardClass card = new playercardClass();
+        card.setPlayercard_name(name);
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.COLUMN_NAME_PLAYERCARD_NAME + " = \"" + card.getPlayercard_name() + "\"";
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst())
+        {
+            card.setPlayercard_no(cursor.getInt(1));
+            card.setPlayercard_unique(cursor.getInt(4));
+            card.setPlayercard_type(cursor.getString(5));
+            card.setPlayercard_cost(cursor.getInt(6));
+            card.setPlayercard_sphere(cursor.getString(7));
+            card.setPlayercard_special_rules(cursor.getString(8));
+            card.setPlayercard_count(cursor.getInt(9));
+            card.setPlayercard_keyword1(cursor.getString(10));
+            card.setPlayercard_keyword2(cursor.getString(11));
+            card.setPlayercard_keyword3(cursor.getString(12));
+            card.setPlayercard_keyword4(cursor.getString(13));
+            card.setPlayercard_trait1(cursor.getString(14));
+            card.setPlayercard_trait2(cursor.getString(15));
+            card.setPlayercard_trait3(cursor.getString(16));
+            card.setPlayercard_trait4(cursor.getString(17));
+            card.setPlayercard_ally_quest(cursor.getInt(18));
+            card.setPlayercard_ally_attack(cursor.getInt(19));
+            card.setPlayercard_ally_defence(cursor.getInt(20));
+            card.setPlayercard_ally_hp(cursor.getInt(21));
+            card.setPlayercard_secrecy(cursor.getInt(22));
+        }
+        return card;
+    }
 }

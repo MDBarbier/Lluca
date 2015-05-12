@@ -15,7 +15,7 @@ public class playercardClass {
     private String playercard_sphere;
     private String playercard_special_rules;
     private int playercard_count;
-    private int playercard_keyword1;
+    private String playercard_keyword1;
     private String playercard_keyword2;
     private String playercard_keyword3;
     private String playercard_keyword4;
@@ -30,31 +30,6 @@ public class playercardClass {
     private int playercard_secrecy;
 
     public playercardClass() {
-    }
-
-    public playercardClass(int playercard_no, int playercard_box, String playercard_name, int playercard_unique, String playercard_type, int playercard_cost, String playercard_sphere, String playercard_special_rules, int playercard_count, int playercard_keyword1, String playercard_keyword2, String playercard_keyword3, String playercard_keyword4, String playercard_trait1, String playercard_trait2, String playercard_trait3, String playercard_trait4, int playercard_ally_quest, int playercard_ally_attack, int playercard_ally_defence, int playercard_ally_hp, int playercard_secrecy) {
-        this.playercard_no = playercard_no;
-        this.playercard_box = playercard_box;
-        this.playercard_name = playercard_name;
-        this.playercard_unique = playercard_unique;
-        this.playercard_type = playercard_type;
-        this.playercard_cost = playercard_cost;
-        this.playercard_sphere = playercard_sphere;
-        this.playercard_special_rules = playercard_special_rules;
-        this.playercard_count = playercard_count;
-        this.playercard_keyword1 = playercard_keyword1;
-        this.playercard_keyword2 = playercard_keyword2;
-        this.playercard_keyword3 = playercard_keyword3;
-        this.playercard_keyword4 = playercard_keyword4;
-        this.playercard_trait1 = playercard_trait1;
-        this.playercard_trait2 = playercard_trait2;
-        this.playercard_trait3 = playercard_trait3;
-        this.playercard_trait4 = playercard_trait4;
-        this.playercard_ally_quest = playercard_ally_quest;
-        this.playercard_ally_attack = playercard_ally_attack;
-        this.playercard_ally_defence = playercard_ally_defence;
-        this.playercard_ally_hp = playercard_ally_hp;
-        this.playercard_secrecy = playercard_secrecy;
     }
 
     public int getPlayercard_no() {
@@ -129,11 +104,11 @@ public class playercardClass {
         this.playercard_count = playercard_count;
     }
 
-    public int getPlayercard_keyword1() {
+    public String getPlayercard_keyword1() {
         return playercard_keyword1;
     }
 
-    public void setPlayercard_keyword1(int playercard_keyword1) {
+    public void setPlayercard_keyword1(String playercard_keyword1) {
         this.playercard_keyword1 = playercard_keyword1;
     }
 

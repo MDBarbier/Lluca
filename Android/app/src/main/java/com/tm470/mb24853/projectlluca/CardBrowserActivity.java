@@ -3,8 +3,11 @@ package com.tm470.mb24853.projectlluca;
 import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +31,7 @@ public class CardBrowserActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_card_browser);
+        setContentView(R.layout.activity_card_browser_basic);
         Cursor c = db_helper.getPlayerCardListCursor();
         updateListView(1);
     }
@@ -158,6 +162,95 @@ public class CardBrowserActivity extends ActionBarActivity {
         }
     }
 
+    //loads tableadapter and cursor depending on the parameter sent 1=playercard,2=encountercard,3=herocard,4=questcard
+    public void updateListViewWithSearch(int cardType,String searchQuery)
+    {
+        if (cardType == 1) {
+            //loads the available cards into list view
+            ListView cardList = (ListView) findViewById(R.id.cardListListView);
+            Cursor cardlist_cursor = db_helper.searchQueryCursor(searchQuery);
+            tableadapter_playercardlist_helper adapter = new tableadapter_playercardlist_helper(this, cardlist_cursor, false);
+            cardList.setAdapter(adapter);
+            cardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                        long id) {
+
+                    TextView currentCard = (TextView) view.findViewById(R.id.template_card_name);
+                    String text = currentCard.getText().toString();
+                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
+                    String textToToast = "Card name: " + text;
+                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+        }
+        if (cardType == 2) {
+            //loads the available cards into list view
+            ListView cardList = (ListView) findViewById(R.id.cardListListView);
+            Cursor cardlist_cursor = db_helper.searchEncounterQueryCursor(searchQuery);
+            tableadapter_encountercard_helper adapter = new tableadapter_encountercard_helper(this, cardlist_cursor, false);
+            cardList.setAdapter(adapter);
+            cardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                        long id) {
+
+                    TextView currentCard = (TextView) view.findViewById(R.id.template_encountercard_name);
+                    String text = currentCard.getText().toString();
+                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
+                    String textToToast = "Card name: " + text;
+                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+        }
+        if (cardType == 3) {
+            //loads the available cards into list view
+            ListView cardList = (ListView) findViewById(R.id.cardListListView);
+            Cursor cardlist_cursor = db_helper.searchHeroQueryCursor(searchQuery);
+            tableadapter_herocardlist_helper adapter = new tableadapter_herocardlist_helper(this, cardlist_cursor, false);
+            cardList.setAdapter(adapter);
+            cardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                        long id) {
+
+                    TextView currentCard = (TextView) view.findViewById(R.id.template_herocard_name);
+                    String text = currentCard.getText().toString();
+                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
+                    String textToToast = "Card name: " + text;
+                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+        }
+        if (cardType == 4) {
+            //loads the available cards into list view
+            ListView cardList = (ListView) findViewById(R.id.cardListListView);
+            Cursor cardlist_cursor = db_helper.searchQuestQueryCursor(searchQuery);
+            tableadapter_questcardlist_helper adapter = new tableadapter_questcardlist_helper(this, cardlist_cursor, false);
+            cardList.setAdapter(adapter);
+            cardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                        long id) {
+
+                    TextView currentCard = (TextView) view.findViewById(R.id.template_questcard_name);
+                    String text = currentCard.getText().toString();
+                    //Boolean owned = db_helper.doesPlayerOwnPack(text);
+                    String textToToast = "Card name: " + text;
+                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+        }
+    }
+
     //helper method to make toast, takes a String input for the message and an integer
     //input for the duration (0 is short, 1 is long, default long)
     public void makeMeToast(String message, int length)
@@ -231,23 +324,45 @@ public class CardBrowserActivity extends ActionBarActivity {
     public void searchDialog()
     {
         final Dialog searchDialogBox = new Dialog(this);
-        searchDialogBox.setContentView(R.layout.custom_dialogue_searchfilters);
+        searchDialogBox.setContentView(R.layout.custom_dialogue_cardbrowser_searchfilters);
         searchDialogBox.setTitle("Search");
         final Button okButton = (Button) searchDialogBox.findViewById(R.id.okButtonSearch);
         final EditText searchQueryField = (EditText) searchDialogBox.findViewById(R.id.searchQueryField);
+        final Spinner spinner = (Spinner) searchDialogBox.findViewById(R.id.typeSpinner);
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String searchQuery = searchQueryField.getText().toString();
+                String type = spinner.getSelectedItem().toString();
+                //makeMeToast(searchQuery + "," + type,1);
+
+                switch (type){
+                    case "Player card":
+                        //makeMeToast("p",1);
+                        updateListViewWithSearch(1, searchQuery);
+                        break;
+                    case "Encounter card":
+                        //makeMeToast("e",1);
+                        updateListViewWithSearch(2, searchQuery);
+                        break;
+                    case "Hero card":
+                        //makeMeToast("h",1);
+                        updateListViewWithSearch(3, searchQuery);
+                        break;
+                    case "Quest card":
+                        //makeMeToast("q",1);
+                        updateListViewWithSearch(4, searchQuery);
+                        break;
+                    default:
+                        break;
+                }
                 searchDialogBox.dismiss();
             }
         });
 
         searchDialogBox.show();
-
-        //TODO filter search by what Type is selected
     }
 
     //handles the clicking of the action bar settings icon
@@ -287,5 +402,66 @@ public class CardBrowserActivity extends ActionBarActivity {
         });
 
         settingsDialogBox.show();
+    }
+
+    public void displayCardDialog(String text)
+    {
+        final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
+        cardDetailsDialogue.setTitle("Card details");
+        final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
+        final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);
+
+        playercardClass card = db_helper.findACard(text);
+        String keywords;
+        String traits;
+
+        if (!card.getPlayercard_keyword1().equals("")) {
+            keywords = card.getPlayercard_keyword1();
+            if (!card.getPlayercard_keyword2().equals(""))
+            {
+                keywords = keywords + ", " + card.getPlayercard_keyword2();
+                if (!card.getPlayercard_keyword3().equals(""))
+                {
+                    keywords = keywords + ", " + card.getPlayercard_keyword3();
+                    if (!card.getPlayercard_keyword4().equals(""))
+                    {
+                        keywords = keywords + card.getPlayercard_keyword4();
+                    }
+                }
+            }
+        }
+        else { keywords = "None"; }
+        if (!card.getPlayercard_trait1().equals("")){
+
+            traits = card.getPlayercard_trait1();
+            if (!card.getPlayercard_trait2().equals(""))
+            {
+                traits = traits + ", " + card.getPlayercard_trait2();
+                if (!card.getPlayercard_trait3().equals(""))
+                {
+                    traits = traits + ", " + card.getPlayercard_trait3();
+                    if (!card.getPlayercard_trait4().equals(""))
+                    {
+                        traits = traits + ", " + card.getPlayercard_trait4();
+                    }
+                }
+            }
+        }
+        else {traits = "None";}
+
+        final String textForDisplay = "Name: " + card.getPlayercard_name() + "\nNumber: " + card.getPlayercard_no() + "\nCost: " + card.getPlayercard_cost() + "\nQuest: " + card.getPlayercard_ally_quest() + "\nAttack: " + card.getPlayercard_ally_attack() + "\nDefence: " + card.getPlayercard_ally_hp() + "\nHP: " + card.getPlayercard_ally_hp() + "\nKeywords: " + keywords + "\nTraits: " + traits + "\nSpecial Text: " + card.getPlayercard_special_rules();
+        cardDataView.setText(textForDisplay);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cardDetailsDialogue.dismiss();
+            }
+        });
+
+        cardDetailsDialogue.show();
+        //makeMeToast(textToToast,1);
     }
 }

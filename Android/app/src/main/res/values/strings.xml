@@ -117,6 +117,12 @@
 
     </string-array>
 
+    <string-array name="cardbrowserSpinner">
+        <item>Player card</item>
+        <item>Encounter card</item>
+        <item>Hero card</item>
+        <item>Quest card</item>
+    </string-array>
 
 
 </resources>

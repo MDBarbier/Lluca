@@ -45,8 +45,7 @@ public class EditDeckActivity extends ActionBarActivity {
 
                 TextView currentCard = (TextView) view.findViewById(R.id.custom_deck_template_card_name);
                 String text = currentCard.getText().toString();
-                String textToToast = "Card name: " + text;
-                Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+                displayCardDialog(text);
 
             }
         });
@@ -165,5 +164,66 @@ public class EditDeckActivity extends ActionBarActivity {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
         toast.show();
+    }
+
+    public void displayCardDialog(String text)
+    {
+        final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
+        cardDetailsDialogue.setTitle("Card details");
+        final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
+        final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);
+
+        playercardClass card = db_helper.findACard(text);
+        String keywords;
+        String traits;
+
+        if (!card.getPlayercard_keyword1().equals("")) {
+            keywords = card.getPlayercard_keyword1();
+            if (!card.getPlayercard_keyword2().equals(""))
+            {
+                keywords = keywords + ", " + card.getPlayercard_keyword2();
+                if (!card.getPlayercard_keyword3().equals(""))
+                {
+                    keywords = keywords + ", " + card.getPlayercard_keyword3();
+                    if (!card.getPlayercard_keyword4().equals(""))
+                    {
+                        keywords = keywords + card.getPlayercard_keyword4();
+                    }
+                }
+            }
+        }
+        else { keywords = "None"; }
+        if (!card.getPlayercard_trait1().equals("")){
+
+            traits = card.getPlayercard_trait1();
+            if (!card.getPlayercard_trait2().equals(""))
+            {
+                traits = traits + ", " + card.getPlayercard_trait2();
+                if (!card.getPlayercard_trait3().equals(""))
+                {
+                    traits = traits + ", " + card.getPlayercard_trait3();
+                    if (!card.getPlayercard_trait4().equals(""))
+                    {
+                        traits = traits + ", " + card.getPlayercard_trait4();
+                    }
+                }
+            }
+        }
+        else {traits = "None";}
+
+        final String textForDisplay = "Name: " + card.getPlayercard_name() + "\nNumber: " + card.getPlayercard_no() + "\nCost: " + card.getPlayercard_cost() + "\nQuest: " + card.getPlayercard_ally_quest() + "\nAttack: " + card.getPlayercard_ally_attack() + "\nDefence: " + card.getPlayercard_ally_hp() + "\nHP: " + card.getPlayercard_ally_hp() + "\nKeywords: " + keywords + "\nTraits: " + traits + "\nSpecial Text: " + card.getPlayercard_special_rules();
+        cardDataView.setText(textForDisplay);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cardDetailsDialogue.dismiss();
+            }
+        });
+
+        cardDetailsDialogue.show();
+        //makeMeToast(textToToast,1);
     }
 }

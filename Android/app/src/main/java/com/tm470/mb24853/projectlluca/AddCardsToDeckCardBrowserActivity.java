@@ -1,6 +1,7 @@
 package com.tm470.mb24853.projectlluca;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -73,15 +74,15 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
         }
     }
 
-    //loads tableadapter and cursor depending on the parameter sent 1=playercard,2=encountercard,3=herocard,4=questcard
+    //loads tableadapter and cursor
     public void updateListView(Cursor cardlist_cursor)
     {
-            //loads the available cards into list view
+
             ListView cardList = (ListView) findViewById(R.id.cardListListView);
-            //Cursor cardlist_cursor = db_helper.getPlayerCardListCursor();
             tableadapter_playercardlist_helper adapter = new tableadapter_playercardlist_helper(this, cardlist_cursor, false);
             cardList.setAdapter(adapter);
 
+            //tap to view
             cardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -89,16 +90,28 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
 
                     TextView currentCard = (TextView) view.findViewById(R.id.template_card_name);
                     String text = currentCard.getText().toString();
-                    Bundle bundle = getIntent().getExtras();
-                    String deckname = bundle.getString("deckname");
-                    db_helper.putCardInDeck(deckname, text);
-                    if (db_helper.isCardInDeck(deckname, text)) {
-                        String textToToast = "Card name: " + text + " added to deck.";
-                        Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-                    }
+                    displayCardDialog(text);
 
                 }
             });
+
+        //long press to add to deck
+        cardList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                TextView currentCard = (TextView) view.findViewById(R.id.template_card_name);
+                String text = currentCard.getText().toString();
+                Bundle bundle = getIntent().getExtras();
+                String deckname = bundle.getString("deckname");
+                db_helper.putCardInDeck(deckname, text);
+                if (db_helper.isCardInDeck(deckname, text)) {
+                    String textToToast = "Card name: " + text + " added to deck.";
+                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
     }
 
     //helper method to make toast, takes a String input for the message and an integer
@@ -198,6 +211,21 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
 
     public class FilteringOperations extends AsyncTask<String, Void, Cursor>
     {
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+
+            dialog = new ProgressDialog(AddCardsToDeckCardBrowserActivity.this);
+            dialog.setMessage("Please wait... shufflng the cards");
+            dialog.setIndeterminate(true);
+            dialog.setCancelable(false);
+            dialog.show();
+
+        }
         @Override
         protected Cursor doInBackground(String... params) {
 
@@ -225,11 +253,74 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
             }
         }
 
+
         protected void onPostExecute(Cursor result) {
             Log.w("Async", "in onPostExecute");
+
+            dialog.setIndeterminate(false);
+            dialog.dismiss();
             updateListView(result);
         }
     }
 
+    public void displayCardDialog(String text)
+    {
+        final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
+        cardDetailsDialogue.setTitle("Card details");
+        final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
+        final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);
 
+        playercardClass card = db_helper.findACard(text);
+        String keywords;
+        String traits;
+
+        if (!card.getPlayercard_keyword1().equals("")) {
+            keywords = card.getPlayercard_keyword1();
+            if (!card.getPlayercard_keyword2().equals(""))
+            {
+                keywords = keywords + ", " + card.getPlayercard_keyword2();
+                if (!card.getPlayercard_keyword3().equals(""))
+                {
+                    keywords = keywords + ", " + card.getPlayercard_keyword3();
+                    if (!card.getPlayercard_keyword4().equals(""))
+                    {
+                        keywords = keywords + card.getPlayercard_keyword4();
+                    }
+                }
+            }
+        }
+        else { keywords = "None"; }
+        if (!card.getPlayercard_trait1().equals("")){
+
+            traits = card.getPlayercard_trait1();
+            if (!card.getPlayercard_trait2().equals(""))
+            {
+                traits = traits + ", " + card.getPlayercard_trait2();
+                if (!card.getPlayercard_trait3().equals(""))
+                {
+                    traits = traits + ", " + card.getPlayercard_trait3();
+                    if (!card.getPlayercard_trait4().equals(""))
+                    {
+                        traits = traits + ", " + card.getPlayercard_trait4();
+                    }
+                }
+            }
+        }
+        else {traits = "None";}
+
+        final String textForDisplay = "Name: " + card.getPlayercard_name() + "\nNumber: " + card.getPlayercard_no() + "\nCost: " + card.getPlayercard_cost() + "\nQuest: " + card.getPlayercard_ally_quest() + "\nAttack: " + card.getPlayercard_ally_attack() + "\nDefence: " + card.getPlayercard_ally_hp() + "\nHP: " + card.getPlayercard_ally_hp() + "\nKeywords: " + keywords + "\nTraits: " + traits + "\nSpecial Text: " + card.getPlayercard_special_rules();
+        cardDataView.setText(textForDisplay);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cardDetailsDialogue.dismiss();
+            }
+        });
+
+        cardDetailsDialogue.show();
+        //makeMeToast(textToToast,1);
+    }
 }

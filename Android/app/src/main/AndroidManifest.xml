@@ -97,10 +97,6 @@
                 android:value="com.tm470.mb24853.projectlluca.DeckListActivity" />
         </activity>
         <activity
-            android:name=".testLayout"
-            android:label="@string/title_activity_test_layout" >
-        </activity>
-        <activity
             android:name=".DeckCardListFiltersActivity"
             android:label="@string/title_activity_deck_card_list_filters"
             android:parentActivityName=".DeckListActivity" >

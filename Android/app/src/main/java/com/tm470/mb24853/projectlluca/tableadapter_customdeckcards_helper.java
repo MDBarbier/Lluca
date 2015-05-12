@@ -46,6 +46,7 @@ import android.widget.TextView;
             //Populate views
             card_name.setText(name);
 
+
         }
 
     }
