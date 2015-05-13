@@ -27,9 +27,10 @@ public class EditDeckActivity extends ActionBarActivity {
 
         Bundle bundle = getIntent().getExtras();
         final String deckname = bundle.getString("deckname");
+        final String deckname2 = bundle.getString("deckname") + " current cards";
 
         TextView deckName = (TextView) findViewById(R.id.editDeckTextName);
-        deckName.setText(deckname);
+        deckName.setText(deckname2);
 
         //loads the available deckparts into list view
         Cursor cursor = db_helper.getCardsInDeck(deckname);
@@ -141,6 +142,62 @@ public class EditDeckActivity extends ActionBarActivity {
         intent.putExtra("cost", "Any");
 
         startActivity(intent);
+
+    }
+
+    public void viewHeroes(View view)
+    {
+        Bundle bundle = getIntent().getExtras();
+        String deckname = bundle.getString("deckname");
+        Intent intent = new Intent(this, EditHeroesInDeckActivity.class);
+        intent.putExtra("deckname", deckname);
+        intent.putExtra("sphere", "All");
+        intent.putExtra("threat", "Any");
+        startActivity(intent);
+    }
+
+    public void viewDemographics(View view)
+    {
+        Bundle bundle = getIntent().getExtras();
+        String deckname = bundle.getString("deckname");
+        final Dialog deckDemosDialogue = new Dialog(this);
+        deckDemosDialogue.setContentView(R.layout.custom_dialogue_demographics);
+        deckDemosDialogue.setTitle("Deck demographics");
+
+        final Button okButton = (Button) deckDemosDialogue.findViewById(R.id.okButtonSearch);
+        final TextView deckDataView = (TextView) deckDemosDialogue.findViewById(R.id.cardInfo);
+        final TextView deckWarningsView = (TextView) deckDemosDialogue.findViewById(R.id.cardInfoWarnings);
+        final TextView deckWarningsView2 = (TextView) deckDemosDialogue.findViewById(R.id.cardInfoWarnings2);
+
+        int[] demographics = db_helper.demographics(deckname);
+        float avgCost = (float) demographics[8]/demographics[0];
+        String warningText;
+
+        String demographicsText = "Total cards in deck: " + demographics[0] + "\nTotal Events:" + demographics[2] + "\nTotal Allies:" + demographics[1] + "\nTotal Attachments:" + demographics[3] + "\nLeadership cards:" + demographics[4] + "\nTactics cards:" + demographics[5] + "\nSpirit cards:" + demographics[6] + "\nLore cards:" + demographics[7] + "\nAverage card cost: " + avgCost;
+
+        if (demographics[0]<50)
+        {
+            warningText = "WARNING: you have less than 50 cards in your deck!";
+            deckWarningsView.setText(warningText);
+
+        }
+        if (avgCost>3)
+        {
+            warningText = "WARNING: Your average cost is high!";
+            deckWarningsView2.setText(warningText);
+        }
+
+        deckDataView.setText(demographicsText);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                deckDemosDialogue.dismiss();
+            }
+        });
+
+        deckDemosDialogue.show();
 
     }
 

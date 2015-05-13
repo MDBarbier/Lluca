@@ -104,11 +104,18 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
                 String text = currentCard.getText().toString();
                 Bundle bundle = getIntent().getExtras();
                 String deckname = bundle.getString("deckname");
-                db_helper.putCardInDeck(deckname, text);
-                if (db_helper.isCardInDeck(deckname, text)) {
-                    String textToToast = "Card name: " + text + " added to deck.";
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+
+                //check if copies in deck exceed total copies available
+                if (db_helper.areThereSpares(text, "Player", deckname)) {
+                    db_helper.putCardInDeck(deckname, text);
+                    makeMeToast("Card name: " + text + " added to deck.",1);
                 }
+                else
+                {
+                    makeMeToast("You already have the maximum number of this particular card.",1);
+                }
+
+
                 return true;
             }
         });

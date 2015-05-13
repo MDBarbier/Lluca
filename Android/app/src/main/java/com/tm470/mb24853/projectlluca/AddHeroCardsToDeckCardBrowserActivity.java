@@ -105,10 +105,19 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
                 String text = currentCard.getText().toString();
                 Bundle bundle = getIntent().getExtras();
                 String deckname = bundle.getString("deckname");
-                db_helper.putHeroCardInDeck(deckname, text);
-                if (db_helper.isCardInDeck(deckname, text)) {
-                    String textToToast = "Card name: " + text + " added to deck.";
+                if (db_helper.areThereSpares(text, "Hero", deckname) && db_helper.howManyHeroes(deckname) < 3)
+                {
+                    db_helper.putHeroCardInDeck(deckname, text);
+                    String textToToast = text + " added to deck.";
                     Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+                }
+                else if (db_helper.howManyHeroes(deckname) >=3)
+                {
+                    makeMeToast("You have the maximum of 3 allowed heroes in this deck already.",1);
+                }
+                else
+                {
+                    makeMeToast(text + " is already in deck!",1);
                 }
                 return true;
             }

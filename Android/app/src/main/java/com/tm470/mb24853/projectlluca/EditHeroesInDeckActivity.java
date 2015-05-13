@@ -92,15 +92,22 @@ public class EditHeroesInDeckActivity extends ActionBarActivity {
 
     public void add_cards_to_deck(View view)
     {
-        //loads the card browser screen and passes through the deckname
         Bundle bundle = getIntent().getExtras();
-        String deckname = bundle.getString("deckname");
-        Intent intent = new Intent(this, AddHeroCardsToDeckCardBrowserActivity.class);
-        intent.putExtra("deckname", deckname);
-        intent.putExtra("threat", "Any");
-        intent.putExtra("sphere", "All");
+        final String deckname = bundle.getString("deckname");
 
-        startActivity(intent);
+        if (db_helper.howManyHeroes(deckname) < 3) {
+            //loads the card browser screen and passes through the deckname
+            Intent intent = new Intent(this, AddHeroCardsToDeckCardBrowserActivity.class);
+            intent.putExtra("deckname", deckname);
+            intent.putExtra("threat", "Any");
+            intent.putExtra("sphere", "All");
+
+            startActivity(intent);
+        }
+        else
+        {
+            makeMeToast("You have the maximum of 3 allowed heroes in this deck already.",1);
+        }
 
     }
 
