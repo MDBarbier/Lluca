@@ -90,10 +90,11 @@ public class LLuca_Local_DB_schema {
     public static final String COLUMN_NAME_DECK_OWNING_USER = "owning_user" ;
     public static final String COLUMN_NAME_DECK_CARD_NAME = "card_name";
     public static final String COLUMN_NAME_DECK_DECK_NAME = "deck_name";
+    public static final String COLUMN_NAME_DECK_CARD_TYPE = "card_type";
 
 
     //SQL statement to create player_account table
-    private static final String SQL_CREATE_CUSTOM_DECKS_TABLE = "CREATE TABLE " + TABLE_NAME_CUSTOM_DECKS + " (" + KEY_ID+ " INTEGER PRIMARY KEY, " + COLUMN_NAME_DECK_OWNING_USER + " TEXT NOT NULL, " + COLUMN_NAME_DECK_CARD_NAME + " TEXT, " + COLUMN_NAME_DECK_DECK_NAME + " TEXT NOT NULL)";
+    private static final String SQL_CREATE_CUSTOM_DECKS_TABLE = "CREATE TABLE " + TABLE_NAME_CUSTOM_DECKS + " (" + KEY_ID+ " INTEGER PRIMARY KEY, " + COLUMN_NAME_DECK_OWNING_USER + " TEXT NOT NULL, " + COLUMN_NAME_DECK_CARD_NAME + " TEXT, " + COLUMN_NAME_DECK_DECK_NAME + " TEXT NOT NULL, " + COLUMN_NAME_DECK_CARD_TYPE + " TEXT)";
 
     //Getter for the player account table SQL
     public String getCustomDecksCreate()
@@ -318,6 +319,26 @@ public class LLuca_Local_DB_schema {
     {
         return SQL_POPULATE_HEROCARDS_INSERT + SQL_POPULATE_HEROCARDS1;
     }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+    //
+    // FILTERED HERO CARDS
+    //
+    //-------------------------------------------------------------------------------------------------------------------------------------//
+
+    //table definition for hero cards
+    public static final String TABLE_NAME_FILTERED_HEROCARD = "filtered_heroes";
+
+
+    //SQL for creation
+    private static final String SQL_CREATE_FILTERED_HEROCARD_TABLE = "CREATE TABLE " + TABLE_NAME_FILTERED_HEROCARD + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_HEROCARD_NO + " INT, " + COLUMN_NAME_HEROCARD_BOX + " INT, " + COLUMN_NAME_HEROCARD_NAME + " TEXT, " + COLUMN_NAME_HEROCARD_THREAT + " INT, " + COLUMN_NAME_HEROCARD_QUEST + " INT, " + COLUMN_NAME_HEROCARD_ATTACK + " INT, " + COLUMN_NAME_HEROCARD_DEFENCE + " INT, " + COLUMN_NAME_HEROCARD_HP + " INT, " + COLUMN_NAME_HEROCARD_SPHERE + " TEXT," + COLUMN_NAME_HEROCARD_SPECIALRULES + " TEXT, " + COLUMN_NAME_HEROCARD_KEYWORD1 + " TEXT, " + COLUMN_NAME_HEROCARD_KEYWORD2 + " TEXT, " + COLUMN_NAME_HEROCARD_KEYWORD3 + " TEXT, " + COLUMN_NAME_HEROCARD_KEYWORD4 + " TEXT, " + COLUMN_NAME_HEROCARD_TRAIT1 + " TEXT, " + COLUMN_NAME_HEROCARD_TRAIT2 + " TEXT, " + COLUMN_NAME_HEROCARD_TRAIT3 + " TEXT, " + COLUMN_NAME_HEROCARD_TRAIT4 + " TEXT)";
+
+    //Getter for creation
+    public String getFilteredHerocardCreation()
+    {
+        return SQL_CREATE_FILTERED_HEROCARD_TABLE;
+    }
+
 
     //-------------------------------------------------------------------------------------------------------------------------------------//
     //

@@ -4,8 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,25 +16,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class EditDeckActivity extends ActionBarActivity {
+public class EditHeroesInDeckActivity extends ActionBarActivity {
 
     LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_deck);
+        setContentView(R.layout.activity_edit_heroes_in_deck);
 
         Bundle bundle = getIntent().getExtras();
         final String deckname = bundle.getString("deckname");
-        final String deckname2 = bundle.getString("deckname") + " current cards";
+        final String deckname2 = bundle.getString("deckname") + " current heroes";
 
         TextView deckName = (TextView) findViewById(R.id.editDeckTextName);
         deckName.setText(deckname2);
 
-        //loads the available deckparts into list view
-        Cursor cursor = db_helper.getCardsInDeck(deckname);
-        //Cursor cursor = db_helper.getPlayerCardListCursor();
+        //loads the available heroes into list view
+        Cursor cursor = db_helper.getHeroCardsInDeck(deckname, "Hero");
         final ListView cards = (ListView) findViewById(R.id.cardsInDecklistView);
         final tableadapter_customdeckcards_helper adapter = new tableadapter_customdeckcards_helper(this, cursor, false);
         cards.setAdapter(adapter);
@@ -47,6 +46,7 @@ public class EditDeckActivity extends ActionBarActivity {
                 TextView currentCard = (TextView) view.findViewById(R.id.custom_deck_template_card_name);
                 String text = currentCard.getText().toString();
                 displayCardDialog(text);
+                //makeMeToast(text,1);
 
             }
         });
@@ -59,8 +59,8 @@ public class EditDeckActivity extends ActionBarActivity {
                 db_helper.deleteCardFromDeck(deckname, text);
                 makeMeToast("Card removed", 1);
                 adapter.notifyDataSetInvalidated();
-                Cursor cursor2 = db_helper.getCardsInDeck(deckname);
-                final tableadapter_customdeckcards_helper adapter2 = new tableadapter_customdeckcards_helper(EditDeckActivity.this, cursor2, false);
+                Cursor cursor2 = db_helper.getHeroCardsInDeck(deckname, "Hero");
+                final tableadapter_customdeckcards_helper adapter2 = new tableadapter_customdeckcards_helper(EditHeroesInDeckActivity.this, cursor2, false);
                 cards.setAdapter(adapter2);
                 return true;
             }
@@ -90,70 +90,18 @@ public class EditDeckActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void delete_deck(View view)
-    {
-        final Dialog deleteDeckDialogBox = new Dialog(this);
-        deleteDeckDialogBox.setContentView(R.layout.custom_dialogue_deletedeck);
-        deleteDeckDialogBox.setTitle("Delete deck?");
-
-            Button dialogYesButton = (Button) deleteDeckDialogBox.findViewById(R.id.deleteDeckYES);
-            Button dialogNoButton = (Button) deleteDeckDialogBox.findViewById(R.id.deleteDeckNO);
-
-            dialogYesButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    Bundle bundle = getIntent().getExtras();
-                    String deckname = bundle.getString("deckname");
-                    makeMeToast("Deck '" + deckname + "' Deleted.",1);
-                    deleteDeckFromDB(deckname);
-                    Intent intent = new Intent(EditDeckActivity.this, DeckListActivity.class);
-                    startActivity(intent);
-                    deleteDeckDialogBox.dismiss();
-                }
-            });
-
-            dialogNoButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    makeMeToast("Operation cancelled",1);
-                    deleteDeckDialogBox.dismiss();
-                }
-            });
-
-        deleteDeckDialogBox.show();
-    }
-
-    public void deleteDeckFromDB(String deckname)
-    {
-        db_helper.deleteCustomDeck(deckname);
-    }
-
     public void add_cards_to_deck(View view)
     {
         //loads the card browser screen and passes through the deckname
         Bundle bundle = getIntent().getExtras();
         String deckname = bundle.getString("deckname");
-        Intent intent = new Intent(this, AddCardsToDeckCardBrowserActivity.class);
+        Intent intent = new Intent(this, AddHeroCardsToDeckCardBrowserActivity.class);
         intent.putExtra("deckname", deckname);
-        intent.putExtra("typeFilter", "All");
-        intent.putExtra("sphere", "All");
-        intent.putExtra("cost", "Any");
-
-        startActivity(intent);
-
-    }
-
-    public void viewHeroes(View view)
-    {
-        Bundle bundle = getIntent().getExtras();
-        String deckname = bundle.getString("deckname");
-        Intent intent = new Intent(this, EditHeroesInDeckActivity.class);
-        intent.putExtra("deckname", deckname);
-        intent.putExtra("sphere", "All");
         intent.putExtra("threat", "Any");
+        intent.putExtra("sphere", "All");
+
         startActivity(intent);
+
     }
 
     //helper method to make toast, takes a String input for the message and an integer
@@ -186,45 +134,45 @@ public class EditDeckActivity extends ActionBarActivity {
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
         final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);
 
-        playercardClass card = db_helper.findACard(text);
+        heroesClass card = db_helper.findAHeroCard(text);
         String keywords;
         String traits;
 
-        if (!card.getPlayercard_keyword1().equals("")) {
-            keywords = card.getPlayercard_keyword1();
-            if (!card.getPlayercard_keyword2().equals(""))
+        if (!card.getHerocard_keyword1().equals("")) {
+            keywords = card.getHerocard_keyword1();
+            if (!card.getHerocard_keyword2().equals(""))
             {
-                keywords = keywords + ", " + card.getPlayercard_keyword2();
-                if (!card.getPlayercard_keyword3().equals(""))
+                keywords = keywords + ", " + card.getHerocard_keyword2();
+                if (!card.getHerocard_keyword3().equals(""))
                 {
-                    keywords = keywords + ", " + card.getPlayercard_keyword3();
-                    if (!card.getPlayercard_keyword4().equals(""))
+                    keywords = keywords + ", " + card.getHerocard_keyword3();
+                    if (!card.getHerocard_keyword4().equals(""))
                     {
-                        keywords = keywords + card.getPlayercard_keyword4();
+                        keywords = keywords + card.getHerocard_keyword4();
                     }
                 }
             }
         }
         else { keywords = "None"; }
-        if (!card.getPlayercard_trait1().equals("")){
+        if (!card.getHerocard_trait1().equals("")){
 
-            traits = card.getPlayercard_trait1();
-            if (!card.getPlayercard_trait2().equals(""))
+            traits = card.getHerocard_trait1();
+            if (!card.getHerocard_trait2().equals(""))
             {
-                traits = traits + ", " + card.getPlayercard_trait2();
-                if (!card.getPlayercard_trait3().equals(""))
+                traits = traits + ", " + card.getHerocard_trait2();
+                if (!card.getHerocard_trait3().equals(""))
                 {
-                    traits = traits + ", " + card.getPlayercard_trait3();
-                    if (!card.getPlayercard_trait4().equals(""))
+                    traits = traits + ", " + card.getHerocard_trait3();
+                    if (!card.getHerocard_trait4().equals(""))
                     {
-                        traits = traits + ", " + card.getPlayercard_trait4();
+                        traits = traits + ", " + card.getHerocard_trait4();
                     }
                 }
             }
         }
         else {traits = "None";}
 
-        final String textForDisplay = "Name: " + card.getPlayercard_name() + "\nNumber: " + card.getPlayercard_no() + "\nCost: " + card.getPlayercard_cost() + "\nQuest: " + card.getPlayercard_ally_quest() + "\nAttack: " + card.getPlayercard_ally_attack() + "\nDefence: " + card.getPlayercard_ally_hp() + "\nHP: " + card.getPlayercard_ally_hp() + "\nKeywords: " + keywords + "\nTraits: " + traits + "\nSpecial Text: " + card.getPlayercard_special_rules();
+        final String textForDisplay = "Name: " + card.getHerocard_name() + "\nNumber: " + card.getHerocard_no() + "\nThreat: " + card.getHerocard_threat() + "\nQuest: " + card.getHerocard_quest() + "\nAttack: " + card.getHerocard_attack() + "\nDefence: " + card.getHerocard_hp() + "\nHP: " + card.getHerocard_hp() + "\nKeywords: " + keywords + "\nTraits: " + traits + "\nSpecial Text: " + card.getHerocard_specialrules();
         cardDataView.setText(textForDisplay);
 
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -238,4 +186,5 @@ public class EditDeckActivity extends ActionBarActivity {
         cardDetailsDialogue.show();
         //makeMeToast(textToToast,1);
     }
+
 }

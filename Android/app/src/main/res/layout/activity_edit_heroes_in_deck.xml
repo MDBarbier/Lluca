@@ -23,7 +23,8 @@
         android:text="Long press to remove a card, tap to view card data"
         android:layout_row="9"
         android:layout_column="1"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        android:layout_marginBottom="5dp"/>
 
 
     <ListView
@@ -44,27 +45,12 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Add cards"
+            android:text="Add heroes"
             android:id="@+id/edit_deck_addcards"
             android:layout_weight="0.33"
             android:onClick="add_cards_to_deck"/>
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="0.33"
-            android:layout_height="wrap_content"
-            android:text="View heroes"
-            android:id="@+id/button2"
-            android:onClick="viewHeroes"
-            android:layout_column="1" />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Delete Deck"
-            android:id="@+id/edit_deck_deletedeck"
-            android:layout_weight="0.33"
-            android:onClick="delete_deck"/>
 
     </LinearLayout>
 
