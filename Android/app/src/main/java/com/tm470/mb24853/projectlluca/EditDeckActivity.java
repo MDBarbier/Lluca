@@ -27,10 +27,9 @@ public class EditDeckActivity extends ActionBarActivity {
 
         Bundle bundle = getIntent().getExtras();
         final String deckname = bundle.getString("deckname");
-        final String deckname2 = bundle.getString("deckname") + " current cards";
 
         TextView deckName = (TextView) findViewById(R.id.editDeckTextName);
-        deckName.setText(deckname2);
+        deckName.setText(deckname);
 
         //loads the available deckparts into list view
         Cursor cursor = db_helper.getCardsInDeck(deckname);
@@ -143,17 +142,6 @@ public class EditDeckActivity extends ActionBarActivity {
 
         startActivity(intent);
 
-    }
-
-    public void viewHeroes(View view)
-    {
-        Bundle bundle = getIntent().getExtras();
-        String deckname = bundle.getString("deckname");
-        Intent intent = new Intent(this, EditHeroesInDeckActivity.class);
-        intent.putExtra("deckname", deckname);
-        intent.putExtra("sphere", "All");
-        intent.putExtra("threat", "Any");
-        startActivity(intent);
     }
 
     //helper method to make toast, takes a String input for the message and an integer

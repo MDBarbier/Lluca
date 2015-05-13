@@ -95,11 +95,6 @@
     </string-array>
 
     <string name="title_activity_deck_card_list_filters">DeckCardListFiltersActivity</string>
-    <string name="customdecklist">Custom Deck List</string>
-    <string name="viewdeck">View deck</string>
-    <string name="edityourpacks">Edit your packs</string>
-    <string name="choosefilters">Choose filters</string>
-    <string name="addheroes">Add Heroes</string>
 
     <string-array name="sphereSpinner">
         <item>All</item>
@@ -129,14 +124,5 @@
         <item>Quest card</item>
     </string-array>
 
-    <string-array name="threatSpinner">
-    <item>Any</item>
-    <item>Zero</item>
-    <item>One</item>
-    <item>Two</item>
-    <item>Three</item>
-    <item>Four</item>
-    <item>Five</item>
-    </string-array>
 
 </resources>

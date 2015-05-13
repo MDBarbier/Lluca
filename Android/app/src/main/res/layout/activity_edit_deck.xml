@@ -28,44 +28,33 @@
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="440dp"
+        android:layout_height="460dp"
         android:id="@+id/cardsInDecklistView"
         android:layout_row="10"
         android:layout_column="1" />
 
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_row="17"
+        android:layout_height="match_parent"
+        android:layout_row="16"
         android:layout_column="1">
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Add cards"
+            android:text="Add cards to deck"
             android:id="@+id/edit_deck_addcards"
-            android:layout_weight="0.33"
+            android:layout_weight="0.5"
             android:onClick="add_cards_to_deck"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="0.33"
-            android:layout_height="wrap_content"
-            android:text="View heroes"
-            android:id="@+id/button2"
-            android:onClick="viewHeroes"
-            android:layout_column="1" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Delete Deck"
             android:id="@+id/edit_deck_deletedeck"
-            android:layout_weight="0.33"
+            android:layout_weight="0.5"
             android:onClick="delete_deck"/>
-
     </LinearLayout>
 
 </GridLayout>

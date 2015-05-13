@@ -68,7 +68,6 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         db.execSQL(schema.getSqlCreateControlDataTable());
         db.execSQL(schema.getCustomDecksCreate());
         db.execSQL(schema.getFilteredPlayercardCreation());
-        db.execSQL(schema.getFilteredHerocardCreation());
     }
 
    //Constructor
@@ -86,15 +85,6 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_PLAYERS);
         db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_DECKPARTS);
         db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_OWNED_PACKS);
-        db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_PLAYERS);
-        db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_CONTROL_DATA);
-        db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_HEROCARD);
-        db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_PLAYERCARD);
-        db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_ENCOUNTERCARD);
-        db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_QUESTCARD);
-        db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_CUSTOM_DECKS);
-        db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_FILTERED_PLAYERCARD);
-        db.execSQL("DROP TABLE IF IT EXISTS " + schema.TABLE_NAME_FILTERED_HEROCARD);
         onCreate(db);
      }
 
@@ -435,7 +425,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
                 card.setPlayercard_no(cursor3.getInt(1));
                 card.setPlayercard_name(cursor3.getString(3));
                 card.setPlayercard_box(cursor3.getInt(2));
-                if (!doesPlayerOwnCard(card.getPlayercard_name(), "Player")) {
+                if (!doesPlayerOwnCard(card.getPlayercard_name())) {
                     String query = "DELETE FROM filtered_player_cards WHERE filtered_player_cards.playercard_name = " + "\"" + card.getPlayercard_name() + "\"";
                     db.execSQL(query);
                 }
@@ -457,120 +447,8 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
     }
 
-    public Cursor getFilteredHeroCardListCursor(String sphere, String threat)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor;
-        int actualThreat = 999;
 
-        switch (threat){
-            case "One":
-                actualThreat = 1;
-                break;
-            case "Two":
-                actualThreat = 2;
-                break;
-            case "Three":
-                actualThreat = 3;
-                break;
-            case "Four":
-                actualThreat = 4;
-                break;
-            case "Five":
-                actualThreat = 5;
-                break;
-            case "Zero":
-                actualThreat = 0;
-                break;
-            default:
-                break;
-        }
-        if (sphere.equals("All") && threat.equals("Any")) {
-            String deleteQuery = "DELETE FROM " + schema.TABLE_NAME_FILTERED_HEROCARD;
-            db.execSQL(deleteQuery);
-            String query2 = "INSERT INTO filtered_heroes SELECT * FROM heroes";
-            db.execSQL(query2);
-            String query3 = "SELECT * FROM " + schema.TABLE_NAME_FILTERED_HEROCARD;
-            db.rawQuery(query3,null);
-            cursor = db.rawQuery(query3, null);
-        }
 
-        else if (threat.equals("Any"))
-        {
-            String deleteQuery = "DELETE FROM " + schema.TABLE_NAME_FILTERED_HEROCARD;
-            db.execSQL(deleteQuery);
-            String query2 = "INSERT INTO filtered_heroes " + "Select * FROM " + schema.TABLE_NAME_HEROCARD+ " WHERE " + schema.TABLE_NAME_HEROCARD + "." + schema.COLUMN_NAME_HEROCARD_SPHERE + " = " + "\"" + sphere + "\"";
-            db.execSQL(query2);
-            String query3 = "SELECT * FROM " + schema.TABLE_NAME_FILTERED_HEROCARD;
-            db.rawQuery(query3,null);
-            cursor = db.rawQuery(query3, null);
-        }
-
-        else if (sphere.equals("All"))
-        {
-            String deleteQuery = "DELETE FROM " + schema.TABLE_NAME_FILTERED_HEROCARD;
-            db.execSQL(deleteQuery);
-            String query2 = "INSERT INTO filtered_heroes " + "Select * FROM " + schema.TABLE_NAME_HEROCARD+ " WHERE " + schema.TABLE_NAME_HEROCARD+ "." + schema.COLUMN_NAME_HEROCARD_THREAT+ " = " + actualThreat;
-            db.execSQL(query2);
-            String query3 = "SELECT * FROM " + schema.TABLE_NAME_FILTERED_HEROCARD;
-            db.rawQuery(query3,null);
-            cursor = db.rawQuery(query3, null);
-        }
-        else
-        {
-            String deleteQuery = "DELETE FROM " + schema.TABLE_NAME_FILTERED_HEROCARD;
-            db.execSQL(deleteQuery);
-            String query2 = "INSERT INTO filtered_heroes " + "Select * FROM " + schema.TABLE_NAME_HEROCARD+ " WHERE " + schema.TABLE_NAME_HEROCARD+ "." + schema.COLUMN_NAME_HEROCARD_SPHERE + " = " + "\"" + sphere + "\""  + " AND " + schema.TABLE_NAME_HEROCARD + "." + schema.COLUMN_NAME_HEROCARD_THREAT + " = " + actualThreat;
-            db.execSQL(query2);
-            String query3 = "SELECT * FROM " + schema.TABLE_NAME_FILTERED_HEROCARD;
-            db.rawQuery(query3,null);
-            cursor = db.rawQuery(query3, null);
-
-        }
-
-        if (getOnlyOwnedStatus())
-        {
-            //goes through filtered heoes table and removes and that are not owned
-            Cursor cursor3;
-            String filterOwnedQuery = "SELECT * FROM " + schema.TABLE_NAME_FILTERED_HEROCARD;
-            cursor3 = db.rawQuery(filterOwnedQuery,null);
-            //get data from cursor
-            heroesClass card = new heroesClass();
-
-            while (cursor3.moveToNext()) {
-                card.setHerocard_no(cursor3.getInt(1));
-                card.setHerocard_name(cursor3.getString(3));
-                card.setHerocard_box(cursor3.getInt(2));
-                if (!doesPlayerOwnCard(card.getHerocard_name(), "Hero")) {
-                    String query = "DELETE FROM filtered_heroes WHERE filtered_heroes.herocard_name = " + "\"" + card.getHerocard_name() + "\"";
-                    db.execSQL(query);
-                }
-            }
-            cursor3.close();
-
-            //prepares cursor to return
-            Cursor cursor2;
-
-            //return amended cursor
-            cursor2 = db.rawQuery(filterOwnedQuery,null);
-            return cursor2;
-        }
-        else
-        {
-            //return original cursor
-            return cursor;
-        }
-
-    }
-
-    public Cursor getBasicHeroList(String sphere, String threat)
-    {
-        String query = "Select * FROM " + schema.TABLE_NAME_HEROCARD;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor;
-        cursor = db.rawQuery(query, null);
-        return cursor;
-    }
     public Cursor getEncounterCardListCursor()
     {
         String query = "Select * FROM " + schema.TABLE_NAME_ENCOUNTERCARD;
@@ -681,48 +559,25 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
     }
 
-    public boolean doesPlayerOwnCard(String cardname, String type) {
+    public boolean doesPlayerOwnCard(String cardname) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c;
+
+        //What box is the card in?
+        String query = "Select * from " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.COLUMN_NAME_PLAYERCARD_NAME + " = " + "\"" + cardname + "\"";
+        Cursor c = db.rawQuery(query, null);
+        playercardClass card = new playercardClass();
         String boxName;
-        String query;
-        int boxId;
 
-        if (type.equals("Hero"))
-        {
-            //What box is the player card in?
-            query = "Select * from " + schema.TABLE_NAME_HEROCARD+ " WHERE " + schema.COLUMN_NAME_HEROCARD_NAME+ " = " + "\"" + cardname + "\"";
-            c = db.rawQuery(query, null);
-            heroesClass card = new heroesClass();
-
-            if (c.moveToFirst()) {
-                c.moveToFirst();
-                card.setHerocard_box(c.getInt(2));
-                c.close();
-            } else {
-                return false;
-            }
-            boxId = card.getHerocard_box();
-        }
-        else {
-            //What box is the player card in?
-            query = "Select * from " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.COLUMN_NAME_PLAYERCARD_NAME + " = " + "\"" + cardname + "\"";
-            c = db.rawQuery(query, null);
-            playercardClass card = new playercardClass();
-
-
-            if (c.moveToFirst()) {
-                c.moveToFirst();
-                card.setPlayercard_box(c.getInt(2));
-                c.close();
-            } else {
-                return false;
-            }
-            boxId = card.getPlayercard_box();
+        if (c.moveToFirst()) {
+            c.moveToFirst();
+            card.setPlayercard_box(c.getInt(2));
+            c.close();
+        } else {
+            return false;
         }
 
         //Get box name from box id
-        String query2 = "SELECT deckpart_box from Deckparts WHERE deckpart_box_id = " + boxId;
+        String query2 = "SELECT deckpart_box from Deckparts WHERE deckpart_box_id = " + card.getPlayercard_box();
         c = db.rawQuery(query2, null);
         if (c.moveToFirst()) {
             c.moveToFirst();
@@ -957,11 +812,9 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
         try {
                 ContentValues values = new ContentValues();
-                playercardClass card = findACard(cardName);
                 values.put(schema.COLUMN_NAME_DECK_OWNING_USER, user.getUsername());
                 values.put(schema.COLUMN_NAME_DECK_DECK_NAME, deckName);
                 values.put(schema.COLUMN_NAME_DECK_CARD_NAME, cardName);
-                values.put(schema.COLUMN_NAME_DECK_CARD_TYPE, card.getPlayercard_type());
 
                 db.insert(schema.TABLE_NAME_CUSTOM_DECKS, null, values);
                 db.close();
@@ -975,47 +828,10 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
             }
     }
 
-    public void putHeroCardInDeck(String deckName, String cardName)
-    {
-        //get current user
-        userAccountClass user = getCurrentUser();
-
-        //cycle through the owned_pack table
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        try {
-            ContentValues values = new ContentValues();
-            values.put(schema.COLUMN_NAME_DECK_OWNING_USER, user.getUsername());
-            values.put(schema.COLUMN_NAME_DECK_DECK_NAME, deckName);
-            values.put(schema.COLUMN_NAME_DECK_CARD_NAME, cardName);
-            values.put(schema.COLUMN_NAME_DECK_CARD_TYPE, "Hero");
-
-            db.insert(schema.TABLE_NAME_CUSTOM_DECKS, null, values);
-            db.close();
-
-        }
-        catch (Exception e)
-        {
-            //do nothing
-
-            db.close();
-        }
-    }
-
     public Cursor getCardsInDeck(String deckName)
     {
         userAccountClass user = getCurrentUser();
-        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_DECK_NAME + " = " + "\"" + deckName + "\"" + " AND " + schema.COLUMN_NAME_DECK_OWNING_USER + " = " + "\"" + user.getUsername() + "\"" + " AND " + schema.COLUMN_NAME_DECK_CARD_TYPE + " IS NOT \"" + "Hero" + "\"";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor;
-        cursor = db.rawQuery(query, null);
-        return cursor;
-    }
-
-    public Cursor getHeroCardsInDeck(String deckName, String cardType)
-    {
-        userAccountClass user = getCurrentUser();
-        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_DECK_NAME + " = " + "\"" + deckName + "\"" + " AND " + schema.COLUMN_NAME_DECK_OWNING_USER + " = " + "\"" + user.getUsername() + "\"" + " AND " + schema.COLUMN_NAME_DECK_CARD_TYPE + " = \"" + cardType + "\"";
+        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_DECK_NAME + " = " + "\"" + deckName + "\"" + " AND " + schema.COLUMN_NAME_DECK_OWNING_USER + " = " + "\"" + user.getUsername() + "\"";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
         cursor = db.rawQuery(query, null);
