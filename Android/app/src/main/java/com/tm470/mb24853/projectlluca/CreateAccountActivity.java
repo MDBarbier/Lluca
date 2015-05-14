@@ -1,15 +1,21 @@
 package com.tm470.mb24853.projectlluca;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -54,15 +60,15 @@ public class CreateAccountActivity extends ActionBarActivity {
         //boolean result = true;
         if (userInputString.equals(""))
         {
-            makeMeToast("Please enter a username",1);
+            makeMeToast("Please enter a username",1,"TOP",0,300,25);
         }
         else
         {
             if (result) {
-               makeMeToast("Username " + userInputString + " is available!",1);
+               makeMeToast("Username \"" + userInputString + "\" is available!",1, "TOP",0,300,25);
             }
             else {
-                makeMeToast("Username " + userInputString + " is not available :(",1);
+                makeMeToast("Username \"" + userInputString + "\" is not available :(",1, "TOP",0,300,25);
 
             }
 
@@ -79,10 +85,10 @@ public class CreateAccountActivity extends ActionBarActivity {
         String userPwString = userPassword.getText().toString();
         String userEmailString = userEmail.getText().toString();
 
-        if (userNameString.equals("") && userEmailString.equals("") && userPwString.equals("")) {
+        if (userNameString.equals("") || userPwString.equals("")) {
 
             //tell the user all fields must be completed
-            makeMeToast("You must complete the User name, Password, and Email field before submitting.",1);
+            makeMeToast("You must complete the User name & Password fields before submitting.",1,"TOP",0,300,25);
 
 
         }
@@ -101,20 +107,21 @@ public class CreateAccountActivity extends ActionBarActivity {
                 }
                 else {
 
-                    makeMeToast("There was an error creating the account.",1);
+                    makeMeToast("There was an error creating the account.",1,"TOP",0,300,25);
 
                 }
             }
             else {
-                makeMeToast("Please log out the existing user before creating new user." + userName.getText().toString(),1);
+                makeMeToast("Please log out the existing user before creating new user." + userName.getText().toString(),1,"TOP",0,300,25);
 
             }
         }
     }
 
-    //helper method to make toast, takes a String input for the message and an integer
+       //helper method to make toast, takes a String input for the message and an integer
     //input for the duration (0 is short, 1 is long, default long)
-    public void makeMeToast(String message, int length)
+    //also you can specify the position of the toast and the font size
+    public void makeMeToast(String message, int length, String position, int xOffset, int yOffset, int fontSize)
     {
 
         int howBrownDoYouWantIt;
@@ -131,6 +138,22 @@ public class CreateAccountActivity extends ActionBarActivity {
 
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
+        if (position.equals("TOP")) {
+            toast.setGravity(Gravity.TOP, xOffset, yOffset);
+        }
+        else if (position.equals("BOTTOM"))
+        {
+            toast.setGravity(Gravity.BOTTOM, xOffset, yOffset);
+        }
+        if (fontSize == 0)
+        {
+            fontSize = 15;
+        }
+
+        //makes the toast text size bigger
+        LinearLayout layout = (LinearLayout) toast.getView();
+        TextView tv = (TextView) layout.getChildAt(0);
+        tv.setTextSize(fontSize);
         toast.show();
     }
 

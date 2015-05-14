@@ -1,8 +1,11 @@
 package com.tm470.mb24853.projectlluca;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -13,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -157,8 +161,36 @@ public class MainMenuActivity extends ActionBarActivity {
         toast.show();
     }
 
+    public void showHelp(View view)
+    {
+        final Dialog helpDialogue = new Dialog(this);
+        helpDialogue.setContentView(R.layout.custom_dialogue_help);
+        helpDialogue.setTitle("How to use the app");
+        final Button okButton = (Button) helpDialogue.findViewById(R.id.okButton);
+        final TextView helpTextView = (TextView) helpDialogue.findViewById(R.id.helpText);
+        String helpText = "test";
+        helpTextView.setText(helpText);
+
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                helpDialogue.dismiss();
+            }
+        });
+
+        helpDialogue.show();
+    }
+
     public class InitialPopulation extends AsyncTask<Void, Void, Void>
     {
+        protected void onPreExecute(){
+            //locks the orientation sensor whilst the async task is happening to prevent interruption
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        }
+
+
         @Override
         protected Void doInBackground(Void... params) {
 
@@ -182,7 +214,14 @@ public class MainMenuActivity extends ActionBarActivity {
             }
             return null;
         }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            //unlocks the sensor so it will detect orientation changes again
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+        }
     }
+
 
 
 }

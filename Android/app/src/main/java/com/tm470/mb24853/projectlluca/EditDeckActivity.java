@@ -26,6 +26,7 @@ public class EditDeckActivity extends ActionBarActivity {
         setContentView(R.layout.activity_edit_deck);
 
         Bundle bundle = getIntent().getExtras();
+
         final String deckname = bundle.getString("deckname");
         final String deckname2 = bundle.getString("deckname") + " current cards";
 

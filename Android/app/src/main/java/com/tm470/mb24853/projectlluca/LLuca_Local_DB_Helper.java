@@ -1173,7 +1173,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
             card.setQuestcard_trait1(cursor.getString(16));
             card.setQuestcard_trait2(cursor.getString(17));
             card.setQuestcard_trait3(cursor.getString(18));
-            card.setQuestcard_trait4(cursor.getString(19));;
+            card.setQuestcard_trait4(cursor.getString(19));
             card.setQuestcard_hp(cursor.getInt(16));
             card.setQuestcard_attack(cursor.getInt(17));
             card.setQuestcard_defence(cursor.getInt(18));

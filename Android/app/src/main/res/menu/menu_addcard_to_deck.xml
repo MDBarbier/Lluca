@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:matt="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="@string/Search"
+        android:id="@+id/action_back"
+        android:icon="@drawable/ic_back"
+        matt:showAsAction="always"/>
+
+    <item
+        android:title="@string/Search"
+        android:id="@+id/action_search"
+        android:icon="@drawable/search_icon"
+        matt:showAsAction="always"/>
+
+
+    <item
+        android:title="@string/Filters"
+        android:id="@+id/action_filter"
+        android:icon="@drawable/filter_icon"
+        matt:showAsAction="always"/>
+
+    <item
+        android:title="@string/Settings"
+        android:id="@+id/action_settings"
+        matt:showAsAction="always"
+        android:icon="@drawable/action_settings" />
+</menu>

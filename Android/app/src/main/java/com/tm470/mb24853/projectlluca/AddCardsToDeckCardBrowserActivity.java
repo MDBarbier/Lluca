@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -32,6 +34,8 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_browser);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
 
         new FilteringOperations().execute("");
 
@@ -40,7 +44,7 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_card_browser, menu);
+        inflater.inflate(R.menu.menu_addcard_to_deck, menu);
         return true;
     }
 
@@ -50,6 +54,11 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        if (id == android.R.id.home)
+        {
+            //makeMeToast(deckname,1);
+        }
 
         //noinspection SimplifiableIfStatement
         //if (id == R.id.action_settings) {
@@ -68,6 +77,15 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
             case R.id.action_filter:
                 //makeMeToast("filters",1);
                 filterDialog();
+                return true;
+            case R.id.action_back:
+                Bundle bundle = getIntent().getExtras();
+                String deckname = bundle.getString("deckname");
+                Intent intent = new Intent(this,EditDeckActivity.class);
+                intent.putExtra("deckname", deckname);
+                startActivity(intent);
+                //makeMeToast("back",1);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -225,6 +243,8 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
+            //locks the orientation sensor whilst the async task is happening to prevent interruption
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
             dialog = new ProgressDialog(AddCardsToDeckCardBrowserActivity.this);
             dialog.setMessage("Please wait... shuffling the cards");
@@ -260,13 +280,14 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
             }
         }
 
-
         protected void onPostExecute(Cursor result) {
             Log.w("Async", "in onPostExecute");
 
             dialog.setIndeterminate(false);
             dialog.dismiss();
             updateListView(result);
+            //unlocks the sensor so it will detect orientation changes again
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
         }
     }
 
