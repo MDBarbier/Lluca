@@ -464,20 +464,32 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         int actualThreat = 999;
 
         switch (threat){
-            case "One":
-                actualThreat = 1;
+            case "Six":
+                actualThreat = 6;
                 break;
-            case "Two":
-                actualThreat = 2;
+            case "Seven":
+                actualThreat = 7;
                 break;
-            case "Three":
-                actualThreat = 3;
+            case "Eight":
+                actualThreat = 8;
                 break;
-            case "Four":
-                actualThreat = 4;
+            case "Nine":
+                actualThreat = 9;
                 break;
             case "Five":
                 actualThreat = 5;
+                break;
+            case "Ten":
+                actualThreat = 10;
+                break;
+            case "Eleven":
+                actualThreat = 11;
+                break;
+            case "Twelve":
+                actualThreat = 12;
+                break;
+            case "Thirteen":
+                actualThreat = 13;
                 break;
             case "Zero":
                 actualThreat = 0;
@@ -592,6 +604,56 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
     public Cursor getQuestCardListCursor()
     {
         String query = "Select * FROM " + schema.TABLE_NAME_QUESTCARD;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public Cursor getQuestNameCursor()
+    {
+        String query = "Select * FROM " + schema.TABLE_NAME_DECKPARTS + " WHERE " + schema.COLUMN_NAME_DECKPART_PARENT + " = 1";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public String[] findRelatedQuestCards(String parentQuestName)
+    {
+
+        deckpartClass deckpart = findADeckpart(parentQuestName);
+        int deckpartId = deckpart.getDeckpart_id();
+        String query = "SELECT " + schema.COLUMN_NAME_QUESTCARD_NAME + " FROM " + schema.TABLE_NAME_QUESTCARD + " WHERE " + schema.COLUMN_NAME_QUESTCARD_DECKPART + " = " + deckpartId + " AND " + schema.COLUMN_NAME_QUESTCARD_TYPE + " = \'Quest\' ORDER BY " + schema.COLUMN_NAME_QUESTCARD_PART;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        int counter = 1;
+
+        while (cursor.moveToNext())
+        {
+            counter ++;
+        }
+
+        String[] array = new String[counter - 1];
+        counter = 0;
+        //cursor.moveToFirst();
+        cursor = db.rawQuery(query, null);
+        while (cursor.moveToNext())
+        {
+            array[counter] = cursor.getString(0);
+            counter ++;
+        }
+
+
+        return array;
+    }
+
+    public Cursor getRelatedQuestCardCursor(String parentQuestName)
+    {
+        deckpartClass deckpart = findADeckpart(parentQuestName);
+        int deckpartId = deckpart.getDeckpart_id();
+        String query = "SELECT * FROM " + schema.TABLE_NAME_QUESTCARD + " WHERE " + schema.COLUMN_NAME_QUESTCARD_DECKPART + " = " + deckpartId + " AND " + schema.COLUMN_NAME_QUESTCARD_TYPE + " = \'Quest\' ORDER BY " + schema.COLUMN_NAME_QUESTCARD_PART;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
         cursor = db.rawQuery(query, null);
@@ -916,7 +978,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
     {
         userAccountClass user = getCurrentUser();
         //String query = "Select distinct " + schema.COLUMN_NAME_DECK_DECK_NAME + " FROM " + schema.TABLE_NAME_CUSTOM_DECKS;
-        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " where " + schema.COLUMN_NAME_DECK_OWNING_USER + " = '" + user.getUsername() + "' AND " + schema.COLUMN_NAME_DECK_CARD_NAME + " IS NULL"  ;
+        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " where " + schema.COLUMN_NAME_DECK_OWNING_USER + " = '" + user.getUsername() + "' AND " + schema.COLUMN_NAME_DECK_CARD_NAME + " IS NULL ORDER BY " + schema.COLUMN_NAME_DECK_DECK_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
         cursor = db.rawQuery(query, null);
@@ -1005,7 +1067,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
     public Cursor getCardsInDeck(String deckName)
     {
         userAccountClass user = getCurrentUser();
-        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_DECK_NAME + " = " + "\"" + deckName + "\"" + " AND " + schema.COLUMN_NAME_DECK_OWNING_USER + " = " + "\"" + user.getUsername() + "\"" + " AND " + schema.COLUMN_NAME_DECK_CARD_TYPE + " IS NOT \"" + "Hero" + "\"";
+        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_DECK_NAME + " = " + "\"" + deckName + "\"" + " AND " + schema.COLUMN_NAME_DECK_OWNING_USER + " = " + "\"" + user.getUsername() + "\"" + " AND " + schema.COLUMN_NAME_DECK_CARD_TYPE + " IS NOT \"" + "Hero" + "\" ORDER BY " + schema.COLUMN_NAME_DECK_CARD_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
         cursor = db.rawQuery(query, null);
@@ -1181,6 +1243,26 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
             card.setQuestcard_vp(cursor.getInt(20));
         }
         return card;
+    }
+
+    public deckpartClass findADeckpart(String name)
+    {
+        deckpartClass deckpart = new deckpartClass();
+        deckpart.setDeckpart_name(name);
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + schema.TABLE_NAME_DECKPARTS + " WHERE " + schema.COLUMN_NAME_DECKPART_NAME + " = \"" + deckpart.getDeckpart_name() + "\"";
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst())
+        {
+            deckpart.setDeckpart_id(cursor.getInt(1));
+            deckpart.setDeckpart_name(cursor.getString(2));
+            deckpart.setDeckpart_box_id(cursor.getInt(3));
+            deckpart.setDeckpart_cycle(cursor.getString(4));
+            deckpart.setDeckpart_box(cursor.getString(5));
+            deckpart.setDeckpart_parent(cursor.getInt(6));
+
+        }
+        return deckpart;
     }
 
     public encountercardClass findAnEncounterCard(String name)

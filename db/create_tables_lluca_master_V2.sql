@@ -177,5 +177,6 @@ deckpart_id int,
 deckpart_name varchar(80),
 deckpart_box_id int,
 deckpart_box varchar(80),
-deckpart_cycle varchar(80)
+deckpart_cycle varchar(80),
+deckpart_parent int /*1 for parent 0 for child*/
 );

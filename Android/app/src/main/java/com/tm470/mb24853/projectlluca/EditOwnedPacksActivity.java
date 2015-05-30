@@ -1,5 +1,6 @@
 package com.tm470.mb24853.projectlluca;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,16 +30,18 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
         ListView deckparts = (ListView) findViewById(R.id.ownedPackListView);
         final tableadapter_deckpart_helper adapter = new tableadapter_deckpart_helper(this, deckpart_cursor, false);
         deckparts.setAdapter(adapter);
+
         deckparts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-                //TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
-                //String text = deckpart_name.getText().toString();
+                TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
+                String text = deckpart_name.getText().toString();
                 //Boolean owned = db_helper.doesPlayerOwnPack(text);
                 //String textToToast = "Deckpart name: " + text + " Owned: " + owned.toString();
                 //Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+                displayCardDialog(text);
 
             }
         });
@@ -116,5 +120,30 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
         toast.show();
+    }
+
+    public void displayCardDialog(String text)
+    {
+        final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
+        cardDetailsDialogue.setTitle("Quest details");
+        final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
+        final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);
+
+        deckpartClass deckpart = db_helper.findADeckpart(text);
+
+        final String textForDisplay = "Name: " + deckpart.getDeckpart_name() + "\nCycle: " + deckpart.getDeckpart_cycle() + "\nBox: " + deckpart.getDeckpart_box();
+        cardDataView.setText(textForDisplay);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cardDetailsDialogue.dismiss();
+            }
+        });
+
+        cardDetailsDialogue.show();
+
     }
 }

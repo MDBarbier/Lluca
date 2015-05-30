@@ -10,18 +10,20 @@ public class deckpartClass {
     private int deckpart_box_id;
     private String deckpart_cycle;
     private String deckpart_box;
+    private int deckpart_parent;
 
     public deckpartClass()
     {
         //empty constructor
     }
 
-    public deckpartClass(int id, String name, int box_id, String cycle)
+    public deckpartClass(int id, String name, int box_id, String cycle, int parent)
     {
         this.deckpart_id = id;
         this.deckpart_name = name;
         this.deckpart_box_id = box_id;
         this.deckpart_cycle = cycle;
+        this.deckpart_parent = parent;
     }
 
     public void setDeckpart_id(int id)
@@ -66,5 +68,13 @@ public class deckpartClass {
 
     public String getDeckpart_box() {
         return deckpart_box;
+    }
+
+    public int getDeckpart_parent() {
+        return deckpart_parent;
+    }
+
+    public void setDeckpart_parent(int deckpart_parent) {
+        this.deckpart_parent = deckpart_parent;
     }
 }

@@ -25,6 +25,9 @@ public class EditHeroesInDeckActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_heroes_in_deck);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+
         Bundle bundle = getIntent().getExtras();
         final String deckname = bundle.getString("deckname");
         final String deckname2 = bundle.getString("deckname") + " current heroes";
@@ -71,7 +74,7 @@ public class EditHeroesInDeckActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_edit_deck, menu);
+        getMenuInflater().inflate(R.menu.menu_edit_heroes, menu);
         return true;
     }
 
@@ -87,7 +90,20 @@ public class EditHeroesInDeckActivity extends ActionBarActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case R.id.action_back:
+                Bundle bundle = getIntent().getExtras();
+                String deckname = bundle.getString("deckname");
+                Intent intent = new Intent(this,EditDeckActivity.class);
+                intent.putExtra("deckname", deckname);
+                startActivity(intent);
+                //makeMeToast("back",1);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void add_cards_to_deck(View view)

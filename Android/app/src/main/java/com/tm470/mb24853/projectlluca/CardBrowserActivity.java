@@ -2,6 +2,7 @@ package com.tm470.mb24853.projectlluca;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -32,8 +33,28 @@ public class CardBrowserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_browser_basic);
-        Cursor c = db_helper.getPlayerCardListCursor();
-        updateListView(1);
+        //Cursor c = db_helper.getPlayerCardListCursor();
+        //updateListView(1);
+
+        Intent intent = getIntent();
+        Bundle bundle = getIntent().getExtras();
+        String type = bundle.getString("type");
+
+        switch (type) {
+            case "player":
+                updateListView(1);
+                break;
+            case "encounter":
+                updateListView(2);
+                break;
+            case "quest":
+                updateListView(4);
+                break;
+            case "particularQuest":
+                updateListView(5);
+            default:
+                break;
+        }
     }
 
     @Override
@@ -146,6 +167,26 @@ public class CardBrowserActivity extends ActionBarActivity {
                     displayQuestCardDialog(text);
                 }
             });
+        }
+
+            if (cardType == 5) {
+                //loads the available cards into list view
+                Bundle bundle = getIntent().getExtras();
+                String name = bundle.getString("name");
+                ListView cardList = (ListView) findViewById(R.id.cardListListView);
+                Cursor cardlist_cursor = db_helper.getRelatedQuestCardCursor(name);
+                tableadapter_questcardlist_helper adapter = new tableadapter_questcardlist_helper(this, cardlist_cursor, false);
+                cardList.setAdapter(adapter);
+                cardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position,
+                                            long id) {
+
+                        TextView currentCard = (TextView) view.findViewById(R.id.template_questcard_name);
+                        String text = currentCard.getText().toString();
+                        displayQuestCardDialog(text);
+                    }
+                });
 
         }
     }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +27,8 @@ public class DeckHeroListFiltersActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck_hero_list_filters);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
 
         spinner2 = (Spinner) findViewById(R.id.cardSphereFilterSpinner);
         spinner3 = (Spinner) findViewById(R.id.cardThreatFilterSpinner);
@@ -64,7 +67,8 @@ public class DeckHeroListFiltersActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_deck_card_list_filters, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_deck_card_list_filters, menu);
         return true;
     }
 
@@ -80,7 +84,25 @@ public class DeckHeroListFiltersActivity extends ActionBarActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case R.id.action_back:
+                //get the deckname that was passed over
+                Bundle bundle = getIntent().getExtras();
+                String deckname = bundle.getString("deckname");
+
+
+                //return the selected filters and deckname to the card list screen
+                Intent intent = new Intent(this, AddHeroCardsToDeckCardBrowserActivity.class);
+                intent.putExtra("deckname", deckname);
+                intent.putExtra("sphere", cardSphere);
+                intent.putExtra("threat", cardThreat);
+                startActivity(intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void applyFilters(View view)

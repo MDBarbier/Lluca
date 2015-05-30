@@ -33,6 +33,9 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
         setContentView(R.layout.activity_card_browser);
 
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+
         new FilteringOperations().execute("");
 
     }
@@ -40,7 +43,7 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_card_browser, menu);
+        inflater.inflate(R.menu.menu_addcard_to_deck, menu);
         return true;
     }
 
@@ -68,6 +71,15 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
             case R.id.action_filter:
                 //makeMeToast("filters",1);
                 filterDialog();
+                return true;
+            case R.id.action_back:
+                Bundle bundle = getIntent().getExtras();
+                String deckname = bundle.getString("deckname");
+                Intent intent = new Intent(this,EditDeckActivity.class);
+                intent.putExtra("deckname", deckname);
+                startActivity(intent);
+                //makeMeToast("back",1);
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

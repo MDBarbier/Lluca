@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cardThreatFilterSpinner"
-        android:entries="@array/threatSpinner"
+        android:entries="@array/heroThreatSpinner"
         style="@style/spacing_style"
         />
 

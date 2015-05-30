@@ -17,11 +17,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Long tap a pack name to delete"
+        android:textColor="#ffff1d20"
         android:textSize="15dp"
         style="@style/spacing_style"/>
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ownedPackListView"
         android:layout_weight="0.98"

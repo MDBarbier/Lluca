@@ -31,6 +31,8 @@ public class DeckCardListFiltersActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck_card_list_filters);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
 
         spinner = (Spinner) findViewById(R.id.cardTypeFilterSpinner);
         spinner2 = (Spinner) findViewById(R.id.cardSphereFilterSpinner);
@@ -101,7 +103,26 @@ public class DeckCardListFiltersActivity extends ActionBarActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case R.id.action_back:
+                //get the deckname that was passed over
+                Bundle bundle = getIntent().getExtras();
+                String deckname = bundle.getString("deckname");
+
+
+                //return the selected filters and deckname to the card list screen
+                Intent intent = new Intent(this, AddCardsToDeckCardBrowserActivity.class);
+                intent.putExtra("deckname", deckname);
+                intent.putExtra("sphere", cardSphere);
+                intent.putExtra("typeFilter", cardType);
+                intent.putExtra("cost", cardCost);
+                startActivity(intent);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void applyFilters(View view)

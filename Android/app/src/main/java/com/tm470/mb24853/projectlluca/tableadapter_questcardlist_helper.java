@@ -36,16 +36,16 @@ import android.widget.TextView;
 
             //find the fields to populate
             TextView card_name = (TextView) view.findViewById(R.id.template_questcard_name);
-            TextView card_no = (TextView) view.findViewById(R.id.template_questcard_no);
+            //TextView card_no = (TextView) view.findViewById(R.id.template_questcard_no);
 
             Log.w("table adapter", "just before reading from cursor");
             //Get data from cursor
             String name = cursor.getString(cursor.getColumnIndex("questcard_name"));
-            String no = cursor.getString(cursor.getColumnIndex("questcard_no"));
+            //String no = cursor.getString(cursor.getColumnIndex("questcard_no"));
 
             //Populate views
             card_name.setText(name);
-            card_no.setText(no);
+            //card_no.setText(no);
         }
 
     }

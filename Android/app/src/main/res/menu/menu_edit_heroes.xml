@@ -7,5 +7,10 @@
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 
+    <item
+        android:title="@string/back"
+        android:id="@+id/action_back"
+        android:icon="@drawable/ic_back"
+        matt:showAsAction="always"/>
 
 </menu>

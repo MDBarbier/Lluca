@@ -34,16 +34,16 @@ public class tableadapter_encountercard_helper extends CursorAdapter {
 
         //find the fields to populate
         TextView card_name = (TextView) view.findViewById(R.id.template_encountercard_name);
-        TextView card_no = (TextView) view.findViewById(R.id.template_encountercard_no);
+        //TextView card_no = (TextView) view.findViewById(R.id.template_encountercard_no);
 
         Log.w("table adapter", "just before reading from cursor");
         //Get data from cursor
         String name = cursor.getString(cursor.getColumnIndex("encountercard_name"));
-        String no = cursor.getString(cursor.getColumnIndex("encountercard_no"));
+        //String no = cursor.getString(cursor.getColumnIndex("encountercard_no"));
 
         //Populate views
         card_name.setText(name);
-        card_no.setText(no);
+        //card_no.setText(no);
     }
 
 }

@@ -10,12 +10,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/available_packs"
+        android:text="Packs available"
         android:textSize="20dp"
-        style="@style/spacing_style"/>
+        android:layout_marginTop="5dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Long tap to add or remove"
+        android:textColor="#ffff1d20"
+        android:textSize="15dp"
+        />
+
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ownedPackListView"
         android:layout_weight="0.98"

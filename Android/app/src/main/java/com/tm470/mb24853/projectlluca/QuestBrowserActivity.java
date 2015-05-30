@@ -15,45 +15,41 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class AddPacksToUserActivity extends ActionBarActivity {
+public class QuestBrowserActivity extends ActionBarActivity {
 
     LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_packs_to_user);
+        setContentView(R.layout.activity_quest_browser);
 
         //loads the available deckparts into list view
-        Cursor deckpart_cursor = db_helper.getDeckpartDataCursor();
-        ListView deckparts = (ListView) findViewById(R.id.ownedPackListView);
-        tableadapter_deckpart_helper adapter = new tableadapter_deckpart_helper(this, deckpart_cursor, false);
-        deckparts.setAdapter(adapter);
-        deckparts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Cursor questlist_cursor = db_helper.getQuestNameCursor();
+        ListView questview = (ListView) findViewById(R.id.questListView);
+        tableadapter_deckpart_helper adapter = new tableadapter_deckpart_helper(this, questlist_cursor, false);
+        questview.setAdapter(adapter);
+
+        questview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
-                String text = deckpart_name.getText().toString();
+                TextView quest_name = (TextView) view.findViewById(R.id.template_deckpart_name);
+                String text = quest_name.getText().toString();
                 displayCardDialog(text);
             }
         });
 
-        deckparts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        questview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
-                TextView deckpart_box = (TextView) view.findViewById(R.id.template_deckpart_box);
-                String text = deckpart_name.getText().toString();
-                String text2 = deckpart_box.getText().toString();
-                db_helper.setPackOwnership(text, text2);
-                if (db_helper.doesPlayerOwnPack(text)) {
-                    String textToToast = "Added to collection";
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-                } else {
-                    String textToToast = "Removed from collection";
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-                }
+
+                TextView quest_name = (TextView) view.findViewById(R.id.template_deckpart_name);
+                String text = quest_name.getText().toString();
+                Intent intent = new Intent(QuestBrowserActivity.this, CardBrowserActivity.class);
+                intent.putExtra("type", "particularQuest");
+                intent.putExtra("name", text);
+                startActivity(intent);
                 return true;
             }
         });
@@ -82,14 +78,7 @@ public class AddPacksToUserActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //MDB: loads the profile screen having saved changes
-    public void returnToUserProfile(View view)
-    {
-        userAccountClass user = db_helper.getCurrentUser();
-        Intent intent = new Intent(this, UserProfileActivity.class);
-        intent.putExtra("username", user.getUsername());
-        startActivity(intent);
-    }
+
 
     public void displayCardDialog(String text)
     {
@@ -101,7 +90,16 @@ public class AddPacksToUserActivity extends ActionBarActivity {
 
         deckpartClass deckpart = db_helper.findADeckpart(text);
 
-        final String textForDisplay = "Name: " + deckpart.getDeckpart_name() + "\nCycle: " + deckpart.getDeckpart_cycle() + "\nBox: " + deckpart.getDeckpart_box();
+        final String[] questCardArray = db_helper.findRelatedQuestCards(text);
+        String tempText = "";
+
+        for (String s: questCardArray)
+        {
+            tempText = tempText + "\n" + s;
+        }
+
+         final String textForDisplay = "Name: " + deckpart.getDeckpart_name() + "\nCycle: " + deckpart.getDeckpart_cycle() + "\nBox: " + deckpart.getDeckpart_box() + "\nQuest cards: " + tempText;
+
         cardDataView.setText(textForDisplay);
 
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -115,4 +113,5 @@ public class AddPacksToUserActivity extends ActionBarActivity {
         cardDetailsDialogue.show();
 
     }
+
 }

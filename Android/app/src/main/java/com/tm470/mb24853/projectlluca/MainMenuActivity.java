@@ -13,10 +13,12 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -91,21 +93,32 @@ public class MainMenuActivity extends ActionBarActivity {
     //MDB: shows legal info
     public void showLegalInfo(View view)
     {
-        makeMeToast("Lord of the Rings LCG is Copyright Fantasy Flight Games, I own no legal rights on any Lord of the Rings names, characters or places.", 1);
+        final Dialog helpDialogue = new Dialog(this);
+        helpDialogue.setContentView(R.layout.custom_dialogue_help);
+        helpDialogue.setTitle("Legal disclaimer");
+        final Button okButton = (Button) helpDialogue.findViewById(R.id.okButton);
+        final TextView helpTextView = (TextView) helpDialogue.findViewById(R.id.helpText);
+        String helpText = "Lord of the Rings LCG is Copyright Fantasy Flight Games, I own no legal rights on any Lord of the Rings names, characters, images or places. This has been developed for purely personal academic use and is not intended to be sold or rented.";
+        helpTextView.setText(helpText);
+
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                helpDialogue.dismiss();
+            }
+        });
+
+        helpDialogue.show();
     }
 
     //MDB: loads quest log if there is a user logged in
     public void questLog(View view)
     {
-        makeMeToast("Not implemented in this release.", 1);
-
-    }
-
-    //MDB: loads llucapaedia
-    public void llucapaedia(View view)
-    {
-        makeMeToast("Not implemented in this release.", 1);
-
+        //makeMeToast("Not implemented in this release.", 1,"BOTTOM",0,0,25);
+        Intent intent = new Intent(this,QuestBrowserActivity.class);
+        startActivity(intent);
     }
 
     //MDB: loads the deck list screen IF there is a user logged in
@@ -115,13 +128,14 @@ public class MainMenuActivity extends ActionBarActivity {
             Intent intent = new Intent(this, DeckListActivity.class);
             startActivity(intent);
         }
-        else {makeMeToast("Please log in or create an account first.",1);}
+        else {makeMeToast("Please log in or create an account first.",1,"BOTTOM",0,0,25);}
     }
 
     //MDB: loads the card browser
     public void loadCardBrowserActivity(View view)
     {
-        Intent intent= new Intent(this, CardBrowserActivity.class);
+        Intent intent = new Intent(this, CardBrowserActivity.class);
+        intent.putExtra("type", "encounter");
         startActivity(intent);
     }
 
@@ -132,34 +146,12 @@ public class MainMenuActivity extends ActionBarActivity {
             userAccountClass user = db_helper.getCurrentUser();
             String userName = user.getUsername();
             db_helper.updateUser(userName, "","",0);
-            makeMeToast("Current user has been logged out.",1);
+            makeMeToast("Current user has been logged out.",1,"BOTTOM",0,0,25);
             Intent intent= new Intent(this, MainMenuActivity.class);
             startActivity(intent);
         }
     }
 
-
-    //helper method to make toast, takes a String input for the message and an integer
-    //input for the duration (0 is short, 1 is long, default long)
-    public void makeMeToast(String message, int length)
-    {
-
-        int howBrownDoYouWantIt;
-
-        switch (length) {
-
-            case 0: howBrownDoYouWantIt = Toast.LENGTH_SHORT;
-                break;
-            case 1: howBrownDoYouWantIt = Toast.LENGTH_LONG;
-                break;
-            default: howBrownDoYouWantIt = Toast.LENGTH_LONG;
-                break;
-        }
-
-        Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
-        toast.show();
-    }
 
     public void showHelp(View view)
     {
@@ -168,7 +160,24 @@ public class MainMenuActivity extends ActionBarActivity {
         helpDialogue.setTitle("How to use the app");
         final Button okButton = (Button) helpDialogue.findViewById(R.id.okButton);
         final TextView helpTextView = (TextView) helpDialogue.findViewById(R.id.helpText);
-        String helpText = "test";
+        String helpText = "First steps\n" +
+                "\n" +
+                "- Create a user account by clicking \"user profile\" then \"create account\" and following the prompts on screen\n" +
+                "- Once your account is created, edit the packs you own by going to your profile screen (top left button on main menu then \"Owned packs\" then \"Edit your packs\")\n" +
+                "\n" +
+                "Using the Deckbuilder\n" +
+                "\n" +
+                "- Click the Deckbuilder button from the main menu\n" +
+                "- Click \"create new deck\"\n" +
+                "- Name your deck\n" +
+                "- Tap the deck name to select it\n" +
+                "- From the Edit Deck screen you can a) add cards b) add heroes c) view demographics about your deck d) delete the deck\n" +
+                "\n" +
+                "Using the Card Browser\n" +
+                "\n" +
+                "- The card browser can be used to view any cards in the game\n" +
+                "- Tap the Filter icon in the action bar to change the card type you are looking at\n" +
+                "- Tap a card to view details";
         helpTextView.setText(helpText);
 
 
@@ -222,6 +231,43 @@ public class MainMenuActivity extends ActionBarActivity {
         }
     }
 
+    //helper method to make toast, takes a String input for the message and an integer
+    //input for the duration (0 is short, 1 is long, default long)
+    //also you can specify the position of the toast and the font size
+    public void makeMeToast(String message, int length, String position, int xOffset, int yOffset, int fontSize)
+    {
 
+        int howBrownDoYouWantIt;
+
+        switch (length) {
+
+            case 0: howBrownDoYouWantIt = Toast.LENGTH_SHORT;
+                break;
+            case 1: howBrownDoYouWantIt = Toast.LENGTH_LONG;
+                break;
+            default: howBrownDoYouWantIt = Toast.LENGTH_LONG;
+                break;
+        }
+
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
+        if (position.equals("TOP")) {
+            toast.setGravity(Gravity.TOP, xOffset, yOffset);
+        }
+        else if (position.equals("BOTTOM"))
+        {
+            toast.setGravity(Gravity.BOTTOM, xOffset, yOffset);
+        }
+        if (fontSize == 0)
+        {
+            fontSize = 15;
+        }
+
+        //makes the toast text size bigger
+        LinearLayout layout = (LinearLayout) toast.getView();
+        TextView tv = (TextView) layout.getChildAt(0);
+        tv.setTextSize(fontSize);
+        toast.show();
+    }
 
 }
