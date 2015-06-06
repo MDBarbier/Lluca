@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +57,8 @@ public class CardBrowserActivity extends ActionBarActivity {
             default:
                 break;
         }
+
+        setFonts();
     }
 
     @Override
@@ -295,6 +299,7 @@ public class CardBrowserActivity extends ActionBarActivity {
     {
 
         final Dialog filterDialogBox = new Dialog(this);
+        filterDialogBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
         filterDialogBox.setContentView(R.layout.custom_dialogue_cardfilters);
         filterDialogBox.setTitle("Choose card type to view: ");
 
@@ -342,10 +347,13 @@ public class CardBrowserActivity extends ActionBarActivity {
     public void searchDialog()
     {
         final Dialog searchDialogBox = new Dialog(this);
+        searchDialogBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
         searchDialogBox.setContentView(R.layout.custom_dialogue_cardbrowser_searchfilters);
-        searchDialogBox.setTitle("Search");
+
         final Button okButton = (Button) searchDialogBox.findViewById(R.id.okButtonSearch);
         final EditText searchQueryField = (EditText) searchDialogBox.findViewById(R.id.searchQueryField);
+        final TextView textview5 = (TextView) searchDialogBox.findViewById(R.id.textView5);
+        final TextView textview6 = (TextView) searchDialogBox.findViewById(R.id.textView6);
         final Spinner spinner = (Spinner) searchDialogBox.findViewById(R.id.typeSpinner);
 
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -356,7 +364,7 @@ public class CardBrowserActivity extends ActionBarActivity {
                 String type = spinner.getSelectedItem().toString();
                 //makeMeToast(searchQuery + "," + type,1);
 
-                switch (type){
+                switch (type) {
                     case "Player card":
                         //makeMeToast("p",1);
                         updateListViewWithSearch(1, searchQuery);
@@ -380,6 +388,14 @@ public class CardBrowserActivity extends ActionBarActivity {
             }
         });
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        textview5.setTypeface(font);
+        textview6.setTypeface(font);
+        textview5.setTextSize(12);
+
+        textview6.setTextSize(12);
+        okButton.setTypeface(font);
+        okButton.setTextSize(8);
         searchDialogBox.show();
     }
 
@@ -425,6 +441,7 @@ public class CardBrowserActivity extends ActionBarActivity {
     public void displayCardDialog(String text)
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
         cardDetailsDialogue.setTitle("Card details");
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
@@ -479,6 +496,12 @@ public class CardBrowserActivity extends ActionBarActivity {
             }
         });
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        cardDataView.setTypeface(font);
+        cardDataView.setTextSize(10);
+        okButton.setTypeface(font);
+        okButton.setTextSize(8);
+
         cardDetailsDialogue.show();
         //makeMeToast(textToToast,1);
     }
@@ -486,6 +509,7 @@ public class CardBrowserActivity extends ActionBarActivity {
     public void displayHeroCardDialog(String text)
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
         cardDetailsDialogue.setTitle("Card details");
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
@@ -540,6 +564,12 @@ public class CardBrowserActivity extends ActionBarActivity {
             }
         });
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        cardDataView.setTypeface(font);
+        cardDataView.setTextSize(10);
+        okButton.setTypeface(font);
+        okButton.setTextSize(8);
+
         cardDetailsDialogue.show();
         //makeMeToast(textToToast,1);
     }
@@ -547,6 +577,7 @@ public class CardBrowserActivity extends ActionBarActivity {
     public void displayEncounterCardDialog(String text)
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
         cardDetailsDialogue.setTitle("Card details");
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
@@ -598,6 +629,12 @@ public class CardBrowserActivity extends ActionBarActivity {
             }
         });
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        cardDataView.setTypeface(font);
+        cardDataView.setTextSize(10);
+        okButton.setTypeface(font);
+        okButton.setTextSize(8);
+
         cardDetailsDialogue.show();
         //makeMeToast(textToToast,1);
     }
@@ -605,6 +642,7 @@ public class CardBrowserActivity extends ActionBarActivity {
     public void displayQuestCardDialog(String text)
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
         cardDetailsDialogue.setTitle("Card details");
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
@@ -659,7 +697,26 @@ public class CardBrowserActivity extends ActionBarActivity {
             }
         });
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        cardDataView.setTypeface(font);
+        cardDataView.setTextSize(10);
+        okButton.setTypeface(font);
+        okButton.setTextSize(8);
+
         cardDetailsDialogue.show();
         //makeMeToast(textToToast,1);
+    }
+
+    public void setFonts()
+    {
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+
+        //TextView a = (TextView) findViewById(R.id.textView);
+        //TextView b = (TextView) findViewById(R.id.textView1);
+
+
+       // a.setTypeface(font2);
+        //b.setTypeface(font2);
     }
 }

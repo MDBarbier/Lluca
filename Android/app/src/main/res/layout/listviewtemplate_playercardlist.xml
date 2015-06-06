@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
-    <TextView
+    <com.tm470.mb24853.projectlluca.customTextViewForListView
         android:id="@+id/template_card_name"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:text="test"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="20dp" />
+        android:textSize="12dp" />
 
 
 

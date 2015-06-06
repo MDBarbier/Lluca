@@ -12,12 +12,14 @@
         android:layout_height="wrap_content"
         android:text="Packs available"
         android:textSize="20dp"
+        android:id="@+id/add_packs_a"
         android:layout_marginTop="5dp"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Long tap to add or remove"
+        android:id="@+id/add_packs_b"
         android:textColor="#ffff1d20"
         android:textSize="15dp"
         />

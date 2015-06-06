@@ -3,11 +3,13 @@ package com.tm470.mb24853.projectlluca;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -53,6 +55,8 @@ public class QuestBrowserActivity extends ActionBarActivity {
                 return true;
             }
         });
+
+        setFonts();
     }
 
 
@@ -83,6 +87,7 @@ public class QuestBrowserActivity extends ActionBarActivity {
     public void displayCardDialog(String text)
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
         cardDetailsDialogue.setTitle("Quest details");
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
@@ -110,8 +115,26 @@ public class QuestBrowserActivity extends ActionBarActivity {
             }
         });
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        cardDataView.setTypeface(font);
+        cardDataView.setTextSize(10);
+        okButton.setTypeface(font);
+        okButton.setTextSize(8);
+
         cardDetailsDialogue.show();
 
     }
 
+    public void setFonts()
+    {
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+
+        TextView a = (TextView) findViewById(R.id.quest_browser_a);
+        TextView b = (TextView) findViewById(R.id.quest_browser_b);
+
+
+        a.setTypeface(font2);
+        b.setTypeface(font2);
+    }
 }

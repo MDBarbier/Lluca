@@ -4,11 +4,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -66,6 +68,7 @@ public class EditDeckActivity extends ActionBarActivity {
                 return true;
             }
         });
+        setFonts();
     }
 
 
@@ -162,6 +165,7 @@ public class EditDeckActivity extends ActionBarActivity {
         Bundle bundle = getIntent().getExtras();
         String deckname = bundle.getString("deckname");
         final Dialog deckDemosDialogue = new Dialog(this);
+        deckDemosDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         deckDemosDialogue.setContentView(R.layout.custom_dialogue_demographics);
         deckDemosDialogue.setTitle("Deck demographics");
 
@@ -174,7 +178,7 @@ public class EditDeckActivity extends ActionBarActivity {
         float avgCost = (float) demographics[8]/demographics[0];
         String warningText;
 
-        String demographicsText = "Total cards in deck: " + demographics[0] + "\nTotal Events:" + demographics[2] + "\nTotal Allies:" + demographics[1] + "\nTotal Attachments:" + demographics[3] + "\nLeadership cards:" + demographics[4] + "\nTactics cards:" + demographics[5] + "\nSpirit cards:" + demographics[6] + "\nLore cards:" + demographics[7] + "\nAverage card cost: " + avgCost;
+        String demographicsText = "Total cards in deck: " + demographics[0] + "\nTotal Events: " + demographics[2] + "\nTotal Allies: " + demographics[1] + "\nTotal Attachments: " + demographics[3] + "\nLeadership cards: " + demographics[4] + "\nTactics cards: " + demographics[5] + "\nSpirit cards: " + demographics[6] + "\nLore cards: " + demographics[7] + "\nAverage card cost: " + avgCost;
 
         if (demographics[0]<50)
         {
@@ -197,6 +201,16 @@ public class EditDeckActivity extends ActionBarActivity {
                 deckDemosDialogue.dismiss();
             }
         });
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+
+        deckDataView.setTypeface(font);
+        deckDataView.setTextSize(10);
+        deckWarningsView.setTypeface(font2);
+        deckWarningsView2.setTypeface(font2);
+        okButton.setTypeface(font);
+        okButton.setTextSize(8);
 
         deckDemosDialogue.show();
 
@@ -227,6 +241,7 @@ public class EditDeckActivity extends ActionBarActivity {
     public void displayCardDialog(String text)
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
         cardDetailsDialogue.setTitle("Card details");
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
@@ -281,7 +296,39 @@ public class EditDeckActivity extends ActionBarActivity {
             }
         });
 
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        cardDataView.setTypeface(font);
+        cardDataView.setTextSize(10);
+        okButton.setTypeface(font);
+        okButton.setTextSize(8);
+
         cardDetailsDialogue.show();
         //makeMeToast(textToToast,1);
+    }
+
+    public void setFonts()
+    {
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+
+        TextView a = (TextView) findViewById(R.id.editDeckTextName);
+        TextView b = (TextView) findViewById(R.id.edit_deck_a);
+        TextView c = (TextView) findViewById(R.id.edit_deck_addcards);
+        TextView d = (TextView) findViewById(R.id.edit_deck_deletedeck);
+        TextView e = (TextView) findViewById(R.id.button3);
+        TextView f = (TextView) findViewById(R.id.button4);
+
+        a.setTypeface(font2);
+        b.setTypeface(font2);
+        c.setTypeface(font);
+        d.setTypeface(font);
+        e.setTypeface(font);
+        f.setTypeface(font);
+        c.setTextSize(11);
+        d.setTextSize(11);
+        e.setTextSize(11);
+        f.setTextSize(11);
+
     }
 }

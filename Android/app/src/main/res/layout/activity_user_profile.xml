@@ -16,8 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/current_user_label"
+        android:id="@+id/a"
         style="@style/spacing_style"
-        android:textSize="20sp" />
+        android:textSize="18dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,7 +27,7 @@
         android:text="@string/dummy_username"
         android:id="@+id/userprofile_username"
         android:background="#ffe3e3e3"
-        android:textSize="20sp"
+        android:textSize="12dp"
         android:textColor="#ff000000"
         android:textStyle="bold"
         style="@style/spacing_style"/>
@@ -36,7 +37,8 @@
         android:layout_height="wrap_content"
         android:text="@string/last_sync"
         style="@style/spacing_style"
-        android:textSize="20sp" />
+        android:id="@+id/b"
+        android:textSize="18dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,7 +47,7 @@
         android:text="@string/dummy_sync_date"
         android:id="@+id/userprofile_lastsync"
         android:background="#ffe3e3e3"
-        android:textSize="20sp"
+        android:textSize="12dp"
         android:textColor="#ff000000"
         style="@style/spacing_style"/>
 
@@ -54,13 +56,15 @@
         android:layout_height="wrap_content"
         android:text="@string/server_sync_label"
         style="@style/spacing_style"
-        android:textSize="20sp" />
+        android:id="@+id/e"
+        android:textSize="18dp" />
 
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/sync"
         android:id="@+id/sync_button"
+        android:textSize="12dp"
         style="@style/spacing_style"
         android:onClick="syncWithServer"/>
 
@@ -69,12 +73,14 @@
         android:layout_height="wrap_content"
         android:text="@string/edit_decks"
         style="@style/spacing_style"
-        android:textSize="20sp" />
+        android:id="@+id/f"
+        android:textSize="18dp" />
 
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/edit_deck_button"
+        android:textSize="12dp"
         android:id="@+id/edit_deck_button"
         style="@style/spacing_style"
         android:onClick="loadEditOwnedPacksActivity"/>
@@ -83,8 +89,9 @@
         style="@style/spacing_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/g"
         android:text="@string/logout_label"
-        android:textSize="20sp"
+        android:textSize="18dp"
          />
 
     <Button
@@ -92,6 +99,7 @@
         android:layout_height="wrap_content"
         android:text="@string/logout"
         android:id="@+id/logout_button"
+        android:textSize="12dp"
         style="@style/spacing_style"
         android:onClick="logoutCurrentUser"/>
 

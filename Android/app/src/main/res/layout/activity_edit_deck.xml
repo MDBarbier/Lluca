@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:text="Long press to remove a card, tap to view card data"
         android:textSize="15dp"
+        android:id="@+id/edit_deck_a"
         android:textColor="#ffff1d20"
         android:layout_marginBottom="10dp"/>
 

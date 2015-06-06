@@ -1,5 +1,6 @@
 package com.tm470.mb24853.projectlluca;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
@@ -17,6 +19,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +33,7 @@ public class MainMenuActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
@@ -48,8 +53,10 @@ public class MainMenuActivity extends ActionBarActivity {
             TextView userIdTextView2 = (TextView) findViewById(R.id.sign_out_button);
             userIdTextView2.setVisibility(View.GONE);
         }
-    }
 
+        setFonts();
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,13 +101,18 @@ public class MainMenuActivity extends ActionBarActivity {
     public void showLegalInfo(View view)
     {
         final Dialog helpDialogue = new Dialog(this);
+        helpDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         helpDialogue.setContentView(R.layout.custom_dialogue_help);
         helpDialogue.setTitle("Legal disclaimer");
         final Button okButton = (Button) helpDialogue.findViewById(R.id.okButton);
         final TextView helpTextView = (TextView) helpDialogue.findViewById(R.id.helpText);
         String helpText = "Lord of the Rings LCG is Copyright Fantasy Flight Games, I own no legal rights on any Lord of the Rings names, characters, images or places. This has been developed for purely personal academic use and is not intended to be sold or rented.";
         helpTextView.setText(helpText);
-
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        helpTextView.setTypeface(font);
+        helpTextView.setTextSize(8);
+        okButton.setTypeface(font);
+        okButton.setTextSize(8);
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +140,7 @@ public class MainMenuActivity extends ActionBarActivity {
             Intent intent = new Intent(this, DeckListActivity.class);
             startActivity(intent);
         }
-        else {makeMeToast("Please log in or create an account first.",1,"BOTTOM",0,0,25);}
+        else {makeMeToast("Please log in or create an account first.",1,"BOTTOM",0,0,18);}
     }
 
     //MDB: loads the card browser
@@ -146,7 +158,7 @@ public class MainMenuActivity extends ActionBarActivity {
             userAccountClass user = db_helper.getCurrentUser();
             String userName = user.getUsername();
             db_helper.updateUser(userName, "","",0);
-            makeMeToast("Current user has been logged out.",1,"BOTTOM",0,0,25);
+            makeMeToast("Current user has been logged out.",1,"BOTTOM",0,0,18);
             Intent intent= new Intent(this, MainMenuActivity.class);
             startActivity(intent);
         }
@@ -156,6 +168,7 @@ public class MainMenuActivity extends ActionBarActivity {
     public void showHelp(View view)
     {
         final Dialog helpDialogue = new Dialog(this);
+        helpDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         helpDialogue.setContentView(R.layout.custom_dialogue_help);
         helpDialogue.setTitle("How to use the app");
         final Button okButton = (Button) helpDialogue.findViewById(R.id.okButton);
@@ -179,7 +192,11 @@ public class MainMenuActivity extends ActionBarActivity {
                 "- Tap the Filter icon in the action bar to change the card type you are looking at\n" +
                 "- Tap a card to view details";
         helpTextView.setText(helpText);
-
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        helpTextView.setTypeface(font);
+        helpTextView.setTextSize(8);
+        okButton.setTypeface(font);
+        okButton.setTextSize(8);
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,7 +284,35 @@ public class MainMenuActivity extends ActionBarActivity {
         LinearLayout layout = (LinearLayout) toast.getView();
         TextView tv = (TextView) layout.getChildAt(0);
         tv.setTextSize(fontSize);
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+        tv.setTypeface(font2);
         toast.show();
+    }
+
+    public void setFonts()
+    {
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+
+        TextView header1 = (TextView) findViewById(R.id.project_lluca);
+        TextView header2 = (TextView) findViewById(R.id.main_menu_textview);
+        TextView login = (TextView) findViewById(R.id.button);
+        TextView logout = (TextView) findViewById(R.id.sign_out_button);
+        TextView deckbuilder = (TextView) findViewById(R.id.deckbuilder_button);
+        TextView questbrowser = (TextView) findViewById(R.id.questlog_button);
+        TextView cardbrowser = (TextView) findViewById(R.id.cardlist_button);
+        TextView howto = (TextView) findViewById(R.id.llucapaedia_button);
+        TextView legal = (TextView) findViewById(R.id.legal_button);
+
+        header1.setTypeface(font2);
+        header2.setTypeface(font2);
+        login.setTypeface(font);
+        logout.setTypeface(font);
+        deckbuilder.setTypeface(font);
+        questbrowser.setTypeface(font);
+        cardbrowser.setTypeface(font);
+        howto.setTypeface(font);
+        legal.setTypeface(font);
     }
 
 }

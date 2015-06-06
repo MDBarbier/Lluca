@@ -154,5 +154,6 @@
         <item>Thirteen</item>
     </string-array>
     <string name="title_activity_quest_browser">QuestBrowserActivity</string>
+    <string name="aniron.ttf" />
 
 </resources>

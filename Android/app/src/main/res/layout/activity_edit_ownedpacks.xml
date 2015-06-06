@@ -12,12 +12,14 @@
         android:layout_height="wrap_content"
         android:text="@string/your_packs"
         android:textSize="20dp"
-        style="@style/spacing_style"/>
+        style="@style/spacing_style"
+        android:id="@+id/owned_packs_a"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Long tap a pack name to delete"
         android:textColor="#ffff1d20"
+        android:id="@+id/owned_packs_b"
         android:textSize="15dp"
         style="@style/spacing_style"/>
 

@@ -19,6 +19,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
@@ -60,6 +61,7 @@ public class DeckListActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck_list);
         updateListView();
+        setFonts();
     }
 
 
@@ -194,5 +196,17 @@ public class DeckListActivity extends ActionBarActivity {
         TextView tv = (TextView) layout.getChildAt(0);
         tv.setTextSize(fontSize);
         toast.show();
+    }
+
+    public void setFonts()
+    {
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+
+        TextView a = (TextView) findViewById(R.id.create_deck_button);
+        TextView b = (TextView) findViewById(R.id.button3);
+
+        a.setTypeface(font);
+        b.setTypeface(font);
     }
 }

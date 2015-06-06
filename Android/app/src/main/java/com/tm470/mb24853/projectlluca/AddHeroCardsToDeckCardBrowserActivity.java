@@ -75,7 +75,7 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
             case R.id.action_back:
                 Bundle bundle = getIntent().getExtras();
                 String deckname = bundle.getString("deckname");
-                Intent intent = new Intent(this,EditDeckActivity.class);
+                Intent intent = new Intent(this,EditHeroesInDeckActivity.class);
                 intent.putExtra("deckname", deckname);
                 startActivity(intent);
                 //makeMeToast("back",1);

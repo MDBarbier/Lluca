@@ -23,6 +23,7 @@
         android:onClick="loadSignInActivity"
         android:layout_weight=".5"
         style="@style/spacing_style"
+        android:textSize="12dp"
          />
     <Button
         android:layout_width="wrap_content"
@@ -31,6 +32,7 @@
         android:id="@+id/sign_out_button"
         android:onClick="logoutCurrentUser"
         android:layout_weight=".5"
+        android:textSize="12dp"
         style="@style/spacing_style"
         />
     </LinearLayout>
@@ -40,16 +42,17 @@
             android:layout_height="match_parent">
             <Space
                 android:layout_width="0dp"
-                android:layout_weight=".23"
+                android:layout_weight=".33"
                 android:layout_height="match_parent" />
     <TextView
         android:text="Project Lluca"
         android:layout_width="0dp"
-        android:layout_weight=".65"
+        android:layout_weight=".90"
         android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/abc_action_button_min_width_overflow_material"
+        android:textSize="28dp"
         style="@style/spacing_style"
+        android:id="@+id/project_lluca"
         />
 
             <Space
@@ -63,16 +66,16 @@
             android:layout_height="match_parent">
             <Space
                 android:layout_width="0dp"
-                android:layout_weight=".23"
+                android:layout_weight=".50"
                 android:layout_height="match_parent" />
             <TextView
                 android:text="@string/main_menu"
                 android:layout_width="0dp"
-                android:layout_weight=".57"
+                android:layout_weight=".90"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="15dp"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/abc_action_button_min_width_overflow_material"
+                android:textSize="25dp"
                 android:id="@+id/main_menu_textview"
                 style="@style/spacing_style"
                 />
@@ -96,9 +99,9 @@
         android:layout_height="wrap_content"
         android:text="@string/deckbuilder"
         android:id="@+id/deckbuilder_button"
+        android:textSize="12dp"
         style="@style/spacing_style"
-        android:onClick="loadDeckListActivity"
-         />
+        android:onClick="loadDeckListActivity" />
 
         <Space
             android:layout_width="0dp"
@@ -119,6 +122,7 @@
         android:text="Quest Browser"
         android:id="@+id/questlog_button"
         android:onClick="questLog"
+        android:textSize="12dp"
         style="@style/spacing_style"
         />
         <Space
@@ -138,6 +142,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:text="@string/cardlist"
+                android:textSize="12dp"
                 android:id="@+id/cardlist_button"
                 style="@style/spacing_style"
                 android:onClick="loadCardBrowserActivity"
@@ -160,6 +165,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="How to use the app"
+        android:textSize="12dp"
         android:id="@+id/llucapaedia_button"
         style="@style/spacing_style"
         android:onClick="showHelp"
@@ -182,6 +188,7 @@
         android:layout_height="wrap_content"
         android:text="Legal Info"
         android:id="@+id/legal_button"
+        android:textSize="12dp"
         style="@style/spacing_style"
         android:onClick="showLegalInfo"
         />

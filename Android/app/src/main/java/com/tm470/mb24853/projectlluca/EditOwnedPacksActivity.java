@@ -4,13 +4,17 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +35,7 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
         final tableadapter_deckpart_helper adapter = new tableadapter_deckpart_helper(this, deckpart_cursor, false);
         deckparts.setAdapter(adapter);
 
+
         deckparts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -50,7 +55,7 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 ListView deckparts = (ListView) findViewById(R.id.ownedPackListView);
-                makeMeToast("Pack removed", 1);
+                makeMeToast("Pack removed", 1,"BOTTOM",0,100,18);
                 TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
                 TextView deckpart_box = (TextView) view.findViewById(R.id.template_deckpart_box);
                 String box = deckpart_box.getText().toString();
@@ -63,6 +68,8 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
                 return true;
             }
         });
+
+        setFonts();
     }
 
 
@@ -102,7 +109,8 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
 
     //helper method to make toast, takes a String input for the message and an integer
     //input for the duration (0 is short, 1 is long, default long)
-    public void makeMeToast(String message, int length)
+    //also you can specify the position of the toast and the font size
+    public void makeMeToast(String message, int length, String position, int xOffset, int yOffset, int fontSize)
     {
 
         int howBrownDoYouWantIt;
@@ -119,12 +127,31 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
 
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
+        if (position.equals("TOP")) {
+            toast.setGravity(Gravity.TOP, xOffset, yOffset);
+        }
+        else if (position.equals("BOTTOM"))
+        {
+            toast.setGravity(Gravity.BOTTOM, xOffset, yOffset);
+        }
+        if (fontSize == 0)
+        {
+            fontSize = 15;
+        }
+
+        //makes the toast text size bigger
+        LinearLayout layout = (LinearLayout) toast.getView();
+        TextView tv = (TextView) layout.getChildAt(0);
+        tv.setTextSize(fontSize);
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+        tv.setTypeface(font2);
         toast.show();
     }
 
     public void displayCardDialog(String text)
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
         cardDetailsDialogue.setTitle("Quest details");
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
@@ -143,7 +170,29 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
             }
         });
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        cardDataView.setTypeface(font);
+        cardDataView.setTextSize(10);
+        okButton.setTypeface(font);
+        okButton.setTextSize(8);
+
         cardDetailsDialogue.show();
+
+    }
+
+    public void setFonts()
+    {
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+
+        TextView a = (TextView) findViewById(R.id.owned_packs_a);
+        TextView b = (TextView) findViewById(R.id.owned_packs_b);
+        TextView c = (TextView) findViewById(R.id.save_deck_button);
+
+        a.setTypeface(font2);
+        b.setTypeface(font2);
+        c.setTypeface(font);
+
 
     }
 }

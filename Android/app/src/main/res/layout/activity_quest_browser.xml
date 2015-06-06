@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:text="Tap to view quest details"
         android:textColor="#ffff1d20"
+            android:id="@+id/quest_browser_a"
         android:textSize="15dp"
         />
 
@@ -18,6 +19,7 @@
         android:layout_height="wrap_content"
         android:text="Long press to view a quest's individual parts"
         android:textColor="#ffff1d20"
+        android:id="@+id/quest_browser_b"
         android:textSize="15dp"
         />
 
