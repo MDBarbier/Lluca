@@ -2,6 +2,8 @@ package com.tm470.mb24853.projectlluca;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -10,7 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -26,6 +31,7 @@ public class DeckHeroListFiltersActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck_hero_list_filters);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
@@ -62,6 +68,8 @@ public class DeckHeroListFiltersActivity extends ActionBarActivity {
 
             }
         });
+
+        setFonts();
     }
 
     @Override
@@ -140,5 +148,38 @@ public class DeckHeroListFiltersActivity extends ActionBarActivity {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
         toast.show();
+    }
+
+
+    public void setFonts()
+    {
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+
+        TextView a = (TextView) findViewById(R.id.textView3);
+        TextView b = (TextView) findViewById(R.id.threatTV);
+        Button d = (Button) findViewById(R.id.applyCardFilterButton);
+
+        final Spinner spinner = (Spinner) findViewById(R.id.cardSphereFilterSpinner);
+        final Spinner spinner2 = (Spinner) findViewById(R.id.cardThreatFilterSpinner);
+
+
+        String items1[] = {"All","Leadership","Tactics","Spirit","Lore","Baggins","Neutral"};
+        String items2[] = {"Any","Zero","Five","Six","Seven","Eight","Nine","Ten"};
+        ArrayAdapter adapter1 = new ArrayAdapter<CharSequence>(this, R.layout.custom_spinner, items1);
+        ArrayAdapter adapter2 = new ArrayAdapter<CharSequence>(this, R.layout.custom_spinner, items2);
+
+        adapter1.setDropDownViewResource(R.layout.custom_spinner);
+        adapter2.setDropDownViewResource(R.layout.custom_spinner);
+
+        spinner.setAdapter(adapter1);
+        spinner2.setAdapter(adapter2);
+
+
+        a.setTypeface(font2);
+        b.setTypeface(font2);
+
+        d.setTypeface(font2);
+
     }
 }

@@ -2,16 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#ff97c7bc">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter the name for your deck:"
+        android:text="Enter the name for your new deck:"
+        android:textSize="12dp"
         android:id="@+id/textView2"
         />
     <EditText
         android:layout_width="wrap_content"
+        android:textSize="12dp"
         android:layout_height="wrap_content"
         android:id="@+id/createDeckEditDeckName"
         android:hint="Tap here to enter deckname"
@@ -20,6 +23,7 @@ android:layout_height="fill_parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"
+        android:textSize="12dp"
         android:id="@+id/createDeckOKButton"/>
 
 

@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +28,8 @@ public class CreateAccountActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
+        setFonts();
     }
 
 
@@ -68,7 +73,7 @@ public class CreateAccountActivity extends ActionBarActivity {
                makeMeToast("Username \"" + userInputString + "\" is available!",1, "TOP",0,300,25);
             }
             else {
-                makeMeToast("Username \"" + userInputString + "\" is not available :(",1, "TOP",0,300,25);
+                makeMeToast("Username \"" + userInputString + "\" is not available!",1, "TOP",0,300,25);
 
             }
 
@@ -118,9 +123,8 @@ public class CreateAccountActivity extends ActionBarActivity {
         }
     }
 
-       //helper method to make toast, takes a String input for the message and an integer
+    //helper method to make toast, takes a String input for the message and an integer
     //input for the duration (0 is short, 1 is long, default long)
-    //also you can specify the position of the toast and the font size
     public void makeMeToast(String message, int length, String position, int xOffset, int yOffset, int fontSize)
     {
 
@@ -154,7 +158,41 @@ public class CreateAccountActivity extends ActionBarActivity {
         LinearLayout layout = (LinearLayout) toast.getView();
         TextView tv = (TextView) layout.getChildAt(0);
         tv.setTextSize(fontSize);
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+        tv.setTypeface(font2);
         toast.show();
+    }
+
+    public void setFonts()
+    {
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+
+        TextView a = (TextView) findViewById(R.id.createAcc1);
+        TextView b = (TextView) findViewById(R.id.createAcc2);
+        TextView c = (TextView) findViewById(R.id.createAcc3);
+        TextView d = (TextView) findViewById(R.id.createAcc4);
+        TextView e = (TextView) findViewById(R.id.createAcc5);
+        EditText f = (EditText) findViewById(R.id.create_account_username_entry);
+        EditText g = (EditText) findViewById(R.id.create_account_password_entry);
+        EditText h = (EditText) findViewById(R.id.create_account_email_entry);
+        Button i = (Button) findViewById(R.id.signin_submit_button);
+        Button j = (Button) findViewById(R.id.create_account_check);
+
+        a.setTypeface(font2);
+        b.setTypeface(font2);
+        c.setTypeface(font2);
+        d.setTypeface(font2);
+        e.setTypeface(font2);
+        f.setTypeface(font);
+        f.setTextSize(14);
+        g.setTypeface(font);
+        g.setTextSize(14);
+        h.setTypeface(font);
+        h.setTextSize(14);
+        i.setTypeface(font2);
+        j.setTypeface(font2);
+
     }
 
 }

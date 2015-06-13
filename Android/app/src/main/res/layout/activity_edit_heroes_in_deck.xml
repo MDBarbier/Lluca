@@ -17,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Long press to remove a card, tap to view card data"
+        android:id="@+id/editHeroes1"
         android:textColor="#ffff1d20"
         android:textSize="15dp"
         android:layout_marginBottom="5dp"/>

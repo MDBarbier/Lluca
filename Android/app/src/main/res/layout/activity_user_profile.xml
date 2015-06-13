@@ -15,6 +15,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="@string/current_user_label"
         android:id="@+id/a"
         style="@style/spacing_style"
@@ -26,7 +27,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/dummy_username"
         android:id="@+id/userprofile_username"
-        android:background="#ffe3e3e3"
         android:textSize="12dp"
         android:textColor="#ff000000"
         android:textStyle="bold"
@@ -46,7 +46,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/dummy_sync_date"
         android:id="@+id/userprofile_lastsync"
-        android:background="#ffe3e3e3"
         android:textSize="12dp"
         android:textColor="#ff000000"
         style="@style/spacing_style"/>

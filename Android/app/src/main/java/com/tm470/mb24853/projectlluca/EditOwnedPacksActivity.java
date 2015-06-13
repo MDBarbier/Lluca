@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_ownedpacks);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
 
         //loads the available deckparts into list view
         Cursor deckpart_cursor = db_helper.getOwnershipAndDeckpartCursor();

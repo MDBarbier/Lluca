@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -36,6 +37,7 @@ public class MainMenuActivity extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169,186,182));
 
         //populate the tables if not done already
         new InitialPopulation().execute();
@@ -170,6 +172,7 @@ public class MainMenuActivity extends ActionBarActivity {
         final Dialog helpDialogue = new Dialog(this);
         helpDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         helpDialogue.setContentView(R.layout.custom_dialogue_help);
+
         helpDialogue.setTitle("How to use the app");
         final Button okButton = (Button) helpDialogue.findViewById(R.id.okButton);
         final TextView helpTextView = (TextView) helpDialogue.findViewById(R.id.helpText);

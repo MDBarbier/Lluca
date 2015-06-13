@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class UserProfileActivity extends ActionBarActivity {
         Bundle bundle = getIntent().getExtras();
         String username = bundle.getString("username");
         setContentView(R.layout.activity_user_profile);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
         TextView userIdTextView = (TextView) findViewById(R.id.userprofile_username);
 
 

@@ -2,6 +2,8 @@ package com.tm470.mb24853.projectlluca;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +13,8 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -30,6 +34,7 @@ public class DeckCardListFiltersActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck_card_list_filters);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
@@ -82,6 +87,7 @@ public class DeckCardListFiltersActivity extends ActionBarActivity {
 
             }
         });
+        setFonts();
     }
 
     @Override
@@ -139,6 +145,7 @@ public class DeckCardListFiltersActivity extends ActionBarActivity {
         intent.putExtra("sphere", cardSphere);
         intent.putExtra("cost", cardCost);
         startActivity(intent);
+        //makeMeToast(deckname + "|" + cardType + "|" + cardSphere + "|" + cardCost,1);
     }
 
     //helper method to make toast, takes a String input for the message and an integer
@@ -161,5 +168,37 @@ public class DeckCardListFiltersActivity extends ActionBarActivity {
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
         toast.show();
+    }
+    public void setFonts()
+    {
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+
+        TextView a = (TextView) findViewById(R.id.textView3);
+        TextView b = (TextView) findViewById(R.id.textView4);
+        TextView c = (TextView) findViewById(R.id.choosecost);
+        Button d = (Button) findViewById(R.id.applyCardFilterButton);
+        final Spinner spinner = (Spinner) findViewById(R.id.cardSphereFilterSpinner);
+        final Spinner spinner2 = (Spinner) findViewById(R.id.cardTypeFilterSpinner);
+        final Spinner spinner3 = (Spinner) findViewById(R.id.cardCostFilterSpinner);
+
+        String items1[] = {"All","Leadership","Tactics","Spirit","Lore","Baggins","Neutral"};
+        String items2[] = {"All","Ally","Event","Attachment"};
+        String items3[] = {"Any","Zero","One","Two","Three","Four","Five"};
+        ArrayAdapter adapter1 = new ArrayAdapter<CharSequence>(this, R.layout.custom_spinner, items1);
+        ArrayAdapter adapter2 = new ArrayAdapter<CharSequence>(this, R.layout.custom_spinner, items2);
+        ArrayAdapter adapter3 = new ArrayAdapter<CharSequence>(this, R.layout.custom_spinner, items3);
+        adapter1.setDropDownViewResource(R.layout.custom_spinner);
+        adapter2.setDropDownViewResource(R.layout.custom_spinner);
+        adapter3.setDropDownViewResource(R.layout.custom_spinner);
+        spinner.setAdapter(adapter1);
+        spinner2.setAdapter(adapter2);
+        spinner3.setAdapter(adapter3);
+
+        a.setTypeface(font2);
+        b.setTypeface(font2);
+        c.setTypeface(font2);
+        d.setTypeface(font2);
+
     }
 }

@@ -6,17 +6,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -31,12 +36,14 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_browser);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169,186,182));
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
 
         new FilteringOperations().execute("");
+        setFonts();
 
     }
 
@@ -125,11 +132,11 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
                 }
                 else if (db_helper.howManyHeroes(deckname) >=3)
                 {
-                    makeMeToast("You have the maximum of 3 allowed heroes in this deck already.",1);
+                    makeMeToast("You have the maximum of 3 allowed heroes in this deck already.",1,"BOTTOM",0,0,15);
                 }
                 else
                 {
-                    makeMeToast(text + " is already in deck!",1);
+                    makeMeToast(text + " is already in deck!",1,"BOTTOM",0,0,15);
                 }
                 return true;
             }
@@ -138,7 +145,7 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
 
     //helper method to make toast, takes a String input for the message and an integer
     //input for the duration (0 is short, 1 is long, default long)
-    public void makeMeToast(String message, int length)
+    public void makeMeToast(String message, int length, String position, int xOffset, int yOffset, int fontSize)
     {
 
         int howBrownDoYouWantIt;
@@ -155,9 +162,26 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
 
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
+        if (position.equals("TOP")) {
+            toast.setGravity(Gravity.TOP, xOffset, yOffset);
+        }
+        else if (position.equals("BOTTOM"))
+        {
+            toast.setGravity(Gravity.BOTTOM, xOffset, yOffset);
+        }
+        if (fontSize == 0)
+        {
+            fontSize = 15;
+        }
+
+        //makes the toast text size bigger
+        LinearLayout layout = (LinearLayout) toast.getView();
+        TextView tv = (TextView) layout.getChildAt(0);
+        tv.setTextSize(fontSize);
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+        tv.setTypeface(font2);
         toast.show();
     }
-
     //handles the clicking of the action bar filter icon
     public void filterDialog()
     {
@@ -173,10 +197,15 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
     public void searchDialog()
     {
         final Dialog searchDialogBox = new Dialog(this);
+        searchDialogBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
         searchDialogBox.setContentView(R.layout.custom_dialogue_searchfilters);
-        searchDialogBox.setTitle("Search");
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
         final Button okButton = (Button) searchDialogBox.findViewById(R.id.okButtonSearch);
         final EditText searchQueryField = (EditText) searchDialogBox.findViewById(R.id.searchQueryField);
+        final TextView label = (TextView) searchDialogBox.findViewById(R.id.textViewSearchLabel);
+        okButton.setTypeface(font);
+        searchQueryField.setTypeface(font);
+        label.setTypeface(font);
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,10 +224,16 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
     public void settingsDialog()
     {
         final Dialog settingsDialogBox = new Dialog(this);
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+        settingsDialogBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
         settingsDialogBox.setContentView(R.layout.custom_dialogue_settingsfilters);
-        settingsDialogBox.setTitle("Adjust settings: ");
+
         final Button okButton = (Button) settingsDialogBox.findViewById(R.id.okButtonSettings);
         final Switch onlyOwnedSwitch = (Switch) settingsDialogBox.findViewById(R.id.ownedCardsSwitch);
+        final TextView tv = (TextView) settingsDialogBox.findViewById(R.id.textView5);
+        tv.setTypeface(font);
+        okButton.setTypeface(font);
+        onlyOwnedSwitch.setTypeface(font);
 
         if (db_helper.getOnlyOwnedStatus())
         {
@@ -288,11 +323,15 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
     public void displayCardDialog(String text)
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
         cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
-        cardDetailsDialogue.setTitle("Card details");
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
         final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);
-
+        cardDataView.setTypeface(font);
+        okButton.setTypeface(font);
+        cardDataView.setTextSize(9);
+        okButton.setTextSize(9);
         heroesClass card = db_helper.findAHeroCard(text);
         String keywords;
         String traits;
@@ -346,5 +385,18 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
         //makeMeToast(textToToast,1);
     }
 
+    public void setFonts()
+    {
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+
+        TextView a = (TextView) findViewById(R.id.textView);
+        TextView b = (TextView) findViewById(R.id.textView1);
+
+
+        a.setTypeface(font2);
+        b.setTypeface(font2);
+
+    }
 
 }

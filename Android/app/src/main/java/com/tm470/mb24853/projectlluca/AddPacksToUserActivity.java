@@ -1,17 +1,21 @@
 package com.tm470.mb24853.projectlluca;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +29,7 @@ public class AddPacksToUserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_packs_to_user);
-
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
         //loads the available deckparts into list view
         Cursor deckpart_cursor = db_helper.getDeckpartDataCursor();
         ListView deckparts = (ListView) findViewById(R.id.ownedPackListView);
@@ -50,11 +54,9 @@ public class AddPacksToUserActivity extends ActionBarActivity {
                 String text2 = deckpart_box.getText().toString();
                 db_helper.setPackOwnership(text, text2);
                 if (db_helper.doesPlayerOwnPack(text)) {
-                    String textToToast = "Added to collection";
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+                    makeMeToast("Added to collection",1,"BOTTOM",0,0,18);
                 } else {
-                    String textToToast = "Removed from collection";
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
+                    makeMeToast("Removed from collection",1,"BOTTOM",0,0,18);
                 }
                 return true;
             }
@@ -141,5 +143,46 @@ public class AddPacksToUserActivity extends ActionBarActivity {
         c.setTypeface(font);
 
 
+    }
+
+    //helper method to make toast, takes a String input for the message and an integer
+    //input for the duration (0 is short, 1 is long, default long)
+    //also you can specify the position of the toast and the font size
+    public void makeMeToast(String message, int length, String position, int xOffset, int yOffset, int fontSize)
+    {
+
+        int howBrownDoYouWantIt;
+
+        switch (length) {
+
+            case 0: howBrownDoYouWantIt = Toast.LENGTH_SHORT;
+                break;
+            case 1: howBrownDoYouWantIt = Toast.LENGTH_LONG;
+                break;
+            default: howBrownDoYouWantIt = Toast.LENGTH_LONG;
+                break;
+        }
+
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
+        if (position.equals("TOP")) {
+            toast.setGravity(Gravity.TOP, xOffset, yOffset);
+        }
+        else if (position.equals("BOTTOM"))
+        {
+            toast.setGravity(Gravity.BOTTOM, xOffset, yOffset);
+        }
+        if (fontSize == 0)
+        {
+            fontSize = 15;
+        }
+
+        //makes the toast text size bigger
+        LinearLayout layout = (LinearLayout) toast.getView();
+        TextView tv = (TextView) layout.getChildAt(0);
+        tv.setTextSize(fontSize);
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+        tv.setTypeface(font2);
+        toast.show();
     }
 }

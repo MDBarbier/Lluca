@@ -44,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose Cost:"
+        android:id="@+id/choosecost"
         android:textIsSelectable="false"
         android:textSize="20dp"
         style="@style/spacing_style"

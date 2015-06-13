@@ -5,19 +5,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,6 +29,11 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class CardBrowserActivity extends ActionBarActivity {
@@ -35,6 +44,7 @@ public class CardBrowserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_browser_basic);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
         //Cursor c = db_helper.getPlayerCardListCursor();
         //updateListView(1);
 
@@ -86,7 +96,7 @@ public class CardBrowserActivity extends ActionBarActivity {
                 searchDialog();
                 return true;
             case R.id.action_settings:
-                makeMeToast("No settings for this page",1);
+                makeMeToast("No settings for this page",1,"BOTTOM",0,0,18);
                 //settingsDialog();
                 return true;
             case R.id.action_filter:
@@ -275,7 +285,7 @@ public class CardBrowserActivity extends ActionBarActivity {
 
     //helper method to make toast, takes a String input for the message and an integer
     //input for the duration (0 is short, 1 is long, default long)
-    public void makeMeToast(String message, int length)
+    public void makeMeToast(String message, int length, String position, int xOffset, int yOffset, int fontSize)
     {
 
         int howBrownDoYouWantIt;
@@ -292,6 +302,24 @@ public class CardBrowserActivity extends ActionBarActivity {
 
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
+        if (position.equals("TOP")) {
+            toast.setGravity(Gravity.TOP, xOffset, yOffset);
+        }
+        else if (position.equals("BOTTOM"))
+        {
+            toast.setGravity(Gravity.BOTTOM, xOffset, yOffset);
+        }
+        if (fontSize == 0)
+        {
+            fontSize = 15;
+        }
+
+        //makes the toast text size bigger
+        LinearLayout layout = (LinearLayout) toast.getView();
+        TextView tv = (TextView) layout.getChildAt(0);
+        tv.setTextSize(fontSize);
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+        tv.setTypeface(font2);
         toast.show();
     }
 
@@ -328,7 +356,7 @@ public class CardBrowserActivity extends ActionBarActivity {
             public void onClick(View v) {
                 //makeMeToast("herocard",1);
                 Cursor c = db_helper.getHeroCardListCursor();
-               updateListView(3);
+                updateListView(3);
                 filterDialogBox.dismiss();
             }
         });
@@ -341,6 +369,18 @@ public class CardBrowserActivity extends ActionBarActivity {
             }
         });
 
+
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        rb1.setTypeface(font);
+        rb2.setTypeface(font);
+        rb3.setTypeface(font);
+        rb4.setTypeface(font);
+        rb1.setTextSize(8);
+        rb2.setTextSize(8);
+        rb3.setTextSize(8);
+        rb4.setTextSize(8);
+
+
         filterDialogBox.show();
     }
 
@@ -349,12 +389,18 @@ public class CardBrowserActivity extends ActionBarActivity {
         final Dialog searchDialogBox = new Dialog(this);
         searchDialogBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
         searchDialogBox.setContentView(R.layout.custom_dialogue_cardbrowser_searchfilters);
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
 
         final Button okButton = (Button) searchDialogBox.findViewById(R.id.okButtonSearch);
         final EditText searchQueryField = (EditText) searchDialogBox.findViewById(R.id.searchQueryField);
         final TextView textview5 = (TextView) searchDialogBox.findViewById(R.id.textView5);
         final TextView textview6 = (TextView) searchDialogBox.findViewById(R.id.textView6);
         final Spinner spinner = (Spinner) searchDialogBox.findViewById(R.id.typeSpinner);
+
+        String items[] = {"Player card","Encounter card","Hero card","Quest card"};
+        ArrayAdapter adapter = new ArrayAdapter<CharSequence>(this, R.layout.custom_spinner, items);
+        adapter.setDropDownViewResource(R.layout.custom_spinner);
+        spinner.setAdapter(adapter);
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -388,7 +434,7 @@ public class CardBrowserActivity extends ActionBarActivity {
             }
         });
 
-        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+
         textview5.setTypeface(font);
         textview6.setTypeface(font);
         textview5.setTextSize(12);

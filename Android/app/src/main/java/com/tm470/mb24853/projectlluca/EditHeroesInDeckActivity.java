@@ -4,13 +4,18 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +29,7 @@ public class EditHeroesInDeckActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_heroes_in_deck);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
@@ -60,7 +66,7 @@ public class EditHeroesInDeckActivity extends ActionBarActivity {
                 TextView currentCard = (TextView) view.findViewById(R.id.custom_deck_template_card_name);
                 String text = currentCard.getText().toString();
                 db_helper.deleteCardFromDeck(deckname, text);
-                makeMeToast("Card removed", 1);
+                makeMeToast("Card removed", 1, "BOTTOM", 0, 0, 15);
                 adapter.notifyDataSetInvalidated();
                 Cursor cursor2 = db_helper.getHeroCardsInDeck(deckname, "Hero");
                 final tableadapter_customdeckcards_helper adapter2 = new tableadapter_customdeckcards_helper(EditHeroesInDeckActivity.this, cursor2, false);
@@ -68,6 +74,7 @@ public class EditHeroesInDeckActivity extends ActionBarActivity {
                 return true;
             }
         });
+        setFonts();
     }
 
 
@@ -122,14 +129,14 @@ public class EditHeroesInDeckActivity extends ActionBarActivity {
         }
         else
         {
-            makeMeToast("You have the maximum of 3 allowed heroes in this deck already.",1);
+            makeMeToast("You have the maximum of 3 allowed heroes in this deck already.",1, "BOTTOM", 0,0,15);
         }
 
     }
 
     //helper method to make toast, takes a String input for the message and an integer
     //input for the duration (0 is short, 1 is long, default long)
-    public void makeMeToast(String message, int length)
+    public void makeMeToast(String message, int length, String position, int xOffset, int yOffset, int fontSize)
     {
 
         int howBrownDoYouWantIt;
@@ -146,16 +153,40 @@ public class EditHeroesInDeckActivity extends ActionBarActivity {
 
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
+        if (position.equals("TOP")) {
+            toast.setGravity(Gravity.TOP, xOffset, yOffset);
+        }
+        else if (position.equals("BOTTOM"))
+        {
+            toast.setGravity(Gravity.BOTTOM, xOffset, yOffset);
+        }
+        if (fontSize == 0)
+        {
+            fontSize = 15;
+        }
+
+        //makes the toast text size bigger
+        LinearLayout layout = (LinearLayout) toast.getView();
+        TextView tv = (TextView) layout.getChildAt(0);
+        tv.setTextSize(fontSize);
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+        tv.setTypeface(font2);
         toast.show();
     }
 
     public void displayCardDialog(String text)
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
+        cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
         cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
-        cardDetailsDialogue.setTitle("Card details");
+
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
         final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);
+        cardDataView.setTypeface(font);
+        okButton.setTypeface(font);
+        cardDataView.setTextSize(9);
+        okButton.setTextSize(9);
 
         heroesClass card = db_helper.findAHeroCard(text);
         String keywords;
@@ -210,4 +241,17 @@ public class EditHeroesInDeckActivity extends ActionBarActivity {
         //makeMeToast(textToToast,1);
     }
 
+    public void setFonts()
+    {
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+
+        TextView a = (TextView) findViewById(R.id.editDeckTextName);
+        TextView b = (TextView) findViewById(R.id.editHeroes1);
+        Button c = (Button) findViewById(R.id.edit_deck_addcards);
+
+        a.setTypeface(font2);
+        b.setTypeface(font2);
+        c.setTypeface(font2);
+    }
 }

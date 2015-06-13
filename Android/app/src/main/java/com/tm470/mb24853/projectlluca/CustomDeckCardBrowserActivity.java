@@ -3,6 +3,7 @@ package com.tm470.mb24853.projectlluca;
 import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -25,6 +26,7 @@ public class CustomDeckCardBrowserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_browser);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
         Cursor c = db_helper.getPlayerCardListCursor();
         updateListView(1);
     }

@@ -19,6 +19,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -33,8 +34,10 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -60,6 +63,7 @@ public class DeckListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck_list);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
         updateListView();
         setFonts();
     }
@@ -130,10 +134,13 @@ public class DeckListActivity extends ActionBarActivity {
     public void createDeckDialog()
     {
         final Dialog createDeckDialogBox = new Dialog(this);
+        createDeckDialogBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
         createDeckDialogBox.setContentView(R.layout.custom_dialogue_createdeck);
-        createDeckDialogBox.setTitle("New deck");
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
 
         Button dialogOKButton = (Button) createDeckDialogBox.findViewById(R.id.createDeckOKButton);
+        TextView tv1 = (TextView) createDeckDialogBox.findViewById(R.id.textView2);
+        EditText te1 = (EditText) createDeckDialogBox.findViewById(R.id.createDeckEditDeckName);
 
         dialogOKButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +153,10 @@ public class DeckListActivity extends ActionBarActivity {
                 makeMeToast("Deck created. Now tap your deck's name to add cards and heroes!",1,"TOP",0,300,25);
             }
         });
+
+        dialogOKButton.setTypeface(font);
+        tv1.setTypeface(font);
+        te1.setTypeface(font);
 
         createDeckDialogBox.show();
     }
@@ -195,6 +206,8 @@ public class DeckListActivity extends ActionBarActivity {
         LinearLayout layout = (LinearLayout) toast.getView();
         TextView tv = (TextView) layout.getChildAt(0);
         tv.setTextSize(fontSize);
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+        tv.setTypeface(font2);
         toast.show();
     }
 

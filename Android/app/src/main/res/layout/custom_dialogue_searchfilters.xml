@@ -2,18 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:background="#ff97c7bc">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter a card name or part of a name:"
-        android:id="@+id/textView5" />
+        android:text="Search"
+        android:textSize="18dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/textViewSearchLabel" />
+
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="Enter part of a card name"
+        android:singleLine="true"
+        android:textSize="12dp"
         android:id="@+id/searchQueryField" />
 
     <Button

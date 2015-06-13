@@ -3,6 +3,7 @@ package com.tm470.mb24853.projectlluca;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ public class QuestBrowserActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest_browser);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
 
         //loads the available deckparts into list view
         Cursor questlist_cursor = db_helper.getQuestNameCursor();

@@ -4,15 +4,18 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,7 @@ public class EditDeckActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_deck);
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
 
         Bundle bundle = getIntent().getExtras();
 
@@ -60,7 +64,7 @@ public class EditDeckActivity extends ActionBarActivity {
                 TextView currentCard = (TextView) view.findViewById(R.id.custom_deck_template_card_name);
                 String text = currentCard.getText().toString();
                 db_helper.deleteCardFromDeck(deckname, text);
-                makeMeToast("Card removed", 1);
+                makeMeToast("Card removed", 1, "BOTTOM",0,0,15);
                 adapter.notifyDataSetInvalidated();
                 Cursor cursor2 = db_helper.getCardsInDeck(deckname);
                 final tableadapter_customdeckcards_helper adapter2 = new tableadapter_customdeckcards_helper(EditDeckActivity.this, cursor2, false);
@@ -97,11 +101,15 @@ public class EditDeckActivity extends ActionBarActivity {
     public void delete_deck(View view)
     {
         final Dialog deleteDeckDialogBox = new Dialog(this);
+        deleteDeckDialogBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
         deleteDeckDialogBox.setContentView(R.layout.custom_dialogue_deletedeck);
-        deleteDeckDialogBox.setTitle("Delete deck?");
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+
 
             Button dialogYesButton = (Button) deleteDeckDialogBox.findViewById(R.id.deleteDeckYES);
             Button dialogNoButton = (Button) deleteDeckDialogBox.findViewById(R.id.deleteDeckNO);
+            TextView tv1 = (TextView) deleteDeckDialogBox.findViewById((R.id.dd1));
+            TextView tv2 = (TextView) deleteDeckDialogBox.findViewById((R.id.dd2));
 
             dialogYesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,7 +117,7 @@ public class EditDeckActivity extends ActionBarActivity {
 
                     Bundle bundle = getIntent().getExtras();
                     String deckname = bundle.getString("deckname");
-                    makeMeToast("Deck '" + deckname + "' Deleted.",1);
+                    makeMeToast("Deck '" + deckname + "' Deleted.",1,"BOTTOM",0,0,15);
                     deleteDeckFromDB(deckname);
                     Intent intent = new Intent(EditDeckActivity.this, DeckListActivity.class);
                     startActivity(intent);
@@ -121,11 +129,15 @@ public class EditDeckActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
 
-                    makeMeToast("Operation cancelled",1);
+                    makeMeToast("Operation cancelled", 1, "BOTTOM", 0, 0, 15);
                     deleteDeckDialogBox.dismiss();
                 }
             });
 
+        dialogNoButton.setTypeface(font);
+        dialogYesButton.setTypeface(font);
+        tv1.setTypeface(font);
+        tv2.setTypeface(font);
         deleteDeckDialogBox.show();
     }
 
@@ -218,7 +230,7 @@ public class EditDeckActivity extends ActionBarActivity {
 
     //helper method to make toast, takes a String input for the message and an integer
     //input for the duration (0 is short, 1 is long, default long)
-    public void makeMeToast(String message, int length)
+    public void makeMeToast(String message, int length, String position, int xOffset, int yOffset, int fontSize)
     {
 
         int howBrownDoYouWantIt;
@@ -235,6 +247,24 @@ public class EditDeckActivity extends ActionBarActivity {
 
         Context context = getApplicationContext();
         Toast toast = Toast.makeText(context, message, howBrownDoYouWantIt);
+        if (position.equals("TOP")) {
+            toast.setGravity(Gravity.TOP, xOffset, yOffset);
+        }
+        else if (position.equals("BOTTOM"))
+        {
+            toast.setGravity(Gravity.BOTTOM, xOffset, yOffset);
+        }
+        if (fontSize == 0)
+        {
+            fontSize = 15;
+        }
+
+        //makes the toast text size bigger
+        LinearLayout layout = (LinearLayout) toast.getView();
+        TextView tv = (TextView) layout.getChildAt(0);
+        tv.setTextSize(fontSize);
+        Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+        tv.setTypeface(font2);
         toast.show();
     }
 
