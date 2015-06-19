@@ -27,6 +27,8 @@ public class SignInActivity extends ActionBarActivity {
         Intent intent = getIntent();
         setContentView(R.layout.activity_sign_in);
         getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
         setFonts();
     }
 
@@ -49,8 +51,18 @@ public class SignInActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        switch (item.getItemId()) {
 
-        return super.onOptionsItemSelected(item);
+            case R.id.action_back:
+
+                Intent intent = new Intent(this,MainMenuActivity.class);
+                startActivity(intent);
+                //makeMeToast("back",1);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     //MDB: logs the user in and loads the profile screen
@@ -63,7 +75,7 @@ public class SignInActivity extends ActionBarActivity {
 
         if (userPwString.equals("") | userNameString.equals("")) {
 
-            makeMeToast("You must enter your username and password",1,"BOTTOM",0,0,18);
+            makeMeToast("You must enter your username and password",1,"TOP",0,300,25);
 
         }
         else
@@ -79,17 +91,17 @@ public class SignInActivity extends ActionBarActivity {
                         intent.putExtra("username", user.getUsername());
                         startActivity(intent);
                     } else {
-                        makeMeToast("Incorrect password.", 1,"BOTTOM",0,0,18);
+                        makeMeToast("Incorrect password.", 1,"TOP",0,300,25);
                     }
                 }
                 else
                 {
-                    makeMeToast("Username not found.",0,"BOTTOM",0,0,18);
+                    makeMeToast("Username not found.",0,"TOP",0,300,25);
                 }
             }
             else
             {
-                makeMeToast("There is already a user logged in. Log out and try again.", 1,"BOTTOM",0,0,18);
+                makeMeToast("There is already a user logged in. Log out and try again.", 1,"TOP",0,300,25);
             }
         }
     }
@@ -102,7 +114,7 @@ public class SignInActivity extends ActionBarActivity {
             startActivity(intent);
         }
         else {
-            makeMeToast("There is already a user logged in. Log out and try again.",1,"BOTTOM",0,0,18);
+            makeMeToast("There is already a user logged in. Log out and try again.",1,"TOP",0,300,25);
         }
     }
 

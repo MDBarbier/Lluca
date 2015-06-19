@@ -64,6 +64,8 @@ public class DeckListActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deck_list);
         getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
         updateListView();
         setFonts();
     }
@@ -115,7 +117,18 @@ public class DeckListActivity extends ActionBarActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case R.id.action_back:
+
+                Intent intent = new Intent(this,MainMenuActivity.class);
+                startActivity(intent);
+                //makeMeToast("back",1);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     //MDB: loads the main menu

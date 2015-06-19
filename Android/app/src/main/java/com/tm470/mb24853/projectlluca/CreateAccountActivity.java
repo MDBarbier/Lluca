@@ -29,6 +29,8 @@ public class CreateAccountActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
         getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
         setFonts();
     }
 
@@ -52,7 +54,18 @@ public class CreateAccountActivity extends ActionBarActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case R.id.action_back:
+
+                Intent intent = new Intent(this,SignInActivity.class);
+                startActivity(intent);
+                //makeMeToast("back",1);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     //MDB: checks to see if the username is in the db already

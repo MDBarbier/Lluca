@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -381,8 +382,14 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
             }
         });
 
+        String imgPath = db_helper.getImagePath(card.getHerocard_name(),"hero");
+        final WebView frame = (WebView) cardDetailsDialogue.findViewById(R.id.cardImageView);
+        frame.setBackgroundColor(Color.rgb(151, 199, 188));
+        frame.loadDataWithBaseURL(null, imgPath, "text/html", "utf-8", null);
+
         cardDetailsDialogue.show();
-        //makeMeToast(textToToast,1);
+        Window window = cardDetailsDialogue.getWindow();
+        window.setLayout(550, 900);
     }
 
     public void setFonts()

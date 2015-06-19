@@ -1245,6 +1245,81 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         return card;
     }
 
+    public String getImagePath(String name, String type)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String urlStart = "<html><head><style type='text/css'>body{margin:auto auto;text-align:center;} </style></head><body><img src=\"file:///android_asset/card_images/";
+        String urlEnd = "\"height=\"200\"width=\"135\"align=\"middle\"></body></html>";
+        String testFileName = "1/1.jpg";
+        String fileName ="";
+        int boxNo = 0;
+        int cardNo = 0;
+
+        switch (type)
+        {
+
+
+            case "player":
+                String query = "SELECT " + schema.COLUMN_NAME_PLAYERCARD_NO + "," + schema.COLUMN_NAME_PLAYERCARD_BOX + " FROM " + schema.TABLE_NAME_PLAYERCARD + " WHERE " + schema.COLUMN_NAME_PLAYERCARD_NAME + " = \"" + name + "\"";
+                Cursor cursor = db.rawQuery(query,null);
+                if (cursor.moveToFirst())
+                {
+                    boxNo = cursor.getInt(1);
+                    cardNo = cursor.getInt(0);
+                }
+                cursor.close();
+                break;
+            case "encounter":
+                String query2 = "SELECT " + schema.COLUMN_NAME_ENCOUNTERCARD_NO + "," + schema.COLUMN_NAME_ENCOUNTERCARD_BOX + " FROM " + schema.TABLE_NAME_ENCOUNTERCARD + " WHERE " + schema.COLUMN_NAME_ENCOUNTERCARD_NAME + " = \"" + name + "\"";
+                Cursor cursor2 = db.rawQuery(query2,null);
+                if (cursor2.moveToFirst())
+                {
+                    boxNo = cursor2.getInt(1);
+                    cardNo = cursor2.getInt(0);
+                }
+                cursor2.close();
+                break;
+            case "hero":
+                String query3 = "SELECT " + schema.COLUMN_NAME_HEROCARD_BOX+ "," + schema.COLUMN_NAME_HEROCARD_NO+ " FROM " + schema.TABLE_NAME_HEROCARD + " WHERE " + schema.COLUMN_NAME_HEROCARD_NAME + " = \"" + name + "\"";
+                Cursor cursor3 = db.rawQuery(query3,null);
+                if (cursor3.moveToFirst())
+                {
+                    boxNo = cursor3.getInt(0);
+                    cardNo = cursor3.getInt(1);
+                }
+                cursor3.close();
+                break;
+            case "quest":
+                String query4 = "SELECT " + schema.COLUMN_NAME_QUESTCARD_BOX + "," + schema.COLUMN_NAME_QUESTCARD_NUMBER + " FROM " + schema.TABLE_NAME_QUESTCARD + " WHERE " + schema.COLUMN_NAME_QUESTCARD_NAME + " = \"" + name + "\"";
+                Cursor cursor4 = db.rawQuery(query4,null);
+                if (cursor4.moveToFirst())
+                {
+                    boxNo = cursor4.getInt(0);
+                    cardNo = cursor4.getInt(1);
+                }
+                cursor4.close();
+                break;
+            default:
+                break;
+        }
+
+        if (type.equals("encounter"))
+        {
+            int temp = boxNo;
+            boxNo = getBoxno(temp);
+        }
+
+        if (type.equals("quest"))
+        {
+            urlEnd = "\"height=\"135\"width=\"200\"align=\"middle\"></body></html>";
+        }
+        fileName = Integer.toString(boxNo) + "/" + Integer.toString(cardNo) + ".jpg";
+
+        //return urlStart + testFileName + urlEnd;
+        Log.d("image", urlStart + fileName + urlEnd);
+        return urlStart + fileName + urlEnd;
+    }
+
     public deckpartClass findADeckpart(String name)
     {
         deckpartClass deckpart = new deckpartClass();
@@ -1299,6 +1374,23 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         return card;
     }
 
+    public int getBoxno(int deckpartNo)
+    {
+        int boxNo = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT " + schema.COLUMN_NAME_DECKPART_BOX_ID + " FROM " + schema.TABLE_NAME_DECKPARTS+ " WHERE " + schema.COLUMN_NAME_DECKPART_ID+ " = \"" + deckpartNo + "\"";
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst())
+        {
+            boxNo = cursor.getInt(0);
+            return boxNo;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
     public boolean areThereSpares(String name, String type, String deckname)
     {
         int copiesAvailable;
@@ -1340,7 +1432,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
         heroesClass card = new heroesClass();
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_CARD_TYPE + " = \"Hero\"";
+        String query = "SELECT * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_CARD_TYPE + " = \"Hero\" AND " + schema.COLUMN_NAME_DECK_DECK_NAME + " = " + "\"" + deckname + "\"";
         Cursor cursor = db.rawQuery(query,null);
         while (cursor.moveToNext())
         {

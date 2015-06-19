@@ -30,6 +30,8 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_ownedpacks);
         getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
 
         //loads the available deckparts into list view
         Cursor deckpart_cursor = db_helper.getOwnershipAndDeckpartCursor();
@@ -94,7 +96,18 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case R.id.action_back:
+
+                Intent intent = new Intent(this,UserProfileActivity.class);
+                userAccountClass user = db_helper.getCurrentUser();
+                intent.putExtra("username",user.getUsername());
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     //MDB: loads the profile screen having saved changes

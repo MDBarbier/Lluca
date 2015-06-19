@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -27,6 +28,8 @@ public class QuestBrowserActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quest_browser);
         getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
 
         //loads the available deckparts into list view
         Cursor questlist_cursor = db_helper.getQuestNameCursor();
@@ -81,7 +84,17 @@ public class QuestBrowserActivity extends ActionBarActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case R.id.action_back:
+                Intent intent = new Intent(this,MainMenuActivity.class);
+                startActivity(intent);
+                //makeMeToast("back",1);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
@@ -90,7 +103,7 @@ public class QuestBrowserActivity extends ActionBarActivity {
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
         cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
+        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_quest_details);
         cardDetailsDialogue.setTitle("Quest details");
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
         final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);
@@ -123,7 +136,9 @@ public class QuestBrowserActivity extends ActionBarActivity {
         okButton.setTypeface(font);
         okButton.setTextSize(8);
 
+
         cardDetailsDialogue.show();
+
 
     }
 

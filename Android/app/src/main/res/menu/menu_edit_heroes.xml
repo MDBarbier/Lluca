@@ -4,13 +4,15 @@
     tools:context="com.tm470.mb24853.projectlluca.EditDeckActivity"
     xmlns:matt="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
-
     <item
         android:title="@string/back"
         android:id="@+id/action_back"
         android:icon="@drawable/ic_back"
         matt:showAsAction="always"/>
+
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+
 
 </menu>

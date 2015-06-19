@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,8 +46,9 @@ public class CardBrowserActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_browser_basic);
         getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
-        //Cursor c = db_helper.getPlayerCardListCursor();
-        //updateListView(1);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
+
 
         Intent intent = getIntent();
         Bundle bundle = getIntent().getExtras();
@@ -90,6 +92,7 @@ public class CardBrowserActivity extends ActionBarActivity {
           //  return true;
         //}
 
+
         switch (item.getItemId()) {
             case R.id.action_search:
                 //makeMeToast("search",1);
@@ -103,6 +106,9 @@ public class CardBrowserActivity extends ActionBarActivity {
                 //makeMeToast("filters",1);
                 filterDialog();
                 return true;
+            case R.id.action_back:
+                Intent intent = new Intent(this,MainMenuActivity.class);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -382,6 +388,8 @@ public class CardBrowserActivity extends ActionBarActivity {
 
 
         filterDialogBox.show();
+        Window window = filterDialogBox.getWindow();
+        window.setLayout(400, 500);
     }
 
     public void searchDialog()
@@ -548,8 +556,14 @@ public class CardBrowserActivity extends ActionBarActivity {
         okButton.setTypeface(font);
         okButton.setTextSize(8);
 
+        String imgPath = db_helper.getImagePath(card.getPlayercard_name(),"player");
+        final WebView frame = (WebView) cardDetailsDialogue.findViewById(R.id.cardImageView);
+        frame.setBackgroundColor(Color.rgb(151, 199, 188));
+        frame.loadDataWithBaseURL(null, imgPath, "text/html", "utf-8", null);
+
         cardDetailsDialogue.show();
-        //makeMeToast(textToToast,1);
+        Window window = cardDetailsDialogue.getWindow();
+        window.setLayout(550, 900);
     }
 
     public void displayHeroCardDialog(String text)
@@ -616,8 +630,14 @@ public class CardBrowserActivity extends ActionBarActivity {
         okButton.setTypeface(font);
         okButton.setTextSize(8);
 
+        String imgPath = db_helper.getImagePath(card.getHerocard_name(),"hero");
+        final WebView frame = (WebView) cardDetailsDialogue.findViewById(R.id.cardImageView);
+        frame.setBackgroundColor(Color.rgb(151, 199, 188));
+        frame.loadDataWithBaseURL(null, imgPath, "text/html", "utf-8", null);
+
         cardDetailsDialogue.show();
-        //makeMeToast(textToToast,1);
+        Window window = cardDetailsDialogue.getWindow();
+        window.setLayout(550, 900);
     }
 
     public void displayEncounterCardDialog(String text)
@@ -681,8 +701,15 @@ public class CardBrowserActivity extends ActionBarActivity {
         okButton.setTypeface(font);
         okButton.setTextSize(8);
 
+        //String imgPath = "<html><head></head><body><img src=\"file:///android_asset/card_images/1/1.jpg\"height=\"220\"width=\"135\"></body></html>";
+        String imgPath = db_helper.getImagePath(card.getEncountercard_name(),"encounter");
+        final WebView frame = (WebView) cardDetailsDialogue.findViewById(R.id.cardImageView);
+        frame.setBackgroundColor(Color.rgb(151, 199, 188));
+        frame.loadDataWithBaseURL(null, imgPath, "text/html", "utf-8", null);
+
         cardDetailsDialogue.show();
-        //makeMeToast(textToToast,1);
+        Window window = cardDetailsDialogue.getWindow();
+        window.setLayout(550, 900);
     }
 
     public void displayQuestCardDialog(String text)
@@ -749,8 +776,14 @@ public class CardBrowserActivity extends ActionBarActivity {
         okButton.setTypeface(font);
         okButton.setTextSize(8);
 
+        String imgPath = db_helper.getImagePath(card.getQuestcard_name(),"quest");
+        final WebView frame = (WebView) cardDetailsDialogue.findViewById(R.id.cardImageView);
+        frame.setBackgroundColor(Color.rgb(151, 199, 188));
+        frame.loadDataWithBaseURL(null, imgPath, "text/html", "utf-8", null);
+
         cardDetailsDialogue.show();
-        //makeMeToast(textToToast,1);
+        Window window = cardDetailsDialogue.getWindow();
+        window.setLayout(550, 900);
     }
 
     public void setFonts()

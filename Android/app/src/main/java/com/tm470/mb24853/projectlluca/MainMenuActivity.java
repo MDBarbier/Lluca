@@ -7,12 +7,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.provider.SyncStateContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,10 +26,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainMenuActivity extends ActionBarActivity {
@@ -55,9 +69,7 @@ public class MainMenuActivity extends ActionBarActivity {
             TextView userIdTextView2 = (TextView) findViewById(R.id.sign_out_button);
             userIdTextView2.setVisibility(View.GONE);
         }
-
         setFonts();
-
     }
 
     @Override
@@ -112,9 +124,9 @@ public class MainMenuActivity extends ActionBarActivity {
         helpTextView.setText(helpText);
         Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
         helpTextView.setTypeface(font);
-        helpTextView.setTextSize(8);
+        helpTextView.setTextSize(9);
         okButton.setTypeface(font);
-        okButton.setTextSize(8);
+        okButton.setTextSize(9);
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +137,10 @@ public class MainMenuActivity extends ActionBarActivity {
         });
 
         helpDialogue.show();
+        //Window window = helpDialogue.getWindow();
+        //window.setLayout(500, 700);
+
+
     }
 
     //MDB: loads quest log if there is a user logged in
@@ -197,9 +213,9 @@ public class MainMenuActivity extends ActionBarActivity {
         helpTextView.setText(helpText);
         Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
         helpTextView.setTypeface(font);
-        helpTextView.setTextSize(8);
+        helpTextView.setTextSize(9);
         okButton.setTypeface(font);
-        okButton.setTextSize(8);
+        okButton.setTextSize(9);
 
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +226,8 @@ public class MainMenuActivity extends ActionBarActivity {
         });
 
         helpDialogue.show();
+        Window window = helpDialogue.getWindow();
+        window.setLayout(500,700);
     }
 
     public class InitialPopulation extends AsyncTask<Void, Void, Void>
@@ -223,8 +241,8 @@ public class MainMenuActivity extends ActionBarActivity {
         @Override
         protected Void doInBackground(Void... params) {
 
-           SQLiteDatabase db = db_helper.getWritableDatabase();
-           LLuca_Local_DB_schema schema = new LLuca_Local_DB_schema();
+            SQLiteDatabase db = db_helper.getWritableDatabase();
+            LLuca_Local_DB_schema schema = new LLuca_Local_DB_schema();
             Log.w("Async", "Inside Population Async Task");
             if(!db_helper.getPopulationStatus()) {
                 //Populate the tables
@@ -250,6 +268,8 @@ public class MainMenuActivity extends ActionBarActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
         }
     }
+
+
 
     //helper method to make toast, takes a String input for the message and an integer
     //input for the duration (0 is short, 1 is long, default long)
@@ -317,5 +337,4 @@ public class MainMenuActivity extends ActionBarActivity {
         howto.setTypeface(font);
         legal.setTypeface(font);
     }
-
 }

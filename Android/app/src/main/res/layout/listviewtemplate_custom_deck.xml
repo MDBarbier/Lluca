@@ -9,7 +9,7 @@
         android:layout_height="30dp"
         android:text="test"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="12dp" />
+        android:textSize="16dp" />
 
 
 

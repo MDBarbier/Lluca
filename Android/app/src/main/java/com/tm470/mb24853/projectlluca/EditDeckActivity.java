@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -30,6 +31,9 @@ public class EditDeckActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_deck);
         getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
 
         Bundle bundle = getIntent().getExtras();
 
@@ -95,7 +99,20 @@ public class EditDeckActivity extends ActionBarActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case R.id.action_back:
+                Bundle bundle = getIntent().getExtras();
+                String deckname = bundle.getString("deckname");
+                Intent intent = new Intent(this,DeckListActivity.class);
+                intent.putExtra("deckname", deckname);
+                startActivity(intent);
+                //makeMeToast("back",1);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void delete_deck(View view)
@@ -333,8 +350,14 @@ public class EditDeckActivity extends ActionBarActivity {
         okButton.setTypeface(font);
         okButton.setTextSize(8);
 
+        String imgPath = db_helper.getImagePath(card.getPlayercard_name(),"player");
+        final WebView frame = (WebView) cardDetailsDialogue.findViewById(R.id.cardImageView);
+        frame.setBackgroundColor(Color.rgb(151, 199, 188));
+        frame.loadDataWithBaseURL(null, imgPath, "text/html", "utf-8", null);
+
         cardDetailsDialogue.show();
-        //makeMeToast(textToToast,1);
+        Window window = cardDetailsDialogue.getWindow();
+        window.setLayout(550, 900);
     }
 
     public void setFonts()

@@ -30,6 +30,8 @@ public class UserProfileActivity extends ActionBarActivity {
         String username = bundle.getString("username");
         setContentView(R.layout.activity_user_profile);
         getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(false);
         TextView userIdTextView = (TextView) findViewById(R.id.userprofile_username);
 
 
@@ -66,7 +68,16 @@ public class UserProfileActivity extends ActionBarActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case R.id.action_back:
+
+                Intent intent = new Intent(this,MainMenuActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     //MDB: loads the main menu screen
