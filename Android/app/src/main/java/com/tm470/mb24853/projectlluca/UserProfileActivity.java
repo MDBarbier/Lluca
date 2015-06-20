@@ -75,6 +75,9 @@ public class UserProfileActivity extends ActionBarActivity {
                 Intent intent = new Intent(this,MainMenuActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.action_home:
+                Intent goHome = new Intent(this,MainMenuActivity.class);
+                startActivity(goHome);
             default:
                 return super.onOptionsItemSelected(item);
         }

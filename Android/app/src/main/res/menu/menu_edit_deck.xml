@@ -13,4 +13,10 @@
         android:icon="@drawable/ic_back"
         matt:showAsAction="always"/>
 
+    <item
+        android:title="@string/home"
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home"
+        matt:showAsAction="always"/>
+
 </menu>

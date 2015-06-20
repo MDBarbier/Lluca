@@ -33,7 +33,7 @@ public class AddPacksToUserActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
         //loads the available deckparts into list view
-        Cursor deckpart_cursor = db_helper.getDeckpartDataCursor();
+        Cursor deckpart_cursor = db_helper.getDistinctDeckpartData();
         ListView deckparts = (ListView) findViewById(R.id.ownedPackListView);
         tableadapter_deckpart_helper adapter = new tableadapter_deckpart_helper(this, deckpart_cursor, false);
         deckparts.setAdapter(adapter);
@@ -41,9 +41,9 @@ public class AddPacksToUserActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
-                String text = deckpart_name.getText().toString();
-                displayCardDialog(text);
+                //TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
+                //String text = deckpart_name.getText().toString();
+                //displayCardDialog(text);
             }
         });
 
@@ -52,8 +52,8 @@ public class AddPacksToUserActivity extends ActionBarActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
                 TextView deckpart_box = (TextView) view.findViewById(R.id.template_deckpart_box);
-                String text = deckpart_name.getText().toString();
-                String text2 = deckpart_box.getText().toString();
+                String text2 = deckpart_name.getText().toString();
+                String text = deckpart_box.getText().toString();
                 db_helper.setPackOwnership(text, text2);
                 if (db_helper.doesPlayerOwnPack(text)) {
                     makeMeToast("Added to collection",1,"BOTTOM",0,0,18);
@@ -96,6 +96,9 @@ public class AddPacksToUserActivity extends ActionBarActivity {
                 intent.putExtra("username",user.getUsername());
                 startActivity(intent);
                 return true;
+            case R.id.action_home:
+                Intent goHome = new Intent(this,MainMenuActivity.class);
+                startActivity(goHome);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -114,7 +117,7 @@ public class AddPacksToUserActivity extends ActionBarActivity {
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
         cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
+        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_quest_details);
         cardDetailsDialogue.setTitle("Quest details");
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
         final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);

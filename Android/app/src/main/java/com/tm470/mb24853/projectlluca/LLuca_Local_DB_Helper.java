@@ -296,12 +296,20 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
     public Cursor getOwnershipAndDeckpartCursor()
     {
         userAccountClass user = getCurrentUser();
-        String query = "Select * FROM " + schema.TABLE_NAME_DECKPARTS + " INNER JOIN " + schema.TABLE_NAME_OWNED_PACKS + " ON " + schema.TABLE_NAME_DECKPARTS + "." + schema.COLUMN_NAME_DECKPART_NAME + " = " + schema.TABLE_NAME_OWNED_PACKS + "." + schema.COLUMN_NAME_PACK_NAME + " WHERE " + schema.TABLE_NAME_OWNED_PACKS + "." + schema.COLUMN_NAME_OWNING_USER + " = " + "\"" + user.getUsername() + "\"" ;
+        String query = "Select * FROM " + schema.TABLE_NAME_DECKPARTS + " INNER JOIN " + schema.TABLE_NAME_OWNED_PACKS + " ON " + schema.TABLE_NAME_DECKPARTS + "." + schema.COLUMN_NAME_DECKPART_BOX + " = " + schema.TABLE_NAME_OWNED_PACKS + "." + schema.COLUMN_NAME_BOX_NAME + " WHERE " + schema.TABLE_NAME_OWNED_PACKS + "." + schema.COLUMN_NAME_OWNING_USER + " = " + "\"" + user.getUsername() + "\"" ;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         return cursor;
     }
 
+    public Cursor getDistinctOwnershipAndDeckpartCursor()
+    {
+        userAccountClass user = getCurrentUser();
+        String query = "Select * FROM " + schema.TABLE_NAME_DECKPARTS + " INNER JOIN " + schema.TABLE_NAME_OWNED_PACKS + " ON " + schema.TABLE_NAME_DECKPARTS + "." + schema.COLUMN_NAME_DECKPART_BOX + " = " + schema.TABLE_NAME_OWNED_PACKS + "." + schema.COLUMN_NAME_BOX_NAME + " WHERE " + schema.TABLE_NAME_OWNED_PACKS + "." + schema.COLUMN_NAME_OWNING_USER + " = " + "\"" + user.getUsername() + "\" GROUP BY " + schema.TABLE_NAME_DECKPARTS + "." + schema.COLUMN_NAME_DECKPART_BOX;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor;
+    }
     public Cursor getPlayerCardListCursor()
     {
         String query = "Select * FROM " + schema.TABLE_NAME_PLAYERCARD;
@@ -691,6 +699,33 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         else {deckPackList = null;}
 
         return deckPackList;
+    }
+
+    public Cursor getDistinctDeckpartData()
+    {
+        String query = "Select * FROM " + schema.TABLE_NAME_DECKPARTS + " GROUP BY " + schema.TABLE_NAME_DECKPARTS + "." + schema.COLUMN_NAME_DECKPART_BOX;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public String[] getHeroThreatList()
+    {
+        String query = "Select DISTINCT " + schema.COLUMN_NAME_HEROCARD_THREAT + " FROM " + schema.TABLE_NAME_HEROCARD;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        String[] threatList = new String[cursor.getCount()];
+        int i = 0;
+        Integer temp = 0;
+
+        while (cursor.moveToNext())
+        {
+            temp = cursor.getInt(0);
+            threatList[i] = temp.toString();
+        }
+        return threatList;
     }
 
     public boolean doesPlayerOwnPack(String packname)

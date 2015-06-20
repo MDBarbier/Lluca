@@ -18,10 +18,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.logging.Log;
+
 
 public class DeckHeroListFiltersActivity extends ActionBarActivity {
 
-
+    LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
     Spinner spinner2;
     Spinner spinner3;
     String cardSphere;
@@ -108,6 +110,9 @@ public class DeckHeroListFiltersActivity extends ActionBarActivity {
                 startActivity(intent);
 
                 return true;
+            case R.id.action_home:
+                Intent goHome = new Intent(this,MainMenuActivity.class);
+                startActivity(goHome);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -165,9 +170,23 @@ public class DeckHeroListFiltersActivity extends ActionBarActivity {
 
 
         String items1[] = {"All","Leadership","Tactics","Spirit","Lore","Baggins","Neutral"};
-        String items2[] = {"Any","Zero","Five","Six","Seven","Eight","Nine","Ten"};
+        String items3[] = {"Any","Zero","Five","Six","Seven","Eight","Nine","Ten"};
+
+        /*String[] items2 = db_helper.getHeroThreatList();
+        String[] finalThreat = new String[items2.length + 1];
+
+        finalThreat[finalThreat.length-1] = items2[0];
+        finalThreat[0] = "Any";
+
+        int i = 0;
+        while (i<finalThreat.length)
+        {
+            android.util.Log.w("array", finalThreat[i]);
+            i++;
+        }*/
+
         ArrayAdapter adapter1 = new ArrayAdapter<CharSequence>(this, R.layout.custom_spinner, items1);
-        ArrayAdapter adapter2 = new ArrayAdapter<CharSequence>(this, R.layout.custom_spinner, items2);
+        ArrayAdapter adapter2 = new ArrayAdapter<CharSequence>(this, R.layout.custom_spinner, items3);
 
         adapter1.setDropDownViewResource(R.layout.custom_spinner);
         adapter2.setDropDownViewResource(R.layout.custom_spinner);

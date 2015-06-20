@@ -126,6 +126,9 @@ public class DeckCardListFiltersActivity extends ActionBarActivity {
                 startActivity(intent);
 
                 return true;
+            case R.id.action_home:
+                Intent goHome = new Intent(this,MainMenuActivity.class);
+                startActivity(goHome);
             default:
                 return super.onOptionsItemSelected(item);
         }

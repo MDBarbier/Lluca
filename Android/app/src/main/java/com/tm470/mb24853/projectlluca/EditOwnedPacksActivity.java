@@ -34,7 +34,7 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(false);
 
         //loads the available deckparts into list view
-        Cursor deckpart_cursor = db_helper.getOwnershipAndDeckpartCursor();
+        Cursor deckpart_cursor = db_helper.getDistinctOwnershipAndDeckpartCursor();
         ListView deckparts = (ListView) findViewById(R.id.ownedPackListView);
         final tableadapter_deckpart_helper adapter = new tableadapter_deckpart_helper(this, deckpart_cursor, false);
         deckparts.setAdapter(adapter);
@@ -45,12 +45,12 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-                TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
-                String text = deckpart_name.getText().toString();
+                //TextView deckpart_name = (TextView) view.findViewById(R.id.template_deckpart_name);
+                //String text = deckpart_name.getText().toString();
                 //Boolean owned = db_helper.doesPlayerOwnPack(text);
                 //String textToToast = "Deckpart name: " + text + " Owned: " + owned.toString();
                 //Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-                displayCardDialog(text);
+                //displayCardDialog(text);
 
             }
         });
@@ -64,9 +64,9 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
                 TextView deckpart_box = (TextView) view.findViewById(R.id.template_deckpart_box);
                 String box = deckpart_box.getText().toString();
                 String deck = deckpart_name.getText().toString();
-                db_helper.setPackOwnership(deck,box);
+                db_helper.setPackOwnership(box,deck);
                 adapter.notifyDataSetInvalidated();
-                Cursor deckpart_cursor = db_helper.getOwnershipAndDeckpartCursor();
+                Cursor deckpart_cursor = db_helper.getDistinctOwnershipAndDeckpartCursor();
                 final tableadapter_deckpart_helper adapter = new tableadapter_deckpart_helper(EditOwnedPacksActivity.this, deckpart_cursor, false);
                 deckparts.setAdapter(adapter);
                 return true;
@@ -105,6 +105,9 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
                 intent.putExtra("username",user.getUsername());
                 startActivity(intent);
                 return true;
+            case R.id.action_home:
+                Intent goHome = new Intent(this,MainMenuActivity.class);
+                startActivity(goHome);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -167,7 +170,7 @@ public class EditOwnedPacksActivity extends ActionBarActivity {
     {
         final Dialog cardDetailsDialogue = new Dialog(this);
         cardDetailsDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_cardetails);
+        cardDetailsDialogue.setContentView(R.layout.custom_dialogue_quest_details);
         cardDetailsDialogue.setTitle("Quest details");
         final Button okButton = (Button) cardDetailsDialogue.findViewById(R.id.okButtonSearch);
         final TextView cardDataView = (TextView) cardDetailsDialogue.findViewById(R.id.cardInfo);

@@ -2,6 +2,7 @@ package com.tm470.mb24853.projectlluca;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -62,6 +63,9 @@ public class CustomDeckCardBrowserActivity extends ActionBarActivity {
                 //makeMeToast("filters",1);
                 filterDialog();
                 return true;
+            case R.id.action_home:
+                Intent goHome = new Intent(this,MainMenuActivity.class);
+                startActivity(goHome);
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -34,7 +34,7 @@ public class QuestBrowserActivity extends ActionBarActivity {
         //loads the available deckparts into list view
         Cursor questlist_cursor = db_helper.getQuestNameCursor();
         ListView questview = (ListView) findViewById(R.id.questListView);
-        tableadapter_deckpart_helper adapter = new tableadapter_deckpart_helper(this, questlist_cursor, false);
+        tableadapter_parent_quest_helper adapter = new tableadapter_parent_quest_helper(this, questlist_cursor, false);
         questview.setAdapter(adapter);
 
         questview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -92,9 +92,13 @@ public class QuestBrowserActivity extends ActionBarActivity {
                 //makeMeToast("back",1);
 
                 return true;
+            case R.id.action_home:
+                Intent goHome = new Intent(this,MainMenuActivity.class);
+                startActivity(goHome);
             default:
                 return super.onOptionsItemSelected(item);
         }
+
     }
 
 

@@ -109,6 +109,9 @@ public class CardBrowserActivity extends ActionBarActivity {
             case R.id.action_back:
                 Intent intent = new Intent(this,MainMenuActivity.class);
                 startActivity(intent);
+            case R.id.action_home:
+                Intent goHome = new Intent(this,MainMenuActivity.class);
+                startActivity(goHome);
             default:
                 return super.onOptionsItemSelected(item);
         }

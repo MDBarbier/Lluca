@@ -1,15 +1,11 @@
 package com.tm470.mb24853.projectlluca;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CursorAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 /**
@@ -18,13 +14,13 @@ import android.widget.TextView;
 
 
     //Owned packs subclass - These are what will do the work, one per thing that needs binding
-    public class tableadapter_deckpart_helper extends CursorAdapter  {
+    public class tableadapter_parent_quest_helper extends CursorAdapter  {
 
     Context context;
     LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(context, null, null, 1);
 
         //Constructor
-        public tableadapter_deckpart_helper(Context context, Cursor c, boolean autoRequery) {
+        public tableadapter_parent_quest_helper(Context context, Cursor c, boolean autoRequery) {
             super(context, c, autoRequery);
         }
 
@@ -44,8 +40,8 @@ import android.widget.TextView;
 
 
             //Get data from cursor
-            String name = deckpart_cursor.getString(deckpart_cursor.getColumnIndex("deckpart_box"));
-            String cycle = deckpart_cursor.getString(deckpart_cursor.getColumnIndex("deckpart_name"));
+            String name = deckpart_cursor.getString(deckpart_cursor.getColumnIndex("deckpart_name"));
+            String cycle = deckpart_cursor.getString(deckpart_cursor.getColumnIndex("deckpart_box"));
 
 
             //Populate views

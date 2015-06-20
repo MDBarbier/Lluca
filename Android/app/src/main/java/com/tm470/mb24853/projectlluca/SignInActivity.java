@@ -60,6 +60,9 @@ public class SignInActivity extends ActionBarActivity {
                 //makeMeToast("back",1);
 
                 return true;
+            case R.id.action_home:
+                Intent goHome = new Intent(this,MainMenuActivity.class);
+                startActivity(goHome);
             default:
                 return super.onOptionsItemSelected(item);
         }
