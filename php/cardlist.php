@@ -19,7 +19,8 @@ include "dbconnect.php";
 
 echo "Connected to the LLuca database successfully!<br><br>";
 echo "Connected user: " . $username;
-
+echo "<br>";
+echo "<br>";
 $queryAllCards = "SELECT * FROM player_cards";
 $queryResult = $myConnection->query($queryAllCards);
 

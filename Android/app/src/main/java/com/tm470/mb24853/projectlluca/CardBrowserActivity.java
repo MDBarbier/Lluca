@@ -392,7 +392,7 @@ public class CardBrowserActivity extends ActionBarActivity {
 
         filterDialogBox.show();
         Window window = filterDialogBox.getWindow();
-        window.setLayout(400, 500);
+        window.setLayout(400, 400);
     }
 
     public void searchDialog()

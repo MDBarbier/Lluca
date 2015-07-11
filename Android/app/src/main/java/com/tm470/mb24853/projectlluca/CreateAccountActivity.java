@@ -4,12 +4,17 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +25,19 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class CreateAccountActivity extends ActionBarActivity {
@@ -71,30 +89,74 @@ public class CreateAccountActivity extends ActionBarActivity {
         }
     }
 
-    //MDB: checks to see if the username is in the db already
+    //MDB: checks the server to see if the username is in the db already
+    //if no server access available
     public void checkUsername(View view)
     {
         EditText userInput = (EditText) findViewById(R.id.create_account_username_entry);
-        String userInputString = userInput.getText().toString();
+        final String userInputString = userInput.getText().toString();
         LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
         boolean result = db_helper.checkForUser(userInputString);
-        //boolean result = true;
+
         if (userInputString.equals(""))
         {
             makeMeToast("Please enter a username",1,"TOP",0,300,25);
         }
+        else if (!isNetworkAvailable())
+        {
+            makeMeToast("Network not available",1,"TOP",0,300,25);
+        }
         else
         {
-            if (result) {
+            RequestQueue queue = Volley.newRequestQueue(this);
+            //String url = "http://192.168.0.11/main.php";
+            String url = "http://192.168.0.11/checkusername.php";
+
+            Response.Listener<String> listener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    makeMeToast("Server Response: " + response,1,"TOP",0,300,25);
+
+                }};
+
+            Response.ErrorListener errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    makeMeToast("Server Error: " + error, 1,"TOP",0,300,25);
+
+                }};
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, listener, errorListener){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("username", userInputString);
+                    return map;
+                }};
+
+            queue.add(stringRequest);
+
+         //Old code to toast if the name was available locally or not
+         /*   if (result) {
                makeMeToast("Username \"" + userInputString + "\" is available!",1, "TOP",0,300,25);
+
             }
             else {
                 makeMeToast("Username \"" + userInputString + "\" is not available!",1, "TOP",0,300,25);
 
             }
-
+            */
         }
     }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 
     //MDB: Tries to create a new account based on the data entered - success loads the profile screen
     //there cannot be another user logged in for this to proceed
@@ -212,3 +274,4 @@ public class CreateAccountActivity extends ActionBarActivity {
     }
 
 }
+
