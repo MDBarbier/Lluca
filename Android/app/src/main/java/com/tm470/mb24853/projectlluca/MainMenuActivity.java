@@ -67,7 +67,9 @@ public class MainMenuActivity extends ActionBarActivity {
         }
         else{
             TextView userIdTextView2 = (TextView) findViewById(R.id.sign_out_button);
-            userIdTextView2.setVisibility(View.GONE);
+            //userIdTextView2.setVisibility(View.GONE);
+            String username2 = "Create Account";
+            userIdTextView2.setText(username2);
         }
         setFonts();
     }
@@ -158,7 +160,11 @@ public class MainMenuActivity extends ActionBarActivity {
             Intent intent = new Intent(this, DeckListActivity.class);
             startActivity(intent);
         }
-        else {makeMeToast("Please log in or create an account first.",1,"BOTTOM",0,0,18);}
+        else
+        {
+            //makeMeToast("Please log in or create an account first.",1,"BOTTOM",0,0,18);
+            showLocalDeckbuilderWarning(view);
+        }
     }
 
     //MDB: loads the card browser
@@ -178,6 +184,11 @@ public class MainMenuActivity extends ActionBarActivity {
             db_helper.updateUser(userName, "","",0);
             makeMeToast("Current user has been logged out.",1,"BOTTOM",0,0,18);
             Intent intent= new Intent(this, MainMenuActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            Intent intent= new Intent(this, CreateAccountActivity.class);
             startActivity(intent);
         }
     }
@@ -230,6 +241,50 @@ public class MainMenuActivity extends ActionBarActivity {
         window.setLayout(500,700);
     }
 
+    public void showLocalDeckbuilderWarning(View view)
+    {
+        final Dialog helpDialogue = new Dialog(this);
+        helpDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        helpDialogue.setContentView(R.layout.custom_dialogue_deckbuilder_warning);
+
+        final TextView helpTextTitle = (TextView) helpDialogue.findViewById(R.id.helpTextTitle);
+        final Button okButton = (Button) helpDialogue.findViewById(R.id.okButton);
+        final TextView helpTextView = (TextView) helpDialogue.findViewById(R.id.helpTextWarning);
+        final Button cancelButton = (Button) helpDialogue.findViewById(R.id.cancelButton);
+        String helpText = "You have not created an account, any decks you create before creating an account will only be saved locally and cannot be transferred to the server. Should only be used in the event you cannot access the internet to create an account.";
+        helpTextView.setText(helpText);
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        helpTextView.setTypeface(font);
+        helpTextView.setTextSize(10);
+        helpTextTitle.setTypeface(font);
+        okButton.setTypeface(font);
+        okButton.setTextSize(9);
+        cancelButton.setTypeface(font);
+        cancelButton.setTextSize(9);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                helpDialogue.dismiss();
+                db_helper.updateUser("local", "pw","",1);
+                Intent intent = new Intent(MainMenuActivity.this, DeckListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                helpDialogue.dismiss();
+            }
+        });
+        helpDialogue.show();
+        Window window = helpDialogue.getWindow();
+        //window.setLayout(500,600);
+    }
+
     public class InitialPopulation extends AsyncTask<Void, Void, Void>
     {
         protected void onPreExecute(){
@@ -256,6 +311,7 @@ public class MainMenuActivity extends ActionBarActivity {
                 db.execSQL(schema.getquestcardPopulation1());
                 db.execSQL(schema.getquestcardPopulation2());
                 db.execSQL(schema.getSqlCreateControlDataRecord());
+                db.execSQL(schema.getLocalUser());
                 db_helper.setPopulationStatus(1);
                 return null;
             }

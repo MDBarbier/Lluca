@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
     <TextView
         android:text="@string/sign_in_full"
         android:layout_width="wrap_content"
@@ -19,7 +20,17 @@
         style="@style/spacing_style"
         />
 
-    <TextView
+        <TextView
+        android:text="Existing users only, new users scroll down and click create account!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/signIn6"
+            android:textSize="12dp"
+        android:textColor="#ffff1d20"
+        style="@style/spacing_style"
+        />
+
+        <TextView
         android:text="@string/user_name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

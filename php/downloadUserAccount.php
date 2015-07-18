@@ -9,8 +9,10 @@ include "dbconnect.php";
 
 $queryAllCards = "SELECT * FROM player_account";
 $queryResult = $myConnection->query($queryAllCards);
-
+$username = $_POST["username"];
+$password = $_POST["password"];
 $flag = false;
+$email;
 
 try
 {
@@ -24,21 +26,38 @@ try
                 if ($row["user_name"] == $username)
                 {
                     $flag = true;
+                    $email = $row["email_address"];
                 }
             }
         }
     }
     else echo "USERNAME NOT SUPPLIED";
 
-    if ($flag)
+    if(!$flag)
     {
-        echo "USERNAME TAKEN";
+        try {
+            //create json object to hold user credentials
+            $resultObj = new stdClass();
+            $resultObj->label="USERACCOUNT";
+            $resultObj->data = array(array('username',$username), array('password',$password), array('email',$email));
+
+            //return the json object
+            echo json_encode($resultObj);
+        }
+        catch (Exception $e)
+        {
+            echo "ERROR";
+        }
     }
-    else {echo "USERNAME FREE";}
+    else
+    {
+        echo "USERNAME NOT FOUND";
+    }
+
 
 }
 catch (Exception $e)
 {
-    echo 'ERROR: ' .$e->getMessage();
+    echo 'ERROR: ' .$e->POSTMessage();
 }
 ?>

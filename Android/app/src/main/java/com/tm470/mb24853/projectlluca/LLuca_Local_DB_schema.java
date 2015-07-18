@@ -50,12 +50,18 @@ public class LLuca_Local_DB_schema {
     //SQL statement to create player_account table
     private static final String SQL_CREATE_PLAYER_ACCOUNT_TABLE = "CREATE TABLE " + TABLE_NAME_PLAYERS + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_USERNAME + " TEXT NOT NULL, " + COLUMN_NAME_PASSWORD + " TEXT NOT NULL, " + COLUMN_NAME_EMAIL + " TEXT, " + COLUMN_NAME_LOGGED_IN + " INT)";
 
+    //SQL to create the local user account
+    private  static final String SQL_CREATE_LOCAL_USER = "INSERT INTO Player_account ('username','password','email_address','logged_in') VALUES ('local','pw','na','0')";
+
     //Getter for the player account table SQL
     public String getPlayerAccountCreate()
     {
         return SQL_CREATE_PLAYER_ACCOUNT_TABLE;
     }
 
+    public static String getLocalUser() {
+        return SQL_CREATE_LOCAL_USER;
+    }
     //-------------------------------------------------------------------------------------------------------------------------------------//
     //
     // OWNED_PACKS

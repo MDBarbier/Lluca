@@ -99,7 +99,18 @@ public class SignInActivity extends ActionBarActivity {
                 }
                 else
                 {
+                    //TODO
+
+                    // pt1 check network access if none then go to pt3a
+
+
+                    // pt2 check server for account if found then download the account and store in sqlite db then log in
+
+
+                    //pt3 if still not found then message user saying account does not exist
                     makeMeToast("Username not found.",0,"TOP",0,300,25);
+
+                    //pt3a amended version of 3a which says account not found locally and no network access
                 }
             }
             else
@@ -175,6 +186,7 @@ public class SignInActivity extends ActionBarActivity {
         TextView f = (TextView) findViewById(R.id.signin_submit_button);
         EditText g = (EditText) findViewById(R.id.signin_password_entry);
         EditText h = (EditText) findViewById(R.id.signin_username_entry);
+        TextView i = (TextView) findViewById(R.id.signIn6);
 
         a.setTypeface(font2);
         b.setTypeface(font2);
@@ -184,6 +196,7 @@ public class SignInActivity extends ActionBarActivity {
         f.setTypeface(font2);
         g.setTypeface(font);
         h.setTypeface(font);
+        i.setTypeface(font2);
 
     }
 }

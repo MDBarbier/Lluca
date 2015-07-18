@@ -9,7 +9,9 @@ include "dbconnect.php";
 
 $queryAllCards = "SELECT * FROM player_account";
 $queryResult = $myConnection->query($queryAllCards);
-
+$username = $_POST["username"];
+$password = $_POST["password"];
+$email = $_POST["email"];
 $flag = false;
 
 try
@@ -30,15 +32,27 @@ try
     }
     else echo "USERNAME NOT SUPPLIED";
 
-    if ($flag)
+    if(!$flag)
+    {
+        try {
+            $createUser = "INSERT INTO player_account (user_name, user_password, email_address) VALUES ('$username', '$password', '$email')";
+            $myConnection->query($createUser);
+            echo "ACCOUNT CREATED";
+        }
+        catch (Exception $e)
+        {
+            echo "ERROR INSERTING";
+        }
+    }
+    else
     {
         echo "USERNAME TAKEN";
     }
-    else {echo "USERNAME FREE";}
+
 
 }
 catch (Exception $e)
 {
-    echo 'ERROR: ' .$e->getMessage();
+    echo 'ERROR: ' .$e->POSTMessage();
 }
 ?>
