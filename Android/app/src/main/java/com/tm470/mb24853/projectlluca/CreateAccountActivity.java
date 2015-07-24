@@ -1,6 +1,7 @@
 package com.tm470.mb24853.projectlluca;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,6 +48,8 @@ import java.util.Map;
 
 
 public class CreateAccountActivity extends ActionBarActivity {
+
+    LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +163,7 @@ public class CreateAccountActivity extends ActionBarActivity {
 
     //MDB: Tries to create a new account based on the data entered - success loads the profile screen
     //there cannot be another user logged in for this to proceed
-    public void loadUserProfileActivity (View view) {
+    public void loadUserProfileActivity (final View view) {
 
         Boolean isNetworkAvailable = isNetworkAvailable();
 
@@ -227,6 +231,9 @@ public class CreateAccountActivity extends ActionBarActivity {
                             if (error instanceof TimeoutError || error instanceof NoConnectionError)
                             {
                                 makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
+
+                                //pop up which says you can use temporary profile until server available
+                                showLocalDeckbuilderWarning(view);
                             }
                             else {makeMeToast("Server error:" + error, 1, "TOP", 0, 300, 25);}
 
@@ -339,6 +346,50 @@ public class CreateAccountActivity extends ActionBarActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+
+    public void showLocalDeckbuilderWarning(View view)
+    {
+        final Dialog helpDialogue = new Dialog(this);
+        helpDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        helpDialogue.setContentView(R.layout.custom_dialogue_deckbuilder_warning);
+
+        final TextView helpTextTitle = (TextView) helpDialogue.findViewById(R.id.helpTextTitle);
+        final Button okButton = (Button) helpDialogue.findViewById(R.id.okButton);
+        final TextView helpTextView = (TextView) helpDialogue.findViewById(R.id.helpTextWarning);
+        final Button cancelButton = (Button) helpDialogue.findViewById(R.id.cancelButton);
+        String helpText = "You have not created an account, any decks you create before creating an account will only be saved locally and cannot be transferred to the server. Should only be used in the event you cannot access the internet to create an account.";
+        helpTextView.setText(helpText);
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        helpTextView.setTypeface(font);
+        helpTextView.setTextSize(10);
+        helpTextTitle.setTypeface(font);
+        okButton.setTypeface(font);
+        okButton.setTextSize(9);
+        cancelButton.setTypeface(font);
+        cancelButton.setTextSize(9);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                helpDialogue.dismiss();
+                db_helper.updateUser("local", "pw","",1);
+                Intent intent = new Intent(CreateAccountActivity.this, DeckListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                helpDialogue.dismiss();
+            }
+        });
+        helpDialogue.show();
+        Window window = helpDialogue.getWindow();
+        //window.setLayout(500,600);
+    }
 
 }
 

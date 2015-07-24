@@ -128,19 +128,14 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
                 String text = currentCard.getText().toString();
                 Bundle bundle = getIntent().getExtras();
                 String deckname = bundle.getString("deckname");
-                if (db_helper.areThereSpares(text, "Hero", deckname) && db_helper.howManyHeroes(deckname) < 3)
-                {
+                if (db_helper.areThereSpares(text, "Hero", deckname) && db_helper.howManyHeroes(deckname) < 3) {
                     db_helper.putHeroCardInDeck(deckname, text);
-                    String textToToast = text + " added to deck.";
-                    Toast.makeText(getBaseContext(), textToToast, Toast.LENGTH_SHORT).show();
-                }
-                else if (db_helper.howManyHeroes(deckname) >=3)
-                {
-                    makeMeToast("You have the maximum of 3 allowed heroes in this deck already.",1,"BOTTOM",0,0,15);
-                }
-                else
-                {
-                    makeMeToast(text + " is already in deck!",1,"BOTTOM",0,0,15);
+                    makeMeToast(text + " added to deck.", 1, "BOTTOM", 0, 0, 15);
+
+                } else if (db_helper.howManyHeroes(deckname) >= 3) {
+                    makeMeToast("You have the maximum of 3 allowed heroes in this deck already.", 1, "BOTTOM", 0, 0, 15);
+                } else {
+                    makeMeToast(text + " is already in deck!", 1, "BOTTOM", 0, 0, 15);
                 }
                 return true;
             }
@@ -225,8 +220,11 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
     }
 
     //handles the clicking of the action bar settings icon
-    public void settingsDialog()
-    {
+    public void settingsDialog() {
+        userAccountClass user = db_helper.getCurrentUser();
+        if (!user.getUsername().equals("local")) {
+
+
         final Dialog settingsDialogBox = new Dialog(this);
         Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
         settingsDialogBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -239,19 +237,16 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
         okButton.setTypeface(font);
         onlyOwnedSwitch.setTypeface(font);
 
-        if (db_helper.getOnlyOwnedStatus())
-        {
-           onlyOwnedSwitch.setChecked(true);
+        if (db_helper.getOnlyOwnedStatus()) {
+            onlyOwnedSwitch.setChecked(true);
         }
 
-        onlyOwnedSwitch.setOnClickListener(new View.OnClickListener(){
+        onlyOwnedSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
+            public void onClick(View v) {
                 if (onlyOwnedSwitch.isChecked()) {
                     db_helper.setOnlyOwnedStatus(1);
-                }
-                else
-                {
+                } else {
                     db_helper.setOnlyOwnedStatus(0);
                 }
             }
@@ -268,6 +263,12 @@ public class AddHeroCardsToDeckCardBrowserActivity extends ActionBarActivity {
         });
 
         settingsDialogBox.show();
+
+    }
+        else
+        {
+            makeMeToast("Cannot change settings when using temporary profile!",1,"BOTTOM",0,0,18);
+        }
     }
 
     public class FilteringOperations extends AsyncTask<String, Void, Cursor>

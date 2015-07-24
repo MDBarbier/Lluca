@@ -7,10 +7,14 @@
  */
 include "dbconnect.php";
 
-$queryAllCards = "SELECT * FROM player_account";
-$queryResult = $myConnection->query($queryAllCards);
-$username = $_POST["username"];
-$password = $_POST["password"];
+$queryAll = "SELECT * FROM player_account";
+//$queryResult = $myConnection->query($queryAll);
+//$username = $_POST["username"];
+
+$post = json_decode(file_get_contents("php://input"), true);
+$username = $post["username"];
+$password = $post["password"];
+
 $flag = false;
 $email;
 
@@ -33,7 +37,7 @@ try
     }
     else echo "USERNAME NOT SUPPLIED";
 
-    if(!$flag)
+    if($flag)
     {
         try {
             //create json object to hold user credentials

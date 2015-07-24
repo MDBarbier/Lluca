@@ -11,7 +11,6 @@ $queryAll = "SELECT * FROM player_account";
 $queryResult = $myConnection->query($queryAll);
 $username = $_POST["username"];
 $password = $_POST["password"];
-$email = $_POST["email"];
 $flag = false;
 
 try
@@ -23,7 +22,7 @@ try
 
             while($row = $queryResult->fetch_assoc())
             {
-                if ($row["user_name"] == $username)
+                if ($row["user_name"] == $username && $row["user_password"] == $password)
                 {
                     $flag = true;
                 }
@@ -32,27 +31,15 @@ try
     }
     else echo "USERNAME NOT SUPPLIED";
 
-    if(!$flag)
+    if ($flag)
     {
-        try {
-            $createUser = "INSERT INTO player_account (user_name, user_password, email_address) VALUES ('$username', '$password', '$email')";
-            $myConnection->query($createUser);
-            echo "ACCOUNT CREATED";
-        }
-        catch (Exception $e)
-        {
-            echo "ERROR INSERTING";
-        }
+        echo "ACCOUNT EXISTS";
     }
-    else
-    {
-        echo "USERNAME TAKEN";
-    }
-
+    else {echo "NO ACCOUNT EXISTS";}
 
 }
 catch (Exception $e)
 {
-    echo 'ERROR: ' .$e->POSTMessage();
+    echo 'ERROR: ' .$e->getMessage();
 }
 ?>

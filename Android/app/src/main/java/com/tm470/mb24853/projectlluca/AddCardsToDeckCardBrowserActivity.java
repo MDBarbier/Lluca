@@ -234,47 +234,56 @@ public class AddCardsToDeckCardBrowserActivity extends ActionBarActivity {
     //handles the clicking of the action bar settings icon
     public void settingsDialog()
     {
-        final Dialog settingsDialogBox = new Dialog(this);
-        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
-        settingsDialogBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        settingsDialogBox.setContentView(R.layout.custom_dialogue_settingsfilters);
 
-        final Button okButton = (Button) settingsDialogBox.findViewById(R.id.okButtonSettings);
-        final Switch onlyOwnedSwitch = (Switch) settingsDialogBox.findViewById(R.id.ownedCardsSwitch);
-        final TextView tv = (TextView) settingsDialogBox.findViewById(R.id.textView5);
-        tv.setTypeface(font);
-        okButton.setTypeface(font);
-        onlyOwnedSwitch.setTypeface(font);
+        userAccountClass user = db_helper.getCurrentUser();
+        if (!user.getUsername().equals("local")) {
 
-        if (db_helper.getOnlyOwnedStatus())
-        {
-           onlyOwnedSwitch.setChecked(true);
+
+            final Dialog settingsDialogBox = new Dialog(this);
+            Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
+            settingsDialogBox.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            settingsDialogBox.setContentView(R.layout.custom_dialogue_settingsfilters);
+
+            final Button okButton = (Button) settingsDialogBox.findViewById(R.id.okButtonSettings);
+            final Switch onlyOwnedSwitch = (Switch) settingsDialogBox.findViewById(R.id.ownedCardsSwitch);
+            final TextView tv = (TextView) settingsDialogBox.findViewById(R.id.textView5);
+            tv.setTypeface(font);
+            okButton.setTypeface(font);
+            onlyOwnedSwitch.setTypeface(font);
+
+            if (db_helper.getOnlyOwnedStatus()) {
+                onlyOwnedSwitch.setChecked(true);
+            }
+
+
+            onlyOwnedSwitch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onlyOwnedSwitch.isChecked()) {
+                        db_helper.setOnlyOwnedStatus(1);
+                    } else {
+                        db_helper.setOnlyOwnedStatus(0);
+                    }
+                }
+            });
+
+
+            okButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    new FilteringOperations().execute("");
+                    settingsDialogBox.dismiss();
+                }
+            });
+
+            settingsDialogBox.show();
+
         }
-
-        onlyOwnedSwitch.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                if (onlyOwnedSwitch.isChecked()) {
-                    db_helper.setOnlyOwnedStatus(1);
-                }
-                else
-                {
-                    db_helper.setOnlyOwnedStatus(0);
-                }
-            }
-        });
-
-
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                new FilteringOperations().execute("");
-                settingsDialogBox.dismiss();
-            }
-        });
-
-        settingsDialogBox.show();
+        else
+        {
+            makeMeToast("Cannot change settings when using temporary profile!",1,"BOTTOM",0,0,18);
+        }
     }
 
     public class FilteringOperations extends AsyncTask<String, Void, Cursor>

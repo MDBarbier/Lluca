@@ -1,19 +1,42 @@
 package com.tm470.mb24853.projectlluca;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SignInActivity extends ActionBarActivity {
@@ -29,6 +52,9 @@ public class SignInActivity extends ActionBarActivity {
         getWindow().getDecorView().setBackgroundColor(Color.rgb(169, 186, 182));
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
+        TextView servermessage = (TextView) findViewById(R.id.please_wait);
+        servermessage.setVisibility(customTextViewForListView.GONE);
+
         setFonts();
     }
 
@@ -78,7 +104,7 @@ public class SignInActivity extends ActionBarActivity {
 
         if (userPwString.equals("") | userNameString.equals("")) {
 
-            makeMeToast("You must enter your username and password",1,"TOP",0,300,25);
+            makeMeToast("You must enter your username and password", 1, "TOP", 0, 300, 25);
 
         }
         else
@@ -87,30 +113,29 @@ public class SignInActivity extends ActionBarActivity {
             {
                 if (!db_helper.checkForUser(userNameString))
                 {
-                    userAccountClass user = db_helper.getUser(userNameString);
-                    if (user.getPassword().equals(userPwString)) {
-                        db_helper.updateUser(user.getUsername(), "", "", 1);
-                        Intent intent = new Intent(this, UserProfileActivity.class);
-                        intent.putExtra("username", user.getUsername());
-                        startActivity(intent);
-                    } else {
-                        makeMeToast("Incorrect password.", 1,"TOP",0,300,25);
+                    if (!userNameString.equals("local")) {
+                        userAccountClass user = db_helper.getUser(userNameString);
+                        if (user.getPassword().equals(userPwString)) {
+                            db_helper.updateUser(user.getUsername(), "", "", 1);
+                            Intent intent = new Intent(this, UserProfileActivity.class);
+                            intent.putExtra("username", user.getUsername());
+                            startActivity(intent);
+                        } else {
+                            makeMeToast("Incorrect password.", 1, "TOP", 0, 300, 25);
+                        }
+                    }
+                    else
+                    {
+                        makeMeToast("Cannot log in as Local account.", 1, "TOP", 0, 300, 25);
                     }
                 }
                 else
                 {
-                    //TODO
+                    //check network access if none then see if username/pw combo exists on server
+                    if (isNetworkAvailable()) {
 
-                    // pt1 check network access if none then go to pt3a
-
-
-                    // pt2 check server for account if found then download the account and store in sqlite db then log in
-
-
-                    //pt3 if still not found then message user saying account does not exist
-                    makeMeToast("Username not found.",0,"TOP",0,300,25);
-
-                    //pt3a amended version of 3a which says account not found locally and no network access
+                        checkUsername(view, userNameString, userPwString);
+                        }
                 }
             }
             else
@@ -187,6 +212,7 @@ public class SignInActivity extends ActionBarActivity {
         EditText g = (EditText) findViewById(R.id.signin_password_entry);
         EditText h = (EditText) findViewById(R.id.signin_username_entry);
         TextView i = (TextView) findViewById(R.id.signIn6);
+        TextView tv = (TextView) findViewById(R.id.please_wait);
 
         a.setTypeface(font2);
         b.setTypeface(font2);
@@ -197,6 +223,180 @@ public class SignInActivity extends ActionBarActivity {
         g.setTypeface(font);
         h.setTypeface(font);
         i.setTypeface(font2);
+        tv.setTypeface(font2);
 
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void checkUsername(final View view, final String username, final String password)
+    {
+
+        final TextView tv = (TextView) findViewById(R.id.please_wait);
+        tv.setVisibility(View.VISIBLE);
+        tv.setText("Please wait...contacting server");
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "http://192.168.0.11/checkusernameandpassword.php";
+
+            Response.Listener<String> listener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    tv.setVisibility(View.GONE);
+                    if (response.equals("ACCOUNT EXISTS")) {
+                        answerYes(view, username, password);
+                    }
+                    else
+                    {
+                        answerNo(view);
+                    }
+
+                }};
+
+
+            Response.ErrorListener errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    tv.setVisibility(View.GONE);
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError)
+                    {
+                        makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
+                    }
+                    else {makeMeToast("Server error:" + error, 1, "TOP", 0, 300, 25);}
+
+                }};
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, listener, errorListener){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("username", username);
+                    map.put("password", password);
+                    return map;
+                }};
+
+
+            queue.add(stringRequest);
+
+        }
+
+    public void answerYes(View view, String username, String password)
+    {
+        //makeMeToast("Account does not exist locally but does exist on the LLuca server.", 1, "TOP", 0, 300, 25);
+        downloadProfileDialogue(view, username, password);
+    }
+
+    public void answerNo(View view)
+    {
+        makeMeToast("There is no account matching those credentials either locally or on the LLuca server.", 1, "TOP", 0, 300, 25);
+    }
+
+    public void downloadProfileDialogue(View view, final String username, final String password)
+    {
+        final Dialog downloadDialogue = new Dialog(this);
+        downloadDialogue.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        downloadDialogue.setContentView(R.layout.custom_dialogue_deckbuilder_warning);
+
+        final TextView helpTextTitle = (TextView) downloadDialogue.findViewById(R.id.helpTextTitle);
+        final Button okButton = (Button) downloadDialogue.findViewById(R.id.okButton);
+        final TextView helpTextView = (TextView) downloadDialogue.findViewById(R.id.helpTextWarning);
+        final Button cancelButton = (Button) downloadDialogue.findViewById(R.id.cancelButton);
+        String helpText = "Account does not exist locally but does exist on the LLuca server. Do you wish to download the account to the local device?";
+        String helpTitle = "Attention!";
+        helpTextTitle.setText(helpTitle);
+        helpTextView.setText(helpText);
+        Typeface font = Typeface.createFromAsset(getAssets(), "Fonts/aniron.ttf");
+        helpTextView.setTypeface(font);
+        helpTextView.setTextSize(10);
+        helpTextTitle.setTypeface(font);
+        okButton.setTypeface(font);
+        okButton.setTextSize(9);
+        cancelButton.setTypeface(font);
+        cancelButton.setTextSize(9);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                downloadDialogue.dismiss();
+                makeMeToast("Profile downloaded.", 1, "TOP", 0, 300, 25);
+                //downloadUser(username, password);
+
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                downloadDialogue.dismiss();
+            }
+        });
+        downloadDialogue.show();
+        //Window window = downloadDialogue.getWindow();
+        //window.setLayout(500,600);
+    }
+
+    public void downloadUser(final String username, final String password)
+    {
+        final TextView tv = (TextView) findViewById(R.id.please_wait);
+        tv.setVisibility(View.VISIBLE);
+        tv.setText("Please wait...contacting server");
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://192.168.0.11/downloaduseraccount.php";
+
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("username", username);
+            jsonBody.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                insertUserLocally(response);
+            }};
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                tv.setVisibility(View.GONE);
+                if (error instanceof TimeoutError || error instanceof NoConnectionError)
+                {
+                    makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
+                }
+                else {makeMeToast("download user method, Server error:" + error, 1, "TOP", 0, 300, 25);}
+
+            }};
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(url,jsonBody, listener, errorListener);
+
+                queue.add(jsonRequest);
+    }
+
+    public void insertUserLocally(JSONObject user)
+    {
+        String username = "";
+
+        try
+        {
+            username = user.get("username").toString();
+        }
+        catch (JSONException e)
+        {
+            //do nothing
+        }
+
+        makeMeToast("User " + username + " inserted locally.", 1,"TOP",0,300,25);
     }
 }

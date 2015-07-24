@@ -7,8 +7,8 @@
  */
 include "dbconnect.php";
 
-$queryAllCards = "SELECT * FROM player_account";
-$queryResult = $myConnection->query($queryAllCards);
+$queryAll = "SELECT * FROM player_account";
+$queryResult = $myConnection->query($queryAll);
 
 $flag = false;
 

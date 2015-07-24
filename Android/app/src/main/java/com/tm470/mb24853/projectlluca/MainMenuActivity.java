@@ -58,12 +58,22 @@ public class MainMenuActivity extends ActionBarActivity {
 
         if (db_helper.isAnyUserLoggedIn())
         {
-            String username = db_helper.getCurrentUser().getUsername() + "'s Profile";
+            String username = db_helper.getCurrentUser().getUsername();
             String username2 = "Logout " + db_helper.getCurrentUser().getUsername();
-            TextView userIdTextView = (TextView) findViewById(R.id.button);
-            TextView userIdTextView2 = (TextView) findViewById(R.id.sign_out_button);
-            userIdTextView.setText(username);
-            userIdTextView2.setText(username2);
+
+            if (username.equals("local"))
+            {
+                db_helper.updateUser(username, "","",0);
+                TextView userIdTextView2 = (TextView) findViewById(R.id.sign_out_button);
+                username2 = "Create Account";
+                userIdTextView2.setText(username2);
+            }
+            else {
+                TextView userIdTextView = (TextView) findViewById(R.id.button);
+                TextView userIdTextView2 = (TextView) findViewById(R.id.sign_out_button);
+                userIdTextView.setText(username + "'s Profile");
+                userIdTextView2.setText(username2);
+            }
         }
         else{
             TextView userIdTextView2 = (TextView) findViewById(R.id.sign_out_button);
