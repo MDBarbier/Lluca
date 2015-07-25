@@ -45,10 +45,11 @@ public class LLuca_Local_DB_schema {
     public static final String COLUMN_NAME_PASSWORD = "password";
     public static final String COLUMN_NAME_EMAIL = "email_address";
     public static final String COLUMN_NAME_LOGGED_IN = "logged_in";
+    public static final String COLUMN_NAME_LAST_SYNC = "last_sync";
 
 
     //SQL statement to create player_account table
-    private static final String SQL_CREATE_PLAYER_ACCOUNT_TABLE = "CREATE TABLE " + TABLE_NAME_PLAYERS + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_USERNAME + " TEXT NOT NULL, " + COLUMN_NAME_PASSWORD + " TEXT NOT NULL, " + COLUMN_NAME_EMAIL + " TEXT, " + COLUMN_NAME_LOGGED_IN + " INT)";
+    private static final String SQL_CREATE_PLAYER_ACCOUNT_TABLE = "CREATE TABLE " + TABLE_NAME_PLAYERS + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_USERNAME + " TEXT NOT NULL, " + COLUMN_NAME_PASSWORD + " TEXT NOT NULL, " + COLUMN_NAME_EMAIL + " TEXT, " + COLUMN_NAME_LOGGED_IN + " INT, " + COLUMN_NAME_LAST_SYNC + " DATETIME)";
 
     //SQL to create the local user account
     private  static final String SQL_CREATE_LOCAL_USER = "INSERT INTO Player_account ('username','password','email_address','logged_in') VALUES ('local','pw','na','0')";

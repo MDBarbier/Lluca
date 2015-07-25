@@ -43,6 +43,8 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -175,6 +177,7 @@ public class CreateAccountActivity extends ActionBarActivity {
             final String userNameString = userName.getText().toString();
             final String userPwString = userPassword.getText().toString();
             final String userEmailString = userEmail.getText().toString();
+            final String lastSync = DateFormat.getDateTimeInstance().format(new Date());
 
             if (userNameString.equals("") || userPwString.equals("")) {
 
@@ -247,6 +250,7 @@ public class CreateAccountActivity extends ActionBarActivity {
                             map.put("username", userNameString);
                             map.put("password", userPwString);
                             map.put("email", userEmailString);
+                            map.put("lastsync", lastSync);
                             return map;
                         }};
 

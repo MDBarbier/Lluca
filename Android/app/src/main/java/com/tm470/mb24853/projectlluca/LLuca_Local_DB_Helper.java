@@ -38,6 +38,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Admin on 28/03/2015.
@@ -154,6 +157,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
             values.put(schema.COLUMN_NAME_PASSWORD, user.getPassword());
             values.put(schema.COLUMN_NAME_EMAIL, user.getEmailAddress());
             values.put(schema.COLUMN_NAME_LOGGED_IN, 1);
+            values.put(schema.COLUMN_NAME_LAST_SYNC, DateFormat.getDateTimeInstance().format(new Date()));
 
 
             SQLiteDatabase db = this.getWritableDatabase();
@@ -166,6 +170,24 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         {
             return false;
         }
+    }
+
+    public String getLastSync(String username)
+    {
+        String query = "Select * FROM " + schema.TABLE_NAME_PLAYERS + " WHERE " + schema.COLUMN_NAME_USERNAME + " =  \"" + username + "\"";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        String dateTime = "";
+
+        //get data from cursor - there will only ever be one row with a given username
+        if (cursor.moveToFirst())
+        {
+            cursor.moveToFirst();
+            dateTime = cursor.getString(5);
+            cursor.close();
+        }
+        return dateTime;
     }
 
     //Delete a user

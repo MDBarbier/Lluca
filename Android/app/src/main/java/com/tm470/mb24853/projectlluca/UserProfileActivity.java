@@ -19,9 +19,11 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -48,7 +50,10 @@ public class UserProfileActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
         TextView userIdTextView = (TextView) findViewById(R.id.userprofile_username);
-
+        TextView tv = (TextView) findViewById(R.id.please_wait);
+        tv.setVisibility(View.GONE);
+        TextView tv2 = (TextView) findViewById(R.id.userprofile_lastsync);
+        tv2.setText(db_helper.getLastSync(username));
 
         LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
         userAccountClass user = db_helper.getUser(username);
@@ -115,9 +120,69 @@ public class UserProfileActivity extends ActionBarActivity {
     //MDB: synchronises account with server
     public void syncWithServer (View view)
     {
-        makeMeToast("Server synchronisation not implemented in this release.", 1, "BOTTOM",0,0,18);
+        //makeMeToast("Server synchronisation not implemented in this release.", 1, "BOTTOM",0,0,18);
+
+
+        final userAccountClass user = db_helper.getCurrentUser();
+        final String localSync = db_helper.getLastSync(db_helper.getCurrentUser().getUsername());
+
+
+        final TextView tv = (TextView) findViewById(R.id.please_wait);
+        tv.setVisibility(View.VISIBLE);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://192.168.0.11/getsynctime.php";
+
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                tv.setVisibility(View.GONE);
+                //makeMeToast("Server Response: " + response, 1, "TOP", 0, 300, 25);
+                String serverSync = response;
+                compareSyncTimes(localSync,serverSync,user.getUsername());
+            }};
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                tv.setVisibility(View.GONE);
+                if (error instanceof TimeoutError || error instanceof NoConnectionError)
+                {
+                    makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
+                }
+                else {makeMeToast("Server error:" + error, 1, "TOP", 0, 300, 25);}
+
+            }};
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, listener, errorListener){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("username", user.getUsername());
+                return map;
+            }};
+
+        queue.add(stringRequest);
     }
 
+    public void compareSyncTimes(String localSync, String serverSync, String username)
+    {
+
+        //makeMeToast("Server time: " + serverSync + "\n Local time: " + localSync, 1, "TOP", 0, 300, 25);
+        if (localSync.equals(serverSync))
+        {
+            makeMeToast("Synced with LLuca server", 1, "TOP", 0, 300, 25);
+        }
+        else
+        {
+            makeMeToast("Synchronisation required", 1, "TOP", 0, 300, 25);
+        }
+
+        TextView tv2 = (TextView) findViewById(R.id.userprofile_lastsync);
+        tv2.setText(db_helper.getLastSync(username));
+
+    }
 
     //Logs out the current user
     public void logoutCurrentUser(View view)

@@ -21,7 +21,7 @@ CREATE TABLE player_account
 user_name varchar(50) NOT NULL PRIMARY KEY,
 user_password varchar(50),
 email_address varchar(50),
-lastSyncTime datetime
+last_sync varchar(50)
 );
 
 /*

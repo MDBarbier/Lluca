@@ -8,20 +8,26 @@
 include "dbconnect.php";
 
 $queryAll = "SELECT * FROM player_account";
-//$queryResult = $myConnection->query($queryAll);
-//$username = $_POST["username"];
+$queryResult = $myConnection->query($queryAll);
 
-$post = json_decode(file_get_contents("php://input"), true);
-$username = $post["username"];
-$password = $post["password"];
+
+$json = file_get_contents('php://input');
+$obj = json_decode($json);
+//var_dump($obj);
+
+$username = $obj->username;
+$password = $obj->password;
+
+//echo $username;
+//echo $password;
 
 $flag = false;
 $email;
 
+
 try
 {
-    if (isset($_POST["username"])) {
-        $username = htmlspecialchars($_POST["username"]);
+
         if ($queryResult->num_rows > 0)
         {
 
@@ -34,19 +40,17 @@ try
                 }
             }
         }
-    }
     else echo "USERNAME NOT SUPPLIED";
 
     if($flag)
     {
         try {
             //create json object to hold user credentials
-            $resultObj = new stdClass();
-            $resultObj->label="USERACCOUNT";
-            $resultObj->data = array(array('username',$username), array('password',$password), array('email',$email));
-
-            //return the json object
-            echo json_encode($resultObj);
+            $user = new user();
+            $user->username = $username;
+            $user->password = $password;
+            $user->email = $email;
+            echo json_encode($user);
         }
         catch (Exception $e)
         {
@@ -62,6 +66,13 @@ try
 }
 catch (Exception $e)
 {
-    echo 'ERROR: ' .$e->POSTMessage();
+    echo 'PHP ERROR: ' .$e->POSTMessage();
 }
+
+class user {
+    public $username = "";
+    public $password = "";
+    public $email = "";
+}
+
 ?>

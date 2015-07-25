@@ -9,18 +9,13 @@ include "dbconnect.php";
 
 $queryAll = "SELECT * FROM player_account";
 $queryResult = $myConnection->query($queryAll);
-
-$username = $_POST["username"];
-$password = $_POST["password"];
-$lastsync = $_POST["lastsync"];
-$email = $_POST["email"];
-
+$synctime = "";
 $flag = false;
 
 try
 {
     if (isset($_POST["username"])) {
-
+        $username = htmlspecialchars($_POST["username"]);
         if ($queryResult->num_rows > 0)
         {
 
@@ -29,33 +24,22 @@ try
                 if ($row["user_name"] == $username)
                 {
                     $flag = true;
+                    $synctime = $row["last_sync"];
                 }
             }
         }
     }
     else echo "USERNAME NOT SUPPLIED";
 
-    if(!$flag)
+    if ($flag)
     {
-        try {
-            $createUser = "INSERT INTO player_account (user_name, user_password, email_address, last_sync) VALUES ('$username', '$password', '$email', '$lastsync')";
-            $myConnection->query($createUser);
-            echo "ACCOUNT CREATED";
-        }
-        catch (Exception $e)
-        {
-            echo "ERROR INSERTING";
-        }
+        echo $synctime;
     }
-    else
-    {
-        echo "USERNAME TAKEN";
-    }
-
+    else {echo "NO SYNC";}
 
 }
 catch (Exception $e)
 {
-    echo 'ERROR: ' .$e->POSTMessage();
+    echo 'ERROR: ' .$e->getMessage();
 }
 ?>

@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,9 +33,11 @@ import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -136,6 +139,10 @@ public class SignInActivity extends ActionBarActivity {
 
                         checkUsername(view, userNameString, userPwString);
                         }
+                    else
+                    {
+                        makeMeToast("Profile does not exist locally and you have no network access to check on the LLuca server.", 1,"TOP",0,300,25);
+                    }
                 }
             }
             else
@@ -325,8 +332,8 @@ public class SignInActivity extends ActionBarActivity {
             public void onClick(View v) {
 
                 downloadDialogue.dismiss();
-                makeMeToast("Profile downloaded.", 1, "TOP", 0, 300, 25);
-                //downloadUser(username, password);
+                //makeMeToast("Profile downloaded.", 1, "TOP", 0, 300, 25);
+                downloadUser(username, password);
 
             }
         });
@@ -352,18 +359,18 @@ public class SignInActivity extends ActionBarActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "http://192.168.0.11/downloaduseraccount.php";
 
-        JSONObject jsonBody = new JSONObject();
+        final JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("username", username);
-            jsonBody.put("password", password);
-        } catch (JSONException e) {
-            e.printStackTrace();
+            jsonBody.put("password",password);
         }
-
+        catch (JSONException e)
+        {};
 
         Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                tv.setVisibility(View.GONE);
                 insertUserLocally(response);
             }};
 
@@ -375,28 +382,53 @@ public class SignInActivity extends ActionBarActivity {
                 {
                     makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
                 }
-                else {makeMeToast("download user method, Server error:" + error, 1, "TOP", 0, 300, 25);}
+                else {
+                    makeMeToast("Server error:" + error, 1, "TOP", 0, 300, 25);
+                    Log.w("volley", "Downloadusermethod" + error);
+                }
 
             }};
 
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(url,jsonBody, listener, errorListener);
-
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, listener, errorListener) {
+        @Override
+        public Map<String,String> getHeaders() throws AuthFailureError {
+            HashMap<String, String> headers = new HashMap<>();
+            headers.put("Content-Type", "application/json");
+            headers.put("charset", "utf-8");
+            return headers;
+        }
+        };
                 queue.add(jsonRequest);
     }
 
     public void insertUserLocally(JSONObject user)
     {
-        String username = "";
+        userAccountClass userObject = new userAccountClass();
+        String username;
+        String password;
+        String email;
 
-        try
-        {
-            username = user.get("username").toString();
+        try {
+
+            username = user.getString("username");
+            password = user.getString("password");
+            email = user.getString("email");
+
+            userObject.setUsername(username);
+            userObject.setPassword(password);
+            userObject.setEmailAddress(email);
+
+            db_helper.createUser(userObject);
+            makeMeToast("User account \'" + username + "\' created in local database.", 1, "TOP", 0, 300, 25);
+            Intent intent = new Intent(SignInActivity.this, UserProfileActivity.class);
+            intent.putExtra("username", username);
+            startActivity(intent);
+
         }
         catch (JSONException e)
         {
-            //do nothing
+            makeMeToast("Error parsing JSON data received from server.", 1,"TOP",0,300,25);
+            Log.w("json",e);
         }
-
-        makeMeToast("User " + username + " inserted locally.", 1,"TOP",0,300,25);
     }
 }
