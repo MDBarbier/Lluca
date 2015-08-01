@@ -35,20 +35,38 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/last_sync"
+        android:text="Last synchronised with LLuca server:"
         style="@style/spacing_style"
         android:id="@+id/b"
         android:textSize="18dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/dummy_sync_date"
-        android:id="@+id/userprofile_lastsync"
-        android:textSize="12dp"
-        android:textColor="#ff000000"
-        style="@style/spacing_style"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="*press synchronise to contact server*"
+            android:id="@+id/userprofile_lastsync"
+            android:textSize="12dp"
+            android:textColor="#ff000000"
+            style="@style/spacing_style"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last local change:"
+            style="@style/spacing_style"
+            android:id="@+id/llc"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/dummy_sync_date"
+            android:id="@+id/userprofile_lastlocal"
+            android:textSize="12dp"
+            android:textColor="#ff000000"
+            style="@style/spacing_style"/>
 
     <TextView
         android:layout_width="wrap_content"

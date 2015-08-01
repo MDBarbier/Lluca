@@ -152,13 +152,17 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
     {
         try {
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            Date now = new Date();
+            String strTime = dateFormat.format(now);
+
             ContentValues values = new ContentValues();
             values.put(schema.COLUMN_NAME_USERNAME, user.getUsername());
             values.put(schema.COLUMN_NAME_PASSWORD, user.getPassword());
             values.put(schema.COLUMN_NAME_EMAIL, user.getEmailAddress());
             values.put(schema.COLUMN_NAME_LOGGED_IN, 1);
-            values.put(schema.COLUMN_NAME_LAST_SYNC, DateFormat.getDateTimeInstance().format(new Date()));
-
+            //values.put(schema.COLUMN_NAME_LAST_SYNC, DateFormat.getDateTimeInstance().format(new Date()));
+            values.put(schema.COLUMN_NAME_LAST_SYNC, strTime);
 
             SQLiteDatabase db = this.getWritableDatabase();
 
@@ -169,6 +173,30 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         catch (Exception e)
         {
             return false;
+        }
+    }
+
+    //Method to create a new user account and sets them to logged in
+    public void updateLocalSyncDate(userAccountClass user)
+    {
+        try {
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            Date now = new Date();
+            String strTime = dateFormat.format(now);
+            int userID = user.getUserID();
+            String whereClause = " " + KEY_ID + " = " + userID + "";
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(schema.COLUMN_NAME_USERNAME, user.getUsername());
+            values.put(schema.COLUMN_NAME_LAST_SYNC, strTime);
+            db.update(schema.TABLE_NAME_PLAYERS, values, whereClause, null);
+            db.close();
+
+        }
+        catch (Exception e)
+        {
+            Log.w("updateLocalSyncDate", "inside catch");
         }
     }
 
@@ -880,6 +908,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
             db.execSQL(removeSQL);
             cursor.close();
             db.close();
+            updateLocalSyncDate(user);
 
         }
         else
@@ -893,7 +922,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
                 db.insert(schema.TABLE_NAME_OWNED_PACKS, null, values);
                 db.close();
-
+                updateLocalSyncDate(user);
             }
             catch (Exception e)
             {
@@ -1011,9 +1040,9 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
             ContentValues values = new ContentValues();
             values.put(schema.COLUMN_NAME_DECK_OWNING_USER, user.getUsername());
             values.put(schema.COLUMN_NAME_DECK_DECK_NAME, deckName);
-
             db.insert(schema.TABLE_NAME_CUSTOM_DECKS, null, values);
             db.close();
+            updateLocalSyncDate(user);
         }
         catch(Exception e)
         {
@@ -1028,6 +1057,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         String sqlDelete = "DELETE FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " WHERE " + schema.COLUMN_NAME_DECK_DECK_NAME + " = '" + deckName + "' AND " + schema.COLUMN_NAME_DECK_OWNING_USER + " = '" + user.getUsername() + "'";
         db.execSQL(sqlDelete);
         db.close();
+        updateLocalSyncDate(user);
     }
 
     //gets entries in the custom deck table which match the current player
@@ -1084,6 +1114,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
                 db.insert(schema.TABLE_NAME_CUSTOM_DECKS, null, values);
                 db.close();
+            updateLocalSyncDate(user);
 
             }
             catch (Exception e)
@@ -1111,6 +1142,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
             db.insert(schema.TABLE_NAME_CUSTOM_DECKS, null, values);
             db.close();
+            updateLocalSyncDate(user);
 
         }
         catch (Exception e)
@@ -1159,7 +1191,7 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
                     db.execSQL(removeSQL);
                     cursor.close();
                     db.close();
-
+                    updateLocalSyncDate(user);
                 }
         } catch (Exception e) {
                 //do nothing

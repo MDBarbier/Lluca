@@ -44,6 +44,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -177,7 +178,10 @@ public class CreateAccountActivity extends ActionBarActivity {
             final String userNameString = userName.getText().toString();
             final String userPwString = userPassword.getText().toString();
             final String userEmailString = userEmail.getText().toString();
-            final String lastSync = DateFormat.getDateTimeInstance().format(new Date());
+            //final String lastSync = DateFormat.getDateTimeInstance().format(new Date());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            Date now = new Date();
+            final String lastSync = dateFormat.format(now);
 
             if (userNameString.equals("") || userPwString.equals("")) {
 

@@ -1,11 +1,14 @@
 package com.tm470.mb24853.projectlluca;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +16,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +35,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import java.net.URI;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,10 +60,12 @@ public class UserProfileActivity extends ActionBarActivity {
         TextView userIdTextView = (TextView) findViewById(R.id.userprofile_username);
         TextView tv = (TextView) findViewById(R.id.please_wait);
         tv.setVisibility(View.GONE);
-        TextView tv2 = (TextView) findViewById(R.id.userprofile_lastsync);
-        tv2.setText(db_helper.getLastSync(username));
-
-        LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
+        //TextView tv2 = (TextView) findViewById(R.id.userprofile_lastsync);
+        //tv2.setText(db_helper.getLastSync(username));
+        TextView tv3 = (TextView) findViewById(R.id.userprofile_lastlocal);
+        String localSync = db_helper.getLastSync(username);
+        tv3.setText(localSync);
+        //LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
         userAccountClass user = db_helper.getUser(username);
 
         if (user != null) {
@@ -125,8 +135,6 @@ public class UserProfileActivity extends ActionBarActivity {
 
         final userAccountClass user = db_helper.getCurrentUser();
         final String localSync = db_helper.getLastSync(db_helper.getCurrentUser().getUsername());
-
-
         final TextView tv = (TextView) findViewById(R.id.please_wait);
         tv.setVisibility(View.VISIBLE);
 
@@ -166,22 +174,120 @@ public class UserProfileActivity extends ActionBarActivity {
         queue.add(stringRequest);
     }
 
-    public void compareSyncTimes(String localSync, String serverSync, String username)
+    public void compareSyncTimes(final String localSync, String serverSync, final String username)
     {
+        final TextView tv2 = (TextView) findViewById(R.id.userprofile_lastsync);
+        TextView tv3 = (TextView) findViewById(R.id.userprofile_lastlocal);
+        tv2.setText(serverSync);
+        tv3.setText(localSync);
+        int result = whichDateIsMoreRecent(localSync, serverSync);
 
-        //makeMeToast("Server time: " + serverSync + "\n Local time: " + localSync, 1, "TOP", 0, 300, 25);
-        if (localSync.equals(serverSync))
+        if (result == 4)
         {
             makeMeToast("Synced with LLuca server", 1, "TOP", 0, 300, 25);
         }
-        else
+        else if (result == 1)
         {
-            makeMeToast("Synchronisation required", 1, "TOP", 0, 300, 25);
+            final TextView tv = (TextView) findViewById(R.id.please_wait);
+            tv.setVisibility(View.VISIBLE);
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "http://192.168.0.11/updateserverprofile.php";
+
+            Response.Listener<String> listener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    tv.setVisibility(View.GONE);
+                    if (response.equals("ACCOUNT UPDATED")) {
+                        makeMeToast("Server updated; sync complete.", 1, "TOP", 0, 300, 25);
+                        tv2.setText(localSync);
+                    }
+                    else if (response.equals("ERROR UPDATING"))
+                    {
+                        makeMeToast("There was an error inserting the date on the server.", 1, "TOP", 0, 300, 25);
+                    }
+                    else if (response.equals("USERNAME NOT FOUND"))
+                    {
+                        makeMeToast("There was an error inserting the date on the server.", 1, "TOP", 0, 300, 25);
+                    }
+
+                }};
+
+            Response.ErrorListener errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    tv.setVisibility(View.GONE);
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError)
+                    {
+                        makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
+                    }
+                    else {makeMeToast("Server error:" + error, 1, "TOP", 0, 300, 25);}
+
+                }};
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, listener, errorListener){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("username", username);
+                    map.put("localsynctime", db_helper.getLastSync(username));
+                    return map;
+                }};
+
+            queue.add(stringRequest);
+        }
+        else if (result ==2)
+        {
+            //makeMeToast("Synchronisation required: server data more recent.", 1, "TOP", 0, 300, 25);
+
+            final TextView tv = (TextView) findViewById(R.id.please_wait);
+            tv.setVisibility(View.VISIBLE);
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "http://192.168.0.11/downloaduseraccount.php";
+
+            //TODO copy over the JSON functionality from SignInActivity so the current user data can be downloaded
+
+            //TODO create a method in db helper which updates a SQLIte user account
+        }
+        else if (result ==0)
+        {
+            makeMeToast("An error occurred parsing the date",1,"TOP",0,300,25);
+        }
+    }
+
+    public int whichDateIsMoreRecent(String local, String server)
+    {
+
+        int flag = 0;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date localDate = new Date();
+        Date serverDate = new Date();
+
+        try
+        {
+            localDate = dateFormat.parse(local);
+            serverDate = dateFormat.parse(server);
+        }
+        catch (ParseException e)
+        {
+            Log.w("parsingMatt", "inside catch");
+            return flag;
         }
 
-        TextView tv2 = (TextView) findViewById(R.id.userprofile_lastsync);
-        tv2.setText(db_helper.getLastSync(username));
+        if (localDate.after(serverDate))
+        {
+                flag = 1;
+        }
+        else if (localDate.before(serverDate))
+        {
+            flag = 2;
+        }
+        else if (localDate.equals(serverDate))
+        {
+            flag = 4;
+        }
 
+        return flag;
     }
 
     //Logs out the current user
@@ -215,6 +321,9 @@ public class UserProfileActivity extends ActionBarActivity {
         TextView h = (TextView) findViewById(R.id.sync_button);
         TextView i = (TextView) findViewById(R.id.edit_deck_button);
         TextView j = (TextView) findViewById(R.id.logout_button);
+        TextView k = (TextView) findViewById(R.id.please_wait);
+        TextView l = (TextView) findViewById(R.id.llc);
+        TextView m = (TextView) findViewById(R.id.userprofile_lastlocal);
 
         a.setTypeface(font2);
         b.setTypeface(font2);
@@ -226,6 +335,10 @@ public class UserProfileActivity extends ActionBarActivity {
         h.setTypeface(font);
         i.setTypeface(font);
         j.setTypeface(font);
+        k.setTypeface(font);
+        k.setTextSize(8);
+        m.setTypeface(font);
+        l.setTypeface(font2);
 
     }
 
@@ -268,6 +381,13 @@ public class UserProfileActivity extends ActionBarActivity {
         Typeface font2 = Typeface.createFromAsset(getAssets(), "Fonts/ringbearer.ttf");
         tv.setTypeface(font2);
         toast.show();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 
