@@ -43,7 +43,7 @@ pack_name varchar(80)
 */
 CREATE TABLE custom_decks
 (
-id int NOT NULL PRIMARY KEY,
+id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 owning_user varchar(50) NOT NULL,
 card_name varchar(40),
 deck_name varchar(40) NOT NULL

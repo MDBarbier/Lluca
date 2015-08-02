@@ -93,6 +93,7 @@
                 style="@style/spacing_style"
                 android:onClick="syncWithServer"/>
 
+
             <TextView
                 android:text="Please wait...contacting server"
                 android:layout_width="wrap_content"
@@ -104,7 +105,14 @@
                 />
         </LinearLayout>
 
-
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="TEST"
+            android:id="@+id/test_button"
+            android:textSize="12dp"
+            style="@style/spacing_style"
+            android:onClick="testMethod"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

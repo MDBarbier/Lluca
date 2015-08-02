@@ -30,9 +30,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URI;
 import java.text.ParseException;
@@ -128,8 +133,7 @@ public class UserProfileActivity extends ActionBarActivity {
     }
 
     //MDB: synchronises account with server
-    public void syncWithServer (View view)
-    {
+    public void syncWithServer (View view) {
         //makeMeToast("Server synchronisation not implemented in this release.", 1, "BOTTOM",0,0,18);
 
 
@@ -138,42 +142,46 @@ public class UserProfileActivity extends ActionBarActivity {
         final TextView tv = (TextView) findViewById(R.id.please_wait);
         tv.setVisibility(View.VISIBLE);
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://192.168.0.11/getsynctime.php";
+        if (isNetworkAvailable()) {
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = "http://192.168.0.11/getsynctime.php";
 
-        Response.Listener<String> listener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                tv.setVisibility(View.GONE);
-                //makeMeToast("Server Response: " + response, 1, "TOP", 0, 300, 25);
-                String serverSync = response;
-                compareSyncTimes(localSync,serverSync,user.getUsername());
-            }};
-
-        Response.ErrorListener errorListener = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                tv.setVisibility(View.GONE);
-                if (error instanceof TimeoutError || error instanceof NoConnectionError)
-                {
-                    makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
+            Response.Listener<String> listener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    tv.setVisibility(View.GONE);
+                    //makeMeToast("Server Response: " + response, 1, "TOP", 0, 300, 25);
+                    String serverSync = response;
+                    compareSyncTimes(localSync, serverSync, user.getUsername());
                 }
-                else {makeMeToast("Server error:" + error, 1, "TOP", 0, 300, 25);}
+            };
 
-            }};
+            Response.ErrorListener errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    tv.setVisibility(View.GONE);
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
+                    } else {
+                        makeMeToast("Server error:" + error, 1, "TOP", 0, 300, 25);
+                    }
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, listener, errorListener){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+                }
+            };
 
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("username", user.getUsername());
-                return map;
-            }};
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, listener, errorListener) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
 
-        queue.add(stringRequest);
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("username", user.getUsername());
+                    return map;
+                }
+            };
+
+            queue.add(stringRequest);
+        }
     }
-
     public void compareSyncTimes(final String localSync, String serverSync, final String username)
     {
         final TextView tv2 = (TextView) findViewById(R.id.userprofile_lastsync);
@@ -184,7 +192,7 @@ public class UserProfileActivity extends ActionBarActivity {
 
         if (result == 4)
         {
-            makeMeToast("Synced with LLuca server", 1, "TOP", 0, 300, 25);
+            makeMeToast("Already synced with LLuca server", 1, "TOP", 0, 300, 25);
         }
         else if (result == 1)
         {
@@ -234,7 +242,14 @@ public class UserProfileActivity extends ActionBarActivity {
                     return map;
                 }};
 
-            queue.add(stringRequest);
+            try {
+                syncDecks(db_helper.getCurrentUser().getUsername());
+                queue.add(stringRequest);
+            }
+            catch (Exception e)
+            {
+                makeMeToast("An error occurred...", 1, "TOP", 0, 300, 25);
+            }
         }
         else if (result ==2)
         {
@@ -243,11 +258,52 @@ public class UserProfileActivity extends ActionBarActivity {
             final TextView tv = (TextView) findViewById(R.id.please_wait);
             tv.setVisibility(View.VISIBLE);
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "http://192.168.0.11/downloaduseraccount.php";
+            String url = "http://192.168.0.11/updatelocalprofile.php";
 
-            //TODO copy over the JSON functionality from SignInActivity so the current user data can be downloaded
+            tv.setVisibility(View.VISIBLE);
+            tv.setText("Please wait...contacting server");
 
-            //TODO create a method in db helper which updates a SQLIte user account
+            final JSONObject jsonBody = new JSONObject();
+            try {
+                jsonBody.put("username", username);
+            }
+            catch (JSONException e)
+            {};
+
+            Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    tv.setVisibility(View.GONE);
+                    db_helper.updateLocalSyncDate(db_helper.getCurrentUser());
+                    tv2.setText(localSync);
+                    makeMeToast("Local profile updated.",1,"TOP",0,300,25);
+                }};
+
+            Response.ErrorListener errorListener = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    tv.setVisibility(View.GONE);
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError)
+                    {
+                        makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
+                    }
+                    else {
+                        makeMeToast("Server error:" + error, 1, "TOP", 0, 300, 25);
+                        Log.w("volley", "Downloadusermethod" + error);
+                    }
+
+                }};
+
+            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, listener, errorListener) {
+                @Override
+                public Map<String,String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("Content-Type", "application/json");
+                    headers.put("charset", "utf-8");
+                    return headers;
+                }
+            };
+            queue.add(jsonRequest);
         }
         else if (result ==0)
         {
@@ -305,6 +361,11 @@ public class UserProfileActivity extends ActionBarActivity {
         }
     }
 
+
+    public void testMethod(View view)
+    {
+
+    }
 
     public void setFonts()
     {
@@ -390,5 +451,80 @@ public class UserProfileActivity extends ActionBarActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    public void syncDecks(final String username)
+    {
+        final TextView tv = (TextView) findViewById(R.id.please_wait);
+        tv.setVisibility(View.VISIBLE);
+        tv.setText("Please wait...contacting server");
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://192.168.0.11/syncdecks.php";
 
+        final JSONObject jsonBody = new JSONObject();
+        Cursor c = db_helper.getCustomDeckNames();
+        int index = 1;
+        String temp = "";
+        try {
+            try
+            {
+                while (c.moveToNext())
+                {
+                    String indexString = Integer.toString(index);
+                    temp = c.getString(3);
+                    jsonBody.put(indexString, temp);
+                    index++;
+                }
+            }
+            catch (Exception e)
+            {
+                //do nothing
+            }
+            jsonBody.put("username", username);
+
+        }
+        catch (JSONException e)
+        {};
+
+        Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                tv.setVisibility(View.GONE);
+                try {
+                    String answer = response.getString("username");
+                    if (answer.equals("SUCCESSFUL"))
+                    {
+                        //makeMeToast("Decks synced successfully!", 1, "TOP", 0, 300, 25);
+                    }
+                }
+                catch (JSONException e)
+                {
+                    makeMeToast("Error parsing server reply.", 1, "TOP", 0, 300, 25);
+                }
+            }};
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                tv.setVisibility(View.GONE);
+                if (error instanceof TimeoutError || error instanceof NoConnectionError)
+                {
+                    makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
+                }
+                else {
+                    makeMeToast("Server error:" + error, 1, "TOP", 0, 300, 25);
+                    Log.w("volley", "Downloadusermethod" + jsonBody);
+                }
+
+            }};
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, listener, errorListener) {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("charset", "utf-8");
+                return headers;
+            }
+        };
+        queue.add(jsonRequest);
+    }
 }
