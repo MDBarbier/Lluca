@@ -30,7 +30,7 @@ foreach($obj2 as $obj3)
 }
 
 //take one off for the username and one for the direction indicator
-$totalNoDecks = $counter-2;
+$totalNoRecords = $counter-2;
 
 //set up an array to hold the decknames
 $decks = array();
@@ -39,11 +39,13 @@ $decks = array();
 $username = $obj->username;
 $direction = $obj->direction;
 
-//assign the decknames to the array
-for ($x = 1; $x <= $totalNoDecks; $x++){
+//assign the composite names to the array
+for ($x = 1; $x <= $totalNoRecords; $x++){
 
     $decks[$x] =  $obj->$x;
 }
+//we are now left with an array of cardnames and their corresponding decks in the format "<deckname>::<cardname>"
+
 
 //empty variables to hold data
 $email;
@@ -54,7 +56,7 @@ $doesDeckExistLocally =0;
 $decknamesToReturn = "";
 
 //get the custom deck data from the database for comparison
-$queryDecks = "SELECT * FROM custom_decks WHERE owning_user = '$username'";
+$queryDecks = "SELECT * FROM custom_decks WHERE owning_user = '$username' AND card_name <> ''";
 $queryDecksResult = $myConnection->query($queryDecks);
 
 try
@@ -87,6 +89,10 @@ try
         //cycle through each of the supplied decknames
         foreach ($decks as $currentDeck)
         {
+            $pieces = explode("::", $currentDeck);
+            $cardName = $pieces[1];
+            $deckName = $pieces[0];
+
             //variable to record if a deck is found in the db; nb it's set to zero here to "reset" it for the next
             //iteration of the foreach statement
             $doesDeckExist=0;
@@ -95,11 +101,12 @@ try
             //eventuality there are none
             if ($queryDecksResult->num_rows > 0)
             {
+
                 //cycle through each row in the result set
                 foreach($queryDecksResult as $thisRow)
                 {
                     //if the current db row matches the current supplied deck then set the flag to positive
-                    if ($thisRow["deck_name"] == $currentDeck)
+                    if ($thisRow["deck_name"] == $deckName && $thisRow["card_name"] == $cardName)
                     {
                         $doesDeckExist = 1;
                     }
@@ -113,11 +120,11 @@ try
             //handles when there is no match in the db, adds the supplied deck to the db
             if ($doesDeckExist == 0)
             {
-                addToDB($myConnection, $username, $currentDeck);
+                addToDB($myConnection, $username, $deckName, $cardName);
             }
         }
 
-        //cycle through each of the server decknames
+        //cycle through each of the server rows
         foreach ($queryDecksResult as $thisRow)
         {
             //variable to record if a deck is found in the supplied json; nb it's set to zero here to "reset" it for the next
@@ -131,12 +138,19 @@ try
                 //cycles through each of the supplied decks
                 foreach($decks as $thisDeck)
                 {
+                    $pieces = explode("::", $thisDeck);
+                    $cardName = $pieces[1];
+                    $deckName = $pieces[0];
+
                     //if the current db deck does not exist in the supplied deck list...
-                    if ($thisDeck == $thisRow["deck_name"])
+                    if ($deckName == $thisRow["deck_name"] && $cardName == $thisRow["card_name"])
                     {
                         //...set flag positive
                         $doesDeckExistLocally = 1;
                     }
+                    /*echo "<br>Deckname: ".$deckName." Cardname: ".$cardName." Does it exist locally: ".$doesDeckExistLocally;
+                    echo "<br>RowDeckname: ".$thisRow["deck_name"]." Cardname: ".$thisRow["card_name"]." Does it exist locally: ".$doesDeckExistLocally;
+                    echo "<br>";*/
                 }
 
             }
@@ -147,13 +161,13 @@ try
             //handles if there is a deck in the db which doesn't exist in the supplied local deck list
             if ($doesDeckExistLocally==0)
             {
-                //create a string with all the deck-names separated by a double colon
+                //create a string with all the card and decknames separated by a double colon
                 if ($decknamesToReturn=="")
                 {
-                    $decknamesToReturn = $thisRow["deck_name"];
+                    $decknamesToReturn = $thisRow["deck_name"]."::".$thisRow["card_name"];
                 }
                 else {
-                    $decknamesToReturn = $decknamesToReturn . "::" . $thisRow["deck_name"];
+                    $decknamesToReturn = $decknamesToReturn . ";;" . $thisRow["deck_name"]."::".$thisRow["card_name"];
                 }
             }
         }
@@ -193,11 +207,11 @@ catch (Exception $e)
     $reply = 'PHP ERROR: ' .$e->POSTMessage();
 }
 
-function addToDB($myConnection, $username, $deck)
+function addToDB($myConnection, $username, $deck, $card)
 {
-    $queryAddDeck = "INSERT INTO custom_decks (owning_user,card_name,deck_name) VALUES ('$username','','$deck')";
+    $queryAddDeck = "INSERT INTO custom_decks (owning_user,card_name,deck_name) VALUES ('$username','$card','$deck')";
     if ($myConnection->query($queryAddDeck) === TRUE){
-        $reply = "<br>Inserted deck: ".$deck;
+        $reply = "<br>Inserted card: ".$card;
     }
     else{
         $reply = "Error: ".$queryAddDeck."<br>".$myConnection->error;

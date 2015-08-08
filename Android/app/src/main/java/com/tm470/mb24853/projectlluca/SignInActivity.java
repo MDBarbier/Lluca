@@ -419,7 +419,7 @@ public class SignInActivity extends ActionBarActivity {
             userObject.setEmailAddress(email);
 
             db_helper.createUser(userObject);
-            makeMeToast("User account \'" + username + "\' created in local database.", 1, "TOP", 0, 300, 25);
+            makeMeToast("User account \'" + username + "\' created in local database. Press sync with server to download data.", 1, "TOP", 0, 300, 25);
             Intent intent = new Intent(SignInActivity.this, UserProfileActivity.class);
             intent.putExtra("username", username);
             startActivity(intent);

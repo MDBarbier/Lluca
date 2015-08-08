@@ -154,7 +154,8 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             Date now = new Date();
-            String strTime = dateFormat.format(now);
+            //String strTime = dateFormat.format(now);
+            String strTime = "00-00-0000 00:00:00";
 
             ContentValues values = new ContentValues();
             values.put(schema.COLUMN_NAME_USERNAME, user.getUsername());
@@ -1066,6 +1067,37 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         userAccountClass user = getCurrentUser();
         //String query = "Select distinct " + schema.COLUMN_NAME_DECK_DECK_NAME + " FROM " + schema.TABLE_NAME_CUSTOM_DECKS;
         String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " where " + schema.COLUMN_NAME_DECK_OWNING_USER + " = '" + user.getUsername() + "' AND " + schema.COLUMN_NAME_DECK_CARD_NAME + " IS NULL ORDER BY " + schema.COLUMN_NAME_DECK_DECK_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+
+        return cursor;
+    }
+
+    public boolean doesDeckExist(String deckName)
+    {
+        userAccountClass user = getCurrentUser();
+        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " where " + schema.COLUMN_NAME_DECK_OWNING_USER + " = '" + user.getUsername() + "' AND " + schema.COLUMN_NAME_DECK_CARD_NAME + " IS NULL AND " + schema.COLUMN_NAME_DECK_DECK_NAME + " = '" + deckName + "' ORDER BY " + schema.COLUMN_NAME_DECK_DECK_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst())
+        {
+            cursor.close();
+            return true;
+        }
+        else {
+            cursor.close();
+            return false;
+        }
+    }
+
+    //gets entries in the custom deck table which match the current player
+    public Cursor getCustomDeckCards()
+    {
+        userAccountClass user = getCurrentUser();
+        String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " where " + schema.COLUMN_NAME_DECK_OWNING_USER + " = '" + user.getUsername() + "' AND " + schema.COLUMN_NAME_DECK_CARD_NAME + " IS NOT NULL AND " + schema.COLUMN_NAME_DECK_CARD_NAME + "<> '' ORDER BY " + schema.COLUMN_NAME_DECK_DECK_NAME;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
         cursor = db.rawQuery(query, null);

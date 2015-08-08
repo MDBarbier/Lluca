@@ -182,14 +182,21 @@ public class UserProfileActivity extends ActionBarActivity {
             queue.add(stringRequest);
         }
     }
+
     public void compareSyncTimes(final String localSync, String serverSync, final String username)
     {
         final TextView tv2 = (TextView) findViewById(R.id.userprofile_lastsync);
         TextView tv3 = (TextView) findViewById(R.id.userprofile_lastlocal);
         tv2.setText(serverSync);
         tv3.setText(localSync);
-        int result = whichDateIsMoreRecent(localSync, serverSync);
-
+        int result;
+        if (!localSync.equals("00-00-0000 00:00:00")) {
+            result = whichDateIsMoreRecent(localSync, serverSync);
+        }
+        else
+        {
+            result = 2;
+        }
         if (result == 4)
         {
             makeMeToast("Already synced with LLuca server", 1, "TOP", 0, 300, 25);
@@ -243,7 +250,8 @@ public class UserProfileActivity extends ActionBarActivity {
                 }};
 
             try {
-                syncDecks(db_helper.getCurrentUser().getUsername());
+                syncDecks(db_helper.getCurrentUser().getUsername(),1);
+                syncCards(db_helper.getCurrentUser().getUsername(),1);
                 queue.add(stringRequest);
             }
             catch (Exception e)
@@ -279,6 +287,7 @@ public class UserProfileActivity extends ActionBarActivity {
                     makeMeToast("Local profile updated.",1,"TOP",0,300,25);
                 }};
 
+
             Response.ErrorListener errorListener = new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
@@ -294,16 +303,25 @@ public class UserProfileActivity extends ActionBarActivity {
 
                 }};
 
-            JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, listener, errorListener) {
-                @Override
-                public Map<String,String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<>();
-                    headers.put("Content-Type", "application/json");
-                    headers.put("charset", "utf-8");
-                    return headers;
-                }
-            };
-            queue.add(jsonRequest);
+            try {
+                JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, listener, errorListener) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Content-Type", "application/json");
+                        headers.put("charset", "utf-8");
+                        return headers;
+                    }
+                };
+                syncDecks(db_helper.getCurrentUser().getUsername(),2);
+                syncCards(db_helper.getCurrentUser().getUsername(),2);
+                queue.add(jsonRequest);
+
+            }
+            catch (Exception e)
+            {
+                makeMeToast("An error occurred...", 1, "TOP", 0, 300, 25);
+            }
         }
         else if (result ==0)
         {
@@ -451,7 +469,8 @@ public class UserProfileActivity extends ActionBarActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public void syncDecks(final String username)
+    //this method updated the decknames on the server or downloads the decknames to local db depending on the int supplied (1 = upload, 2 = download)
+    public void syncDecks(final String username, int syncDirection)
     {
         final TextView tv = (TextView) findViewById(R.id.please_wait);
         tv.setVisibility(View.VISIBLE);
@@ -479,6 +498,7 @@ public class UserProfileActivity extends ActionBarActivity {
                 //do nothing
             }
             jsonBody.put("username", username);
+            jsonBody.put("direction",syncDirection);
 
         }
         catch (JSONException e)
@@ -492,11 +512,127 @@ public class UserProfileActivity extends ActionBarActivity {
                     String answer = response.getString("username");
                     if (answer.equals("SUCCESSFUL"))
                     {
-                        //makeMeToast("Decks synced successfully!", 1, "TOP", 0, 300, 25);
+                        //do nothing
+                        Log.w("JSONListener", "success");
+                    }
+                    else
+                    {
+                        String answer2 = response.getString("decknames");
+                        String[] seperatedStrings = answer2.split("::");
+                        for (String deckName : seperatedStrings)
+                        {
+                           db_helper.createCustomDeck(db_helper.getCurrentUser(),deckName);
+                        }
+                        //db_helper.createCustomDeck(db_helper.getCurrentUser(), answer2);
+                        Log.w("JSONListener", "something to insert");
                     }
                 }
                 catch (JSONException e)
                 {
+                    Log.w("JSONListener", e.getMessage());
+                    makeMeToast("Error parsing server reply.", 1, "TOP", 0, 300, 25);
+                }
+            }};
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                tv.setVisibility(View.GONE);
+                if (error instanceof TimeoutError || error instanceof NoConnectionError)
+                {
+                    makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
+                }
+                else {
+                    makeMeToast("Server error:" + error, 1, "TOP", 0, 300, 25);
+                    Log.w("volley", "Downloadusermethod" + jsonBody);
+                }
+
+            }};
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, listener, errorListener) {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("charset", "utf-8");
+                return headers;
+            }
+        };
+        queue.add(jsonRequest);
+    }
+
+    //this method updated the custom deck cards on the server or downloads the cards to local db depending on the int supplied (1 = upload, 2 = download)
+    public void syncCards(final String username, int syncDirection)
+    {
+        final TextView tv = (TextView) findViewById(R.id.please_wait);
+        tv.setVisibility(View.VISIBLE);
+        tv.setText("Please wait...contacting server");
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://192.168.0.11/synccards.php";
+
+        final JSONObject jsonBody = new JSONObject();
+        Cursor c = db_helper.getCustomDeckCards();
+        int index = 1;
+        String temp = ""; //deckname
+        String temp2 = ""; //cardname
+        try {
+            try
+            {
+                while (c.moveToNext())
+                {
+                    String indexString = Integer.toString(index);
+                    temp = c.getString(3);
+                    temp2 = c.getString(2);
+                    jsonBody.put(indexString, temp + "::" + temp2);
+                    index++;
+                }
+            }
+            catch (Exception e)
+            {
+                //do nothing
+            }
+            jsonBody.put("username", username);
+            jsonBody.put("direction",syncDirection);
+
+        }
+        catch (JSONException e)
+        {};
+
+        Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                tv.setVisibility(View.GONE);
+                try {
+                    String answer = response.getString("username");
+                    if (answer.equals("SUCCESSFUL"))
+                    {
+                        //do nothing
+                        Log.w("JSONListener", "success");
+                    }
+                    else
+                    { /*
+                        String answer2 = response.getString("decknames");
+                        String[] seperatedStrings = answer2.split(";;");
+                        for (String deckName : seperatedStrings) {
+                            String[] item = deckName.split("::");
+                        Log.w("JSONlistener1", deckName);
+                            //does the deck exist?
+                            if (db_helper.doesDeckExist(item[0]) && (item[1].equals("") || item[1].equals(null)))
+                            {
+                                //do nothing
+                            }
+                            else {
+                                //db_helper.putCardInDeck(item[0], item[1]);
+                                makeMeToast("Added to deck: " + item[0] + ", Card: " + item[1],1,"TOP",0,0,15);
+                            }
+                        }
+                        //db_helper.createCustomDeck(db_helper.getCurrentUser(), answer2);
+                        Log.w("JSONListener", "something to insert");*/
+                    }
+                }
+                catch (JSONException e)
+                {
+                    Log.w("JSONListener", e.getMessage());
                     makeMeToast("Error parsing server reply.", 1, "TOP", 0, 300, 25);
                 }
             }};
