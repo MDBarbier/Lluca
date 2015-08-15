@@ -56,7 +56,7 @@ $decknamesToReturn = "";
 $returnString = "";
 
 //get the custom deck data from the database for comparison
-$queryDecks = "SELECT * FROM custom_decks WHERE owning_user = '$username' AND card_name = ''";
+$queryDecks = "SELECT * FROM owned_packs WHERE owning_user = '$username'";
 $queryDecksResult = $myConnection->query($queryDecks);
 
 try
@@ -86,7 +86,7 @@ try
     //this section handles the case that a username has been supplied
     if ($flag==1)
     {
-        //cycle through each of the supplied decknames
+        //cycle through each of the supplied packnames
         foreach ($decks as $currentDeck)
         {
             //variable to record if a deck is found in the db; nb it's set to zero here to "reset" it for the next
@@ -101,7 +101,7 @@ try
                 foreach($queryDecksResult as $thisRow)
                 {
                     //if the current db row matches the current supplied deck then set the flag to positive
-                    if ($thisRow["deck_name"] == $currentDeck)
+                    if ($thisRow["pack_name"] == $currentDeck)
                     {
                         $doesDeckExist = 1;
                     }
@@ -134,7 +134,7 @@ try
                 foreach($decks as $thisDeck)
                 {
                     //if the current db deck does exist in the supplied deck list AND the card_name is blank
-                    if ($thisDeck != $thisRow["deck_name"])
+                    if ($thisDeck != $thisRow["pack_name"])
                     {
                         //echo "server deck not in supplied names";
                         $doesDeckExistLocally = 1;
@@ -196,7 +196,7 @@ catch (Exception $e)
 
 function addToDB($myConnection, $username, $deck)
 {
-    $queryAddDeck = "INSERT INTO custom_decks (owning_user,card_name,deck_name) VALUES ('$username','','$deck')";
+    $queryAddDeck = "INSERT INTO owned_packs (owning_user,pack_name) VALUES ('$username','$deck')";
     if ($myConnection->query($queryAddDeck) === TRUE){
         $reply = "<br>Inserted deck: ".$deck;
     }

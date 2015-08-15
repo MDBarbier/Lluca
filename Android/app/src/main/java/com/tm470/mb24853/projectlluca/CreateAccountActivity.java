@@ -53,6 +53,7 @@ import java.util.Map;
 public class CreateAccountActivity extends ActionBarActivity {
 
     LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
+    String ip = "192.168.0.9";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +129,7 @@ public class CreateAccountActivity extends ActionBarActivity {
             tv.setVisibility(View.VISIBLE);
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "http://192.168.0.11/checkusername.php";
+            String url = "http://" + ip + "/checkusername.php";
 
             Response.Listener<String> listener = new Response.Listener<String>() {
                 @Override
@@ -200,7 +201,7 @@ public class CreateAccountActivity extends ActionBarActivity {
                     EditText userInput = (EditText) findViewById(R.id.create_account_username_entry);
                     final String userInputString = userInput.getText().toString();
                     RequestQueue queue = Volley.newRequestQueue(this);
-                    String url = "http://192.168.0.11/createUser.php";
+                    String url = "http://" + ip + "/createUser.php";
 
                     Response.Listener<String> listener = new Response.Listener<String>() {
                         @Override

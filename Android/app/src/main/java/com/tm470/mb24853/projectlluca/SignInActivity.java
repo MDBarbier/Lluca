@@ -45,6 +45,7 @@ import java.util.Map;
 public class SignInActivity extends ActionBarActivity {
 
     LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
+    String ip = "192.168.0.9";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -249,7 +250,7 @@ public class SignInActivity extends ActionBarActivity {
         tv.setText("Please wait...contacting server");
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "http://192.168.0.11/checkusernameandpassword.php";
+            String url = "http://" + ip + "/checkusernameandpassword.php";
 
             Response.Listener<String> listener = new Response.Listener<String>() {
                 @Override
@@ -357,7 +358,7 @@ public class SignInActivity extends ActionBarActivity {
         tv.setText("Please wait...contacting server");
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://192.168.0.11/downloaduseraccount.php";
+        String url = "http://" + ip + "/downloaduseraccount.php";
 
         final JSONObject jsonBody = new JSONObject();
         try {

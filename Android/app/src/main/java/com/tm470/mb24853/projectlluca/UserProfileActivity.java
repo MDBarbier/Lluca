@@ -50,6 +50,7 @@ import java.util.Map;
 public class UserProfileActivity extends ActionBarActivity {
 
     LLuca_Local_DB_Helper db_helper = new LLuca_Local_DB_Helper(this, null, null, 1);
+    String ip = "192.168.0.9";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +145,7 @@ public class UserProfileActivity extends ActionBarActivity {
 
         if (isNetworkAvailable()) {
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "http://192.168.0.11/getsynctime.php";
+            String url = "http://" + ip + "/getsynctime.php";
 
             Response.Listener<String> listener = new Response.Listener<String>() {
                 @Override
@@ -206,7 +207,7 @@ public class UserProfileActivity extends ActionBarActivity {
             final TextView tv = (TextView) findViewById(R.id.please_wait);
             tv.setVisibility(View.VISIBLE);
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "http://192.168.0.11/updateserverprofile.php";
+            String url = "http://" + ip + "/updateserverprofile.php";
 
             Response.Listener<String> listener = new Response.Listener<String>() {
                 @Override
@@ -266,7 +267,7 @@ public class UserProfileActivity extends ActionBarActivity {
             final TextView tv = (TextView) findViewById(R.id.please_wait);
             tv.setVisibility(View.VISIBLE);
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = "http://192.168.0.11/updatelocalprofile.php";
+            String url = "http://" + ip + "/updatelocalprofile.php";
 
             tv.setVisibility(View.VISIBLE);
             tv.setText("Please wait...contacting server");
@@ -380,10 +381,6 @@ public class UserProfileActivity extends ActionBarActivity {
     }
 
 
-    public void testMethod(View view)
-    {
-
-    }
 
     public void setFonts()
     {
@@ -476,7 +473,7 @@ public class UserProfileActivity extends ActionBarActivity {
         tv.setVisibility(View.VISIBLE);
         tv.setText("Please wait...contacting server");
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://192.168.0.11/syncdecks.php";
+        String url = "http://" + ip + "/syncdecks.php";
 
         final JSONObject jsonBody = new JSONObject();
         Cursor c = db_helper.getCustomDeckNames();
@@ -515,13 +512,15 @@ public class UserProfileActivity extends ActionBarActivity {
                         //do nothing
                         Log.w("JSONListener", "success");
                     }
-                    else
+                    else if (answer.equals("INSERT"))
                     {
                         String answer2 = response.getString("decknames");
                         String[] seperatedStrings = answer2.split("::");
                         for (String deckName : seperatedStrings)
                         {
-                           db_helper.createCustomDeck(db_helper.getCurrentUser(),deckName);
+                            if (!deckName.equals("")) {
+                                db_helper.createCustomDeck(db_helper.getCurrentUser(), deckName);
+                            }
                         }
                         //db_helper.createCustomDeck(db_helper.getCurrentUser(), answer2);
                         Log.w("JSONListener", "something to insert");
@@ -568,7 +567,7 @@ public class UserProfileActivity extends ActionBarActivity {
         tv.setVisibility(View.VISIBLE);
         tv.setText("Please wait...contacting server");
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://192.168.0.11/synccards.php";
+        String url = "http://" + ip + "/synccards.php";
 
         final JSONObject jsonBody = new JSONObject();
         Cursor c = db_helper.getCustomDeckCards();
@@ -610,24 +609,18 @@ public class UserProfileActivity extends ActionBarActivity {
                         Log.w("JSONListener", "success");
                     }
                     else
-                    { /*
+                    {
                         String answer2 = response.getString("decknames");
                         String[] seperatedStrings = answer2.split(";;");
                         for (String deckName : seperatedStrings) {
                             String[] item = deckName.split("::");
-                        Log.w("JSONlistener1", deckName);
-                            //does the deck exist?
-                            if (db_helper.doesDeckExist(item[0]) && (item[1].equals("") || item[1].equals(null)))
-                            {
-                                //do nothing
-                            }
-                            else {
-                                //db_helper.putCardInDeck(item[0], item[1]);
-                                makeMeToast("Added to deck: " + item[0] + ", Card: " + item[1],1,"TOP",0,0,15);
-                            }
+                            Log.w("JSONlistener1", deckName);
+                            db_helper.putCardInDeck(item[0], item[1]);
+                            makeMeToast("Added to deck: " + item[0] + ", Card: " + item[1],1,"TOP",0,0,15);
+
                         }
                         //db_helper.createCustomDeck(db_helper.getCurrentUser(), answer2);
-                        Log.w("JSONListener", "something to insert");*/
+                        Log.w("JSONListener", "something to insert");
                     }
                 }
                 catch (JSONException e)

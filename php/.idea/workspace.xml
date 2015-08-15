@@ -96,29 +96,42 @@
       <file leaf-file-name="syncDecks.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/syncDecks.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.076923" vertical-offset="2089" max-vertical-offset="3774">
-              <caret line="149" column="52" selection-start-line="149" selection-start-column="52" selection-end-line="149" selection-end-column="52" />
+            <state vertical-scroll-proportion="84.11539" vertical-offset="3173" max-vertical-offset="4046">
+              <caret line="58" column="92" selection-start-line="58" selection-start-column="92" selection-end-line="58" selection-end-column="92" />
               <folding>
                 <element signature="e#6#87#0#PHP" expanded="true" />
-                <marker date="1439022802630" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
-                <marker date="1439022802630" expanded="true" signature="1223:1249" placeholder="SELECT * FRO..custom_decks..." />
-                <marker date="1439022802630" expanded="true" signature="1223:1281" placeholder="SELECT * FRO..custom_decks..." />
-                <marker date="1439022802630" expanded="true" signature="6006:6096" placeholder="INSERT INTO ..." />
+                <marker date="1439636089487" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
+                <marker date="1439636089487" expanded="true" signature="1204:1262" placeholder="SELECT * FRO..custom_decks..." />
+                <marker date="1439636089487" expanded="true" signature="1265:1342" placeholder="SELECT * FRO..custom_decks..." />
+                <marker date="1439636089487" expanded="true" signature="6055:6145" placeholder="INSERT INTO ..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="syncCards.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="syncPacks.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/syncPacks.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.22107674" vertical-offset="3088" max-vertical-offset="3961">
+              <caret line="198" column="89" selection-start-line="198" selection-start-column="89" selection-end-line="198" selection-end-column="89" />
+              <folding>
+                <marker date="1439637913058" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
+                <marker date="1439637913058" expanded="true" signature="1265:1322" placeholder="SELECT * FRO..owned_packs..." />
+                <marker date="1439637913058" expanded="true" signature="6035:6111" placeholder="INSERT INTO ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="syncCards.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/syncCards.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.087677725" vertical-offset="2675" max-vertical-offset="3927">
-              <caret line="158" column="13" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="13" />
+            <state vertical-scroll-proportion="-88.26923" vertical-offset="0" max-vertical-offset="3927">
+              <caret line="140" column="55" selection-start-line="140" selection-start-column="55" selection-end-line="140" selection-end-column="55" />
               <folding>
                 <marker date="1439027026229" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
                 <marker date="1439027026229" expanded="true" signature="1348:1411" placeholder="SELECT * FRO..custom_decks..." />
                 <marker date="1439027026229" expanded="true" signature="1348:1423" placeholder="SELECT * FRO..custom_decks..." />
-                <marker date="1439027026229" expanded="true" signature="1348:1424" placeholder="SELECT * FRO..custom_decks..." />
                 <marker date="1439027026229" expanded="true" signature="1348:1424" placeholder="SELECT * FRO..custom_decks..." />
                 <marker date="1439027026229" expanded="true" signature="1348:1426" placeholder="SELECT * FRO..custom_decks..." />
                 <marker date="1439027026229" expanded="true" signature="6882:6977" placeholder="INSERT INTO ..." />
@@ -130,7 +143,7 @@
       <file leaf-file-name="updatelocalprofile.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/updatelocalprofile.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.384615" vertical-offset="559" max-vertical-offset="1445">
+            <state vertical-scroll-proportion="-23.615385" vertical-offset="423" max-vertical-offset="1445">
               <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
               <folding>
                 <marker date="1438501758378" expanded="true" signature="127:155" placeholder="SELECT * FRO..player_account..." />
@@ -182,8 +195,9 @@
         <option value="$PROJECT_DIR$/finduserindbjson.php" />
         <option value="$PROJECT_DIR$/downloadUserAccount.php" />
         <option value="$PROJECT_DIR$/getSyncTime.php" />
-        <option value="$PROJECT_DIR$/syncDecks.php" />
         <option value="$PROJECT_DIR$/syncCards.php" />
+        <option value="$PROJECT_DIR$/syncDecks.php" />
+        <option value="$PROJECT_DIR$/syncPacks.php" />
       </list>
     </option>
   </component>
@@ -225,7 +239,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -246,6 +259,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -277,20 +291,17 @@
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
     <configuration default="true" type="com.intellij.database.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
       <option name="VM_PARAMETERS" value="" />
       <option name="USER_CFG_CLASS" />
       <option name="CONTEXT_PROVIDER" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
     <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
       <BehatRunner />
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server" server_id="4cdc2bee-a74d-4dba-af4d-3700a3ba378d" server_name="Project-LLuca">
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
@@ -300,6 +311,9 @@
       <arguments />
       <pass-parent-envs>true</pass-parent-envs>
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server" server_id="4cdc2bee-a74d-4dba-af4d-3700a3ba378d" server_name="Project-LLuca">
       <method />
     </configuration>
     <list size="1">
@@ -354,19 +368,19 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18230277" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27771854" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28091684" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329718" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -402,14 +416,83 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/syncDecks.php">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2089" max-vertical-offset="3774">
+          <caret line="149" column="52" selection-start-line="149" selection-start-column="52" selection-end-line="149" selection-end-column="52" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
+            <marker date="1439636089487" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
+            <marker date="1439636089487" expanded="true" signature="1204:1262" placeholder="SELECT * FRO..custom_decks..." />
+            <marker date="1439636089487" expanded="true" signature="1265:1342" placeholder="SELECT * FRO..custom_decks..." />
+            <marker date="1439636089487" expanded="true" signature="6055:6145" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/syncCards.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3927">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1439027026229" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
+            <marker date="1439027026229" expanded="true" signature="1348:1411" placeholder="SELECT * FRO..custom_decks..." />
+            <marker date="1439027026229" expanded="true" signature="1348:1423" placeholder="SELECT * FRO..custom_decks..." />
+            <marker date="1439027026229" expanded="true" signature="1348:1424" placeholder="SELECT * FRO..custom_decks..." />
+            <marker date="1439027026229" expanded="true" signature="1348:1426" placeholder="SELECT * FRO..custom_decks..." />
+            <marker date="1439027026229" expanded="true" signature="6882:6977" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/updatelocalprofile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="559" max-vertical-offset="1445">
+          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+          <folding>
+            <marker date="1438501758378" expanded="true" signature="127:155" placeholder="SELECT * FRO..player_account..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dbconnect.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="442">
+          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/downloadUserAccount.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="1411">
+          <caret line="62" column="5" selection-start-line="44" selection-start-column="4" selection-end-line="62" selection-end-column="5" />
+          <folding>
+            <marker date="1438506248458" expanded="true" signature="127:155" placeholder="SELECT * FRO..player_account..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createUser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="544">
+          <caret line="24" column="30" selection-start-line="24" selection-start-column="30" selection-end-line="24" selection-end-column="30" />
+          <folding>
+            <marker date="1438505881565" expanded="true" signature="210:346" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/syncDecks.php">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2703">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#6#87#0#PHP" expanded="true" />
-            <marker date="1439022802630" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
-            <marker date="1439022802630" expanded="true" signature="1223:1249" placeholder="SELECT * FRO..custom_decks..." />
-            <marker date="1439022802630" expanded="true" signature="1223:1281" placeholder="SELECT * FRO..custom_decks..." />
-            <marker date="1439022802630" expanded="true" signature="6006:6096" placeholder="INSERT INTO ..." />
+            <marker date="1439636089487" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
+            <marker date="1439636089487" expanded="true" signature="1204:1262" placeholder="SELECT * FRO..custom_decks..." />
+            <marker date="1439636089487" expanded="true" signature="1265:1342" placeholder="SELECT * FRO..custom_decks..." />
+            <marker date="1439636089487" expanded="true" signature="6055:6145" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -709,7 +792,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/updatelocalprofile.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.384615" vertical-offset="559" max-vertical-offset="1445">
+        <state vertical-scroll-proportion="-23.615385" vertical-offset="423" max-vertical-offset="1445">
           <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
           <folding>
             <marker date="1438501758378" expanded="true" signature="127:155" placeholder="SELECT * FRO..player_account..." />
@@ -717,32 +800,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/syncDecks.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.076923" vertical-offset="2089" max-vertical-offset="3774">
-          <caret line="149" column="52" selection-start-line="149" selection-start-column="52" selection-end-line="149" selection-end-column="52" />
-          <folding>
-            <element signature="e#6#87#0#PHP" expanded="true" />
-            <marker date="1439022802630" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
-            <marker date="1439022802630" expanded="true" signature="1223:1249" placeholder="SELECT * FRO..custom_decks..." />
-            <marker date="1439022802630" expanded="true" signature="1223:1281" placeholder="SELECT * FRO..custom_decks..." />
-            <marker date="1439022802630" expanded="true" signature="6006:6096" placeholder="INSERT INTO ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/syncCards.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.087677725" vertical-offset="2675" max-vertical-offset="3927">
-          <caret line="158" column="13" selection-start-line="158" selection-start-column="13" selection-end-line="158" selection-end-column="13" />
+        <state vertical-scroll-proportion="-88.26923" vertical-offset="0" max-vertical-offset="3927">
+          <caret line="140" column="55" selection-start-line="140" selection-start-column="55" selection-end-line="140" selection-end-column="55" />
           <folding>
             <marker date="1439027026229" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
             <marker date="1439027026229" expanded="true" signature="1348:1411" placeholder="SELECT * FRO..custom_decks..." />
             <marker date="1439027026229" expanded="true" signature="1348:1423" placeholder="SELECT * FRO..custom_decks..." />
             <marker date="1439027026229" expanded="true" signature="1348:1424" placeholder="SELECT * FRO..custom_decks..." />
-            <marker date="1439027026229" expanded="true" signature="1348:1424" placeholder="SELECT * FRO..custom_decks..." />
             <marker date="1439027026229" expanded="true" signature="1348:1426" placeholder="SELECT * FRO..custom_decks..." />
             <marker date="1439027026229" expanded="true" signature="6882:6977" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/syncDecks.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="84.11539" vertical-offset="3173" max-vertical-offset="4046">
+          <caret line="58" column="92" selection-start-line="58" selection-start-column="92" selection-end-line="58" selection-end-column="92" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
+            <marker date="1439636089487" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
+            <marker date="1439636089487" expanded="true" signature="1204:1262" placeholder="SELECT * FRO..custom_decks..." />
+            <marker date="1439636089487" expanded="true" signature="1265:1342" placeholder="SELECT * FRO..custom_decks..." />
+            <marker date="1439636089487" expanded="true" signature="6055:6145" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/syncPacks.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22107674" vertical-offset="3088" max-vertical-offset="3961">
+          <caret line="198" column="89" selection-start-line="198" selection-start-column="89" selection-end-line="198" selection-end-column="89" />
+          <folding>
+            <marker date="1439637913058" expanded="true" signature="186:214" placeholder="SELECT * FRO..player_account..." />
+            <marker date="1439637913058" expanded="true" signature="1265:1322" placeholder="SELECT * FRO..owned_packs..." />
+            <marker date="1439637913058" expanded="true" signature="6035:6111" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
