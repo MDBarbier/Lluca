@@ -24,10 +24,8 @@ $flag = false;
 $email;
 $lastsync;
 
-
 try
 {
-
         if ($queryResult->num_rows > 0)
         {
 

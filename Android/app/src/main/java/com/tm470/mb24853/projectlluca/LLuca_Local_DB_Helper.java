@@ -936,6 +936,22 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
 
     }
 
+    public String getPackname(String boxname)
+    {
+        String query = "Select deckpart_name FROM " + schema.TABLE_NAME_DECKPARTS + " WHERE deckpart_box = '" + boxname + "' LIMIT 1";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+        String packname = "";
+        if (cursor.moveToFirst())
+        {
+            packname = cursor.getString(0);
+            cursor.close();
+            db.close();
+        }
+        return packname;
+    }
+
     //get population status
     public boolean getPopulationStatus() {
         String query = "Select * FROM " + schema.TABLE_NAME_CONTROL_DATA;
@@ -1067,6 +1083,18 @@ public class LLuca_Local_DB_Helper extends SQLiteOpenHelper
         userAccountClass user = getCurrentUser();
         //String query = "Select distinct " + schema.COLUMN_NAME_DECK_DECK_NAME + " FROM " + schema.TABLE_NAME_CUSTOM_DECKS;
         String query = "Select * FROM " + schema.TABLE_NAME_CUSTOM_DECKS + " where " + schema.COLUMN_NAME_DECK_OWNING_USER + " = '" + user.getUsername() + "' AND " + schema.COLUMN_NAME_DECK_CARD_NAME + " IS NULL ORDER BY " + schema.COLUMN_NAME_DECK_DECK_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = db.rawQuery(query, null);
+
+        return cursor;
+    }
+
+    //gets entries in the custom deck table which match the current player
+    public Cursor getOwnedPackNames()
+    {
+        userAccountClass user = getCurrentUser();
+        String query = "Select * FROM " + schema.TABLE_NAME_OWNED_PACKS + " where " + schema.COLUMN_NAME_OWNING_USER + " = '" + user.getUsername() + "'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor;
         cursor = db.rawQuery(query, null);

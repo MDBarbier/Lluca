@@ -9,25 +9,15 @@ include "dbconnect.php";
 
 $queryAll = "SELECT * FROM player_account";
 $queryResult = $myConnection->query($queryAll);
-
-
 $json = file_get_contents('php://input');
 $obj = json_decode($json);
-//var_dump($obj);
-
 $username = $obj->username;
 $password = $obj->password;
-
-//echo $username;
-//echo $password;
-
 $flag = false;
 $email;
 
-
 try
 {
-
         if ($queryResult->num_rows > 0)
         {
 
@@ -61,8 +51,6 @@ try
     {
         echo "USERNAME NOT FOUND";
     }
-
-
 }
 catch (Exception $e)
 {

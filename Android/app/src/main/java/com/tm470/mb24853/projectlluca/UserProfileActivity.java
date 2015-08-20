@@ -184,6 +184,8 @@ public class UserProfileActivity extends ActionBarActivity {
         }
     }
 
+    //depending on which time is more recent this method initiates either an upstream or downstream sync
+    // calls the syncDecks, syncCards and syncPacks methods
     public void compareSyncTimes(final String localSync, String serverSync, final String username)
     {
         final TextView tv2 = (TextView) findViewById(R.id.userprofile_lastsync);
@@ -252,12 +254,14 @@ public class UserProfileActivity extends ActionBarActivity {
 
             try {
                 syncDecks(db_helper.getCurrentUser().getUsername(),1);
-                syncCards(db_helper.getCurrentUser().getUsername(),1);
+                syncCards(db_helper.getCurrentUser().getUsername(), 1);
+                syncPacks(db_helper.getCurrentUser().getUsername(),1);
                 queue.add(stringRequest);
             }
             catch (Exception e)
             {
                 makeMeToast("An error occurred...", 1, "TOP", 0, 300, 25);
+                Log.w("error", e.getMessage());
             }
         }
         else if (result ==2)
@@ -315,7 +319,8 @@ public class UserProfileActivity extends ActionBarActivity {
                     }
                 };
                 syncDecks(db_helper.getCurrentUser().getUsername(),2);
-                syncCards(db_helper.getCurrentUser().getUsername(),2);
+                syncCards(db_helper.getCurrentUser().getUsername(), 2);
+                syncPacks(db_helper.getCurrentUser().getUsername(),2);
                 queue.add(jsonRequest);
 
             }
@@ -588,14 +593,16 @@ public class UserProfileActivity extends ActionBarActivity {
             }
             catch (Exception e)
             {
-                //do nothing
+                Log.w("adding cards",e.getMessage());
             }
             jsonBody.put("username", username);
             jsonBody.put("direction",syncDirection);
 
         }
         catch (JSONException e)
-        {};
+        {
+            Log.w("addcardsjson", e.getMessage());
+        };
 
         Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
             @Override
@@ -603,21 +610,124 @@ public class UserProfileActivity extends ActionBarActivity {
                 tv.setVisibility(View.GONE);
                 try {
                     String answer = response.getString("username");
+                    Log.w("ANSWER", answer);
+                    if (answer.equals("SUCCESSFUL"))
+                    {
+                        //do nothing
+                        Log.w("JSONListener synccards", "success");
+                    }
+                    else if (answer.equals("INSERT"))
+                    {
+                        String answer2 = response.getString("decknames");
+                        String[] seperatedStrings = answer2.split(";;");
+                        if (seperatedStrings.length >=2) {
+                            for (String deckName : seperatedStrings) {
+                                String[] item = deckName.split("::");
+                                db_helper.putCardInDeck(item[0], item[1]);
+                                //makeMeToast("Added to deck: " + item[0] + ", Card: " + item[1], 1, "TOP", 0, 0, 15);
+
+                            }
+                            //db_helper.createCustomDeck(db_helper.getCurrentUser(), answer2);
+                            Log.w("JSONListener synccards", "something to insert");
+                        }
+                    }
+                }
+                catch (JSONException e)
+                {
+                    Log.w("JSONListener synccards", e.getMessage());
+                    makeMeToast("Error parsing server reply.", 1, "TOP", 0, 300, 25);
+                }
+            }};
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                tv.setVisibility(View.GONE);
+                if (error instanceof TimeoutError || error instanceof NoConnectionError)
+                {
+                    makeMeToast("Cannot contact LLuca server!", 1, "TOP", 0, 300, 25);
+                }
+                else {
+                    makeMeToast("Server error:" + error, 1, "TOP", 0, 300, 25);
+                    Log.w("volley", "Downloadusermethod" + jsonBody);
+                }
+
+            }};
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, listener, errorListener) {
+            @Override
+            public Map<String,String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put("charset", "utf-8");
+                return headers;
+            }
+        };
+        queue.add(jsonRequest);
+    }
+
+    //this method updated the owned packs on the server or downloads the packs to local db depending on the int supplied (1 = upload, 2 = download)
+    public void syncPacks(final String username, int syncDirection)
+    {
+        final TextView tv = (TextView) findViewById(R.id.please_wait);
+        tv.setVisibility(View.VISIBLE);
+        tv.setText("Please wait...contacting server");
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://" + ip + "/syncpacks.php";
+
+        final JSONObject jsonBody = new JSONObject();
+        Cursor c = db_helper.getOwnedPackNames();
+        int index = 1;
+        String temp = "";
+        try {
+            try
+            {
+                while (c.moveToNext())
+                {
+                    String indexString = Integer.toString(index);
+                    temp = c.getString(3); //get boxname
+                    jsonBody.put(indexString, temp);
+                    index++;
+                }
+            }
+            catch (Exception e)
+            {
+                //do nothing
+            }
+            jsonBody.put("username", username);
+            jsonBody.put("direction",syncDirection);
+
+        }
+        catch (JSONException e)
+        {
+            Log.w("syncPacks", e.getMessage());
+        };
+
+        Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                tv.setVisibility(View.GONE);
+                try {
+                    Log.w("syncPacks", "inside listener");
+                    String answer = response.getString("username");
                     if (answer.equals("SUCCESSFUL"))
                     {
                         //do nothing
                         Log.w("JSONListener", "success");
                     }
-                    else
+                    else if (answer.equals("INSERT"))
                     {
                         String answer2 = response.getString("decknames");
-                        String[] seperatedStrings = answer2.split(";;");
-                        for (String deckName : seperatedStrings) {
-                            String[] item = deckName.split("::");
-                            Log.w("JSONlistener1", deckName);
-                            db_helper.putCardInDeck(item[0], item[1]);
-                            makeMeToast("Added to deck: " + item[0] + ", Card: " + item[1],1,"TOP",0,0,15);
+                        String[] seperatedStrings = answer2.split("::");
+                        if (seperatedStrings.length >=2){
+                        for (String deckName : seperatedStrings)
+                        {
+                            if (!deckName.equals("")) {
+                                String pack = db_helper.getPackname(deckName);
+                                db_helper.setPackOwnership(pack,deckName);
 
+                            }
+                        }
                         }
                         //db_helper.createCustomDeck(db_helper.getCurrentUser(), answer2);
                         Log.w("JSONListener", "something to insert");

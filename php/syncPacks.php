@@ -59,13 +59,17 @@ $returnString = "";
 $queryDecks = "SELECT * FROM owned_packs WHERE owning_user = '$username'";
 $queryDecksResult = $myConnection->query($queryDecks);
 
+//get the player account data from the database for comparison
+$queryDecks2 = "SELECT * FROM player_account WHERE user_name = '$username'";
+$queryDecksResult2 = $myConnection->query($queryDecks2);
+
 try
 {
         //does the user query have anything in it?
-        if ($queryResult->num_rows > 0)
+        if ($queryDecksResult2->num_rows > 0)
         {
             //go through each row of user query
-            while($row = $queryResult->fetch_assoc())
+            while($row = $queryDecksResult2->fetch_assoc())
             {
                 //if the current row's username is the same as the supplied username
                 if ($row["user_name"] == $username)
@@ -80,8 +84,9 @@ try
             $user = new user();
             $user->username = "NO_USERNAME";
             echo json_encode($user);
+        $direction = 3;
+        $flag = 0;
     }
-
 
     //this section handles the case that a username has been supplied
     if ($flag==1)
@@ -115,6 +120,7 @@ try
             //handles when there is no match in the db, adds the supplied deck to the db
             if ($doesDeckExist == 0)
             {
+                //echo "test".$currentDeck.$username;
                 addToDB($myConnection, $username, $currentDeck);
             }
         }
@@ -122,6 +128,7 @@ try
         //cycle through each of the server decknames
         foreach ($queryDecksResult as $thisRow)
         {
+            //echo "<br>A Current iteration server pack name: ".$thisRow["pack_name"];
             //variable to record if a deck is found in the supplied json; nb it's set to zero here to "reset" it for the next
             //iteration of the foreach statement
             $doesDeckExistLocally=0;
@@ -133,27 +140,28 @@ try
                 //cycles through each of the supplied decks
                 foreach($decks as $thisDeck)
                 {
+                    //echo "<br>B Current iteration supplied pack name: ".$thisDeck;
                     //if the current db deck does exist in the supplied deck list AND the card_name is blank
-                    if ($thisDeck != $thisRow["pack_name"])
+                    if ($thisDeck == $thisRow["pack_name"])
                     {
-                        //echo "server deck not in supplied names";
+                        //echo "<br>Reviewing: ".$thisDeck;
+                        //echo "<br>server deck (".$thisRow["pack_name"].") not in supplied names: ".$thisDeck;
                         $doesDeckExistLocally = 1;
-                        break;
+                        //break;
+                        //echo "<br>MATCH<br>";
                     }
                     else
                     {
-                        //echo "<br>Card: ".$thisRow["card_name"].", ServerDeckname: ".$thisRow["deck_name"].", SuppliedDeckname: ".$thisDeck;
+                        //do nothing
                     }
                 }
-
             }
             else{
-                $doesDeckExistLocally = 1;
-
+                $doesDeckExistLocally = 0;
             }
 
             //handles if there is a deck in the db which doesn't exist in the supplied local deck list
-            if ($doesDeckExistLocally==1)
+            if ($doesDeckExistLocally==0)
             {
                 addToReturnString($decknamesToReturn, $thisRow);
             }
@@ -175,7 +183,6 @@ try
     }
     else if ($direction==2) {
         try {
-
         $decksToSend = new deckNames();
         //username value is empty in this case just so it doesn't cause an exception because it cannot find it
         $decksToSend->username = "INSERT";
@@ -199,9 +206,11 @@ function addToDB($myConnection, $username, $deck)
     $queryAddDeck = "INSERT INTO owned_packs (owning_user,pack_name) VALUES ('$username','$deck')";
     if ($myConnection->query($queryAddDeck) === TRUE){
         $reply = "<br>Inserted deck: ".$deck;
+        //echo $reply;
     }
     else{
         $reply = "Error: ".$queryAddDeck."<br>".$myConnection->error;
+        //echo $reply;
     }
 }
 
@@ -213,10 +222,10 @@ function addToReturnString($decknamesToReturn, $thisRow)
         if ($returnString=="")
         {
 
-            $returnString = $thisRow["deck_name"];
+            $returnString = $thisRow["pack_name"];
         }
         else {
-            $returnString = $returnString . "::" . $thisRow["deck_name"];
+            $returnString = $returnString . "::" . $thisRow["pack_name"];
         }
 }
 

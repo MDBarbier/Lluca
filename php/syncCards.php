@@ -82,13 +82,13 @@ try
             echo json_encode($user);
     }
 
-
     //this section handles the case that a username has been supplied
     if ($flag==1)
     {
         //cycle through each of the supplied decknames
         foreach ($decks as $currentDeck)
         {
+            //split the string by the seperator into an array
             $pieces = explode("::", $currentDeck);
             $cardName = $pieces[1];
             $deckName = $pieces[0];
@@ -148,11 +148,7 @@ try
                         //...set flag positive
                         $doesDeckExistLocally = 1;
                     }
-                    /*echo "<br>Deckname: ".$deckName." Cardname: ".$cardName." Does it exist locally: ".$doesDeckExistLocally;
-                    echo "<br>RowDeckname: ".$thisRow["deck_name"]." Cardname: ".$thisRow["card_name"]." Does it exist locally: ".$doesDeckExistLocally;
-                    echo "<br>";*/
                 }
-
             }
             else{
                 $doesDeckExistLocally = 0;
@@ -191,13 +187,13 @@ try
 
         $decksToSend = new deckNames();
         //username value is empty in this case just so it doesn't cause an exception because it cannot find it
-        $decksToSend->username = "";
+        $decksToSend->username = "INSERT";
         $decksToSend->decknames = $decknamesToReturn;
         echo json_encode($decksToSend);
         }
         catch (Exception $e)
         {
-            //
+            //do nothing
         }
     }
 

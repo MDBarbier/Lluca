@@ -30,7 +30,7 @@ last_sync varchar(50)
 */
 CREATE TABLE owned_packs
 (
-id int NOT NULL PRIMARY KEY,
+id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 owning_user varchar(50) NOT NULL,
 pack_name varchar(80)
 );
